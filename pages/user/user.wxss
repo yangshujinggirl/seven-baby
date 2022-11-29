@@ -1,7 +1,7 @@
 /* pages/user/user.wxss */
 
 page {
-  background-color: #ccc !important;
+  background-color: #f7f7f7 !important;
   padding-bottom: 60rpx;
 }
 

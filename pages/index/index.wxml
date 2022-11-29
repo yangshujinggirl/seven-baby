@@ -25,7 +25,7 @@
     <!-- end swiper -->
 
     <view class='cat-item'>
-      <view class='item' wx:for="{{navIcons}}" wx:key="{{item.navId}}" bindtap='toClassifyPage' data-id="{{item.navId}}" data-title="{{item.navName}}">
+      <view class='item' wx:for="{{navIcons}}" wx:key="navId" bindtap='toClassifyPage' data-id="{{item.navId}}" data-title="{{item.navName}}">
         <image src='{{item.navImage}}'></image>
         <text>{{item.navName}}</text>
       </view>
@@ -36,7 +36,7 @@
     </view>
     <!-- 捡漏专区 -->
     <view class="leak-item">
-      <view class="item-wrap" wx:for="{{leak}}" wx:key="{{item.navId}}" style="background-image:url({{item.navImage}})">
+      <view class="item-wrap" wx:for="{{leak}}" wx:key="leadId" style="background-image:url({{item.navImage}})">
         <text class="name">{{item.navName}}</text>
       </view>
     </view>
@@ -66,7 +66,7 @@
   </view>
   <view class='hot-sale'>
     <view class='hotsale-item-cont'>
-      <block wx:for="{{leak}}" wx:for-item="prod" wx:key="{{prod.navId}}">
+      <block wx:for="{{leak}}" wx:for-item="prod" wx:key="prodGoods">
         <view class='prod-items' bindtap='toProdPage' data-prodid="{{prod.navId}}">
           <view class='hot-imagecont'>
             <image src='{{prod.navImage}}' class='hotsaleimg'></image>

@@ -1,7 +1,26 @@
 /* pages/prod-classify/prod-classify.wxss */
 
 page {
-  background: #fff;
+  background: #f4f4f4;
+}
+.brand-scroll{
+  height: 72rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 20rpx 26rpx;
+  width: 100%;
+  white-space: nowrap;
+}
+.brand-scroll text{
+  font-size: 32rpx;
+  line-height:32rpx;
+  padding: 0 20rpx;
+  display: inline-block;
+  color: #404040;
+}
+.brand-scroll text.active{
+  font-weight: 600;
+  color: #000;
 }
 
 .line-fix {
@@ -11,11 +30,23 @@ page {
   position: fixed;
   top: 0;
 }
+.banner-wrap{
+  height: 330rpx;
+  line-height: 0;
+}
+.banner-wrap image{
+  width: 100%;
+  height: 100%;
+}
 
 .tit-background {
   width: 100%;
   height: 20rpx;
   background: #f4f4f4;
+}
+
+.item-wrap{
+  background-color: #f4f4f4;
 }
 
 .empty-list {
