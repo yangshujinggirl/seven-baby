@@ -35,10 +35,10 @@ Page({
     wx.showLoading();
     //加载订单列表
     var params = {
-      url: "/p/myOrder/myOrder",
+      url: "/order",
       method: "GET",
       data: {
-        current: current,
+        page: current,
         size: 10,
         status: sts,
       },

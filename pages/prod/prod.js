@@ -67,29 +67,6 @@ Page({
     this.getProdCommData();
     // 加载评论项
     this.getLittleProdComm();
-    // 查看用户是否关注
-    this.getCollection();
-  },
-
-  /**
-   * 获取是否关注信息
-   */
-  getCollection() {
-    wx.showLoading();
-    var params = {
-      url: "/p/user/collection/isCollection",
-      method: "GET",
-      data: {
-        prodId: this.data.prodId
-      },
-      callBack: (res) => {
-        this.setData({
-          isCollection: res
-        })
-        wx.hideLoading();
-      }
-    };
-    http.request(params);
   },
 
   /**
@@ -97,11 +74,12 @@ Page({
    */
   addOrCannelCollection() {
     wx.showLoading();
-
     var params = {
-      url: "/p/user/collection/addOrCancel",
-      method: "POST",
-      data: this.data.prodId,
+      url: `/goods/${this.data.prodId}/collect`,
+      method: "PUT",
+      data: {
+        collect: !this.data.isCollection
+      },
       callBack: (res) => {
         this.setData({
           isCollection: !this.data.isCollection
@@ -116,33 +94,32 @@ Page({
   getProdInfo() {
     wx.showLoading();
     var params = {
-      url: "/prod/prodInfo",
+      url: `/goods/${this.data.prodId}`,
       method: "GET",
-      data: {
-        prodId: this.data.prodId,
-        // userType: 0
-      },
       callBack: (res) => {
-        //console.log(res);
-        var imgStrs = res.imgs;
-        var imgs = imgStrs.split(",");
-        var content = util.formatHtml(res.content);
-        this.setData({
-          imgs: imgs,
-          content: content,
-          price: res.price,
-          prodName: res.prodName,
-          prodId: res.prodId,
-          brief: res.brief,
-          // skuId: res.skuId
-          skuList: res.skuList,
-          pic: res.pic
-        });
-        // 获取优惠券
-        //this.getCouponList();
-        // 组装sku
-        this.groupSkuProp();
-
+        const {error, data} = res
+        if (error===0) {
+          const { address, attributeList, goodsItem, isCollection, roleId } = data
+          var content = util.formatHtml(goodsItem.goodsDetails);
+          console.log('test:', content);
+          this.setData({
+            imgs: goodsItem.carouselImage,
+            content: content,
+            price: goodsItem.salePrice,
+            prodName: goodsItem.goodsName,
+            prodId: goodsItem.goodsId,
+            brief: goodsItem.introduction,
+            isCollection:isCollection,
+            // skuId: res.skuId
+            skuList: attributeList,
+            pic: goodsItem.carouselImage[0]
+          })
+          this.groupSkuProp()
+        }
+        console.log(res);
+        // // 获取优惠券
+        // //this.getCouponList();
+        // // 组装sku
         wx.hideLoading();
       }
     };
@@ -243,12 +220,12 @@ Page({
     var skuList = this.data.skuList;
 
     //当后台返回只有一个SKU时，且SKU属性值为空时，即该商品没有规格选项，该SKU直接作为默认选中SKU
-    if (skuList.length == 1 && skuList[0].properties == "") {
-      this.setData({
-        defaultSku: skuList[0]
-      });
-      return;
-    }
+    // if (skuList.length == 1) {
+    //   this.setData({
+    //     defaultSku: skuList[0]
+    //   });
+    //   return;
+    // }
 
     var skuGroup = {};//所有的规格名(包含规格名下的规格值集合）对象，如 {"颜色"：["金色","银色"],"内存"：["64G","256G"]}
     var allProperties = [];//所有SKU的属性值集合，如 ["颜色:金色;内存:64GB","颜色:银色;内存:64GB"]
@@ -259,7 +236,7 @@ Page({
       //找到和商品价格一样的那个SKU，作为默认选中的SKU
       var defaultSku = this.data.defaultSku;
       var isDefault = false;
-      if (!defaultSku && skuList[i].price == this.data.price) { 
+      if (!defaultSku && skuList[i].salePrice == this.data.price) { 
         defaultSku = skuList[i];
         isDefault = true;
         this.setData({
@@ -267,22 +244,19 @@ Page({
         });
       }
 
-      var properties = skuList[i].properties; //如：版本:公开版;颜色:金色;内存:64GB
+      var properties = `规格:${skuList[i].attrValue}`; //如：版本:公开版;颜色:金色;内存:64GB
       allProperties.push(properties);
       var propList = properties.split(";"); // 如：["版本:公开版","颜色:金色","内存:64GB"]
 
       var selectedPropObj = this.data.selectedPropObj;
       for (var j = 0; j < propList.length; j++) {
-
         var propval = propList[j].split(":"); //如 ["版本","公开版"]
         var props = skuGroup[propval[0]]; //先取出 规格名 对应的规格值数组
-
         //如果当前是默认选中的sku，把对应的属性值 组装到selectedProp
         if (isDefault) {
           propKeys.push(propval[0]);
           selectedPropObj[propval[0]] = propval[1];
         }
-
         if (props == undefined) {
           props = []; //假设还没有版本，新建个新的空数组
           props.push(propval[1]); //把 "公开版" 放进空数组
@@ -321,7 +295,7 @@ Page({
 
     var findSku = false;
     for (var i = 0; i < this.data.skuList.length; i++) {
-      if (this.data.skuList[i].properties == selectedProperties) {
+      if (this.data.skuList[i].attrValue == selectedProp[0] && this.data.skuList[i].goodsStock) {
         findSku = true;
         this.setData({
           defaultSku: this.data.skuList[i],

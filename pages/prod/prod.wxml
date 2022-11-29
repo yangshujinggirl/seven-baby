@@ -10,7 +10,6 @@
   </swiper>
   <!-- end  轮播图 -->
   <!-- 商品信息 -->
-  <!-- <block wx:for="{{imgs}}" wx:key=''> -->
   <view class='prod-info'>
     <view class="tit-wrap">
       <view class="prod-tit">{{prodName}}</view>
@@ -22,7 +21,7 @@
     </view>
     <view class="sales-p">{{brief}}</view>
     <view class="prod-price">
-      <text class="price">￥<text class="price-num">{{wxs.parsePrice(defaultSku.price)[0]}}</text>.{{wxs.parsePrice(defaultSku.price)[1]}}</text>
+      <text class="price">￥<text class="price-num">{{wxs.parsePrice(defaultSku.salePrice)[0]}}</text>.{{wxs.parsePrice(defaultSku.salePrice)[1]}}</text>
       <text class="sales"></text>
     </view>
     <!-- <button class="share-icon" open-type="share">
@@ -30,7 +29,6 @@
         <view class="share-text">分享</view>
       </button> -->
   </view>
-  <!-- </block> -->
   <!-- end 商品信息 -->
   <!-- 领券 -->
   <!-- <view class="coupon" bindtap='showPopup' wx:if="{{couponList.length}}">
@@ -90,7 +88,7 @@
   </view>
   <!-- 商品详情 -->
   <view class="prod-detail">
-    <view>
+    <view class="rice-text-view">
       <rich-text nodes="{{content}}"></rich-text>
       <!-- <image src="//img14.360buyimg.com/cms/jfs/t1/25195/1/9487/388554/5c7f80a5E8b8f8f0c/46818404849d6ec6.jpg!q70.dpg" mode="widthFix"></image> -->
     </view>
@@ -138,7 +136,7 @@
         <image class="pup-sku-img" src="{{defaultSku.pic?defaultSku.pic:pic}}"></image>
         <view class="pup-sku-price" wx-if="{{findSku}}">
           ￥
-          <text class="pup-sku-price-int">{{wxs.parsePrice(defaultSku.price)[0]}}</text> .{{wxs.parsePrice(defaultSku.price)[1]}}
+          <text class="pup-sku-price-int">{{wxs.parsePrice(defaultSku.salePrice)[0]}}</text> .{{wxs.parsePrice(defaultSku.salePrice)[1]}}
         </view>
         <view class="pup-sku-price" wx-if="{{!findSku}}">无货</view>
         <view class='pup-sku-prop'>

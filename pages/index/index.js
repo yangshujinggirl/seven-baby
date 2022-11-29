@@ -18,7 +18,10 @@ Page({
     leak:[],
     taglist: [],
     brand:[],
-    sts: 0,
+    prodList:[],
+    current: 1,
+    pages:0
+
   },
   //事件处理函数
   bindViewTap: function() {
@@ -46,13 +49,6 @@ Page({
     }
   },
 
-  toCouponCenter: function() {
-    wx.showToast({
-      icon:"none",
-      title: '该功能未开源'
-    })
-  },
-
   // 跳转搜索页
   toSearchPage: function() {
     wx.navigateTo({
@@ -72,30 +68,17 @@ Page({
       url: url
     })
   },
-
-  //跳转限时特惠页面
-  toLimitedTimeOffer: function(e) {
-    wx.showToast({
-      icon:"none",
-      title: '该功能未开源'
-    })
-  },
-
-  //跳转公告列表页面
-  onNewsPage: function() {
-    wx.navigateTo({
-      url: '/pages/recent-news/recent-news',
-    })
-  },
+  
 
   onShow: function() {
   },
   getAllData() {
-    // http.getCartCount(); //重新计算购物车总数量
+    this.setData({
+      current: 1,
+      pages:0
+    })
     this.getIndexImgs();
     this.getGoodsList();
-    // this.getNoticeList();
-    // this.getTag();
   },
   //加载轮播图
   getIndexImgs() {
@@ -121,102 +104,21 @@ Page({
     http.request(params);
   },
 
-  /**
-   * 加入购物车
-   */
-   addToCart(e) {
-    const prodId = e.currentTarget.dataset.prodid
-    const ths = this
-    wx.showLoading();
-    var params = {
-      url: "/prod/prodInfo",
-      method: "GET",
-      data: {
-        prodId
-      },
-      callBack: (res) => {
-        var params = {
-          url: "/p/shopCart/changeItem",
-          method: "POST",
-          data: {
-            basketId: 0,
-            count: 1,
-            prodId: res.prodId,
-            shopId: res.shopId,
-            skuId: res.skuList[0].skuId
-          },
-          callBack: function(res) {
-            ths.setData({
-              totalCartNum: ths.data.totalCartNum + ths.data.prodNum
-            });
-            wx.hideLoading();
-            http.getCartCount(); //重新计算购物车总数量
-            wx.showToast({
-              title: "加入购物车成功",
-              icon: "none"
-            })
-          }
-        };
-        http.request(params);
-      }
-    };
-    http.request(params);
-  },
-
-
   // 加载商品列表
   getGoodsList() {
     var params = {
-      url: "/index/3/goods",
+      url: "/index/recommend",
       method: "GET",
       data: {},
       callBack: (res) => {
-        this.setData({
-          taglist: res,
-        });
-        for (var i = 0; i < res.length; i++) {
-          this.getTagProd(res[i].id, i);
-        }
+        console.log('res:',res);
+        // this.setData({
+        //   taglist: res,
+        // })
       }
     };
     http.request(params);
   },
-
-  getTagProd(id, index) {
-    var param = {
-      url: "/prod/prodListByTagId",
-      method: "GET",
-      data: {
-        tagId: id,
-        size: 6
-      },
-      callBack: (res) => {
-        var taglist = this.data.taglist;
-        taglist[index].prods = res.records
-
-        this.setData({
-          taglist: taglist,
-        });
-      }
-    };
-    http.request(param);
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  // onPullDownRefresh: function () {
-  //     wx.request({
-  //       url: '',
-  //       data: {},
-  //       method: 'GET',
-  //       success: function (res) { },
-  //       fail: function (res) { },
-  //       complete: function (res) {
-  //         wx.stopPullDownRefresh();
-  //       }
-  //     })
-  // },
 
   onPullDownRefresh: function() {
 
@@ -225,13 +127,8 @@ Page({
     //模拟加载
     var ths = this;
     setTimeout(function() {
-
       ths.getAllData();
-
-      // wx.hideNavigationBarLoading() //完成停止加载
-
       wx.stopPullDownRefresh() //停止下拉刷新
-
     }, 100);
 
   },
