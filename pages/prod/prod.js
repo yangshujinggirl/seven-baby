@@ -50,7 +50,7 @@ Page({
     },
     littleCommPage: [],
     evaluate: -1,
-    isCollection: false
+    isCollection: 0
   },
 
   /**
@@ -60,13 +60,12 @@ Page({
     this.setData({
       prodId: options.prodid,
     });
-
     // 加载商品信息
     this.getProdInfo();
     // 加载评论数据
-    this.getProdCommData();
+    // this.getProdCommData();
     // 加载评论项
-    this.getLittleProdComm();
+    // this.getLittleProdComm();
   },
 
   /**
@@ -78,11 +77,11 @@ Page({
       url: `/goods/${this.data.prodId}/collect`,
       method: "PUT",
       data: {
-        collect: !this.data.isCollection
+        collect: this.data.isCollection?0:1
       },
       callBack: (res) => {
         this.setData({
-          isCollection: !this.data.isCollection
+          isCollection: this.data.isCollection?0:1
         })
         wx.hideLoading();
       }
@@ -410,25 +409,32 @@ Page({
       mask: true
     });
     var params = {
-      url: "/p/shopCart/changeItem",
+      url: "/cart",
       method: "POST",
       data: {
-        basketId: 0,
-        count: this.data.prodNum,
-        prodId: this.data.prodId,
-        shopId: this.data.shopId,
-        skuId: this.data.defaultSku.skuId
+        goodsId: this.data.prodId,
+        goodsNum: this.data.prodNum,
+        skuId: this.data.defaultSku.attrId
       },
       callBack: function(res) {
         //console.log(res);
-        ths.setData({
-          totalCartNum: ths.data.totalCartNum + ths.data.prodNum
-        });
+        const {error, data, message} = res
+        if (error === 0) {
+          // TODO
+          ths.setData({
+            totalCartNum: ths.data.totalCartNum + ths.data.prodNum
+          });
+          wx.showToast({
+            title: "加入购物车成功",
+            icon: "none"
+          })
+        } else {
+          wx.showToast({
+            title: message,
+            icon: "none"
+          })
+        }
         wx.hideLoading();
-        wx.showToast({
-          title: "加入购物车成功",
-          icon: "none"
-        })
       }
     };
     http.request(params);

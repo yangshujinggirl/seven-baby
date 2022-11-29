@@ -5,10 +5,10 @@ function request(params, isGetTonken) {
   // 全局变量
   var globalData = getApp().globalData;
   // 如果正在进行登陆，就将非登陆请求放在队列中等待登陆完毕后进行调用
-  // if (!isGetTonken && globalData.isLanding) {
-  //   globalData.requestQueue.push(params);
-  //   return;
-  // }
+  if (!isGetTonken && globalData.isLanding) {
+    globalData.requestQueue.push(params);
+    return;
+  }
   wx.request({
     url: config.domain + params.url, //接口请求地址
     data: params.data,
@@ -32,17 +32,17 @@ function request(params, isGetTonken) {
           icon: "none"
         });
       } else if (res.statusCode == 401) {
-        wx.navigateTo({
-          url: '/pages/login/login',
-        })
-        // // 添加到请求队列
-        // globalData.requestQueue.push(params);
-        // // 是否正在登陆
-        // if (!globalData.isLanding) {
-        //   globalData.isLanding = true
-        //   //重新获取token,再次请求接口
-        //   getToken();
-        // }
+        // wx.navigateTo({
+        //   url: '/pages/login/login',
+        // })
+        // 添加到请求队列
+        globalData.requestQueue.push(params);
+        // 是否正在登陆
+        if (!globalData.isLanding) {
+          globalData.isLanding = true
+          //重新获取token,再次请求接口
+          getToken();
+        }
       } else if (res.statusCode == 400) {
         wx.showToast({
           title: res.data,
@@ -76,27 +76,20 @@ var getToken = function() {
       // 发送 res.code 到后台换取 openId, sessionKey, unionId
       request({
         login: true,
-        url: '/login?grant_type=mini_app',
+        method: "POST",
+        url: '/auth/login',
         data: {
-          principal: res.code
+          code: res.code
         },
         callBack: result => {
+          debugger
           // 没有获取到用户昵称，说明服务器没有保存用户的昵称，也就是用户授权的信息并没有传到服务器
-          if (!result.nickName) {
+          if (!result.data.user.nickName) {
             updateUserInfo();
           }
-          if (result.userStutas == 0) {
-            wx.showModal({
-              showCancel: false,
-              title: '提示',
-              content: '您已被禁用，不能购买，请联系客服'
-            })
-            wx.setStorageSync('token', '');
-          } else {
-            wx.setStorageSync('token', 'bearer' + result.access_token); //把token存入缓存，请求接口数据时要用
-          }
+          wx.setStorageSync('token', 'Bearer ' + result.data.user.token); //把token存入缓存，请求接口数据时要用
           var globalData = getApp().globalData;
-          globalData.isLanding = false;
+          globalData.isLanding = true;
           while (globalData.requestQueue.length) {
             request(globalData.requestQueue.pop());
           }
@@ -113,10 +106,10 @@ function updateUserInfo() {
     success: (res) => {
       var userInfo = JSON.parse(res.rawData)
       request({
-        url: "/p/user/setUserInfo",
+        url: "/user",
         method: "PUT",
         data: {
-          avatarUrl: userInfo.avatarUrl,
+          field: userInfo.avatarUrl,
           nickName: userInfo.nickName
         }
       });
