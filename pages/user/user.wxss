@@ -1,7 +1,7 @@
 /* pages/user/user.wxss */
 
 page {
-  background-color: #f7f7f7;
+  background-color: #f7f7f7 !important;
   padding-bottom: 60rpx;
 }
 
@@ -12,14 +12,23 @@ page {
   width: 100%;
   background: #fff;
   text-align: center;
-  padding: 30rpx 0;
+  padding:20rpx 30rpx 80rpx;
+  display: flex;
+  justify-content: space-between;
+  background-color: #FFE0D2;
+  align-items: center;
+  box-sizing: border-box;
+}
+.userinfo .lf {
+  display: flex;
+  align-items: center;
 }
 
 .userinfo .userinfo-avatar {
   overflow: hidden;
   display: block;
-  width: 160rpx;
-  height: 160rpx;
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 50%;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   margin: auto;
@@ -28,7 +37,7 @@ page {
 .userinfo .userinfo-name {
   font-size: 30rpx;
   font-weight: bold;
-  margin-top: 20rpx;
+  margin-left: 20rpx;
 }
 
 .binding-phone {
@@ -57,17 +66,20 @@ page {
 /* 订单状态 */
 
 .list-cont {
-  
   width: 100%;
-  background: #f7f7f7;
-  margin-top: 20rpx;
+  /* background: #f7f7f7; */
+  position: relative;
+  top: -60rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
 }
 
 .list-cont .total-order {
   /* width: 100%; */
   /* margin-bottom: 30rpx; */
   background: #fff;
-  
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
 }
 
 .list-cont .total-order .order-tit {
@@ -103,9 +115,9 @@ page {
 }
 
 .list-cont .total-order .procedure .items image {
-  width: 70rpx;
-  height: 70rpx;
-  margin-bottom: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+  margin-bottom: 10rpx;
 }
 
 .list-cont .total-order .procedure .items .num-badge {
@@ -123,8 +135,82 @@ page {
   padding: 2rpx;
   display: block;
 }
-
-/* end 订单状态 */
+.list-cont .normal-func {
+  margin-top:20rpx ;
+}
+.list .customer-center .order-tit,
+.list-cont .normal-func .order-tit {
+  border: none;
+}
+.list-cont .customer-center .procedure{
+  justify-content: flex-start;
+}
+.list-cont .customer-center .items {
+  width: 25%;
+}
+/* 好物推荐 */
+.good-recommond {
+  text-align: center;
+}
+.good-recommond .gs-head{
+  font-size: 36rpx;
+  color: #EB5412;
+  font-weight: bold;
+  display: inline-block;
+  margin: 30rpx 0;
+}
+.good-recommond .gs-head:before,
+.good-recommond .gs-head:after {
+  content: '';
+  width: 144rpx;
+  height: 2rpx;
+  background-color: #EB5412;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 20rpx;
+}
+.good-recommond .goods-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.goods-list .goods-item {
+  width: 48%;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background-color: #fff;
+  text-align: left;
+  margin-bottom: 20rpx;
+}
+.goods-list .goods-item .gs-img {
+  width: 100%;
+  height: 344rpx;
+}
+.goods-list .goods-item .gs-title {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #000;
+  text-align: left;
+  padding: 0 10rpx;
+}
+.goods-list .goods-item .gs-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  padding: 28rpx 10rpx 28rpx;
+}
+.goods-list .goods-item .gs-info .lf {
+  color: #4A4A4A;
+  text-decoration: line-through;
+}
+.goods-list .goods-item .gs-info .rf {
+  font-size: 48rpx;
+  color: #EB5412;
+}
+.goods-list .goods-item .gs-info .unit {
+  font-size: 20rpx;
+}
 
 /* 列表项 */
 

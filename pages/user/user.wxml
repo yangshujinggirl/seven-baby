@@ -2,17 +2,20 @@
 <view class='container'>
   <!-- 用户信息 -->
   <view class='userinfo'>
-    <view class='userinfo-avatar'>
-      <open-data type="userAvatarUrl"></open-data>
+    <view class="lf">
+      <view class='userinfo-avatar'>
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class='userinfo-name'>
+        <open-data type="userNickName"></open-data>
+      </view>
     </view>
-    <view class='userinfo-name'>
-      <open-data type="userNickName"></open-data>
-    </view>
+    <view>设置</view>
   </view>
-  <view class='binding-phone'>
+  <!-- <view class='binding-phone'>
     <text class='show-tip'>绑定手机号后可查看订单和领取优惠券，</text>
     <text class='gotobinding' bindtap='toBindingPhone'>去绑定</text>
-  </view>
+  </view> -->
   <!-- end 用户信息 -->
 
   <view class='list-cont'>
@@ -28,29 +31,92 @@
       </view>
       <view class='procedure'>
         <view class='items' bindtap='toOrderListPage' data-sts="1">
-          <image src='../../images/icon/toPay.png'></image>
-          <text>待支付</text>
+          <image src='../../images/account/order_fk.png'></image>
+          <text>待付款</text>
           <text class='num-badge' wx:if="{{orderAmount.unPay>0}}">{{orderAmount.unPay}}</text>
         </view>
         <view class='items' bindtap='toOrderListPage' data-sts="2">
-          <image src='../../images/icon/toDelivery.png'></image>
+          <image src='../../images/account/order_fh.png'></image>
           <text>待发货</text>
           <text class='num-badge' wx:if="{{orderAmount.payed>0}}">{{orderAmount.payed}}</text>
         </view>
         <view class='items' bindtap='toOrderListPage' data-sts="3">
-          <image src='../../images/icon/toTake.png'></image>
+          <image src='../../images/account/order_sh.png'></image>
           <text>待收货</text>
           <text class='num-badge' wx:if="{{orderAmount.consignment>0}}">{{orderAmount.consignment}}</text>
         </view>
         <view class='items' bindtap='toOrderListPage' data-sts="5">
-          <image src='../../images/icon/toComment.png'></image>
+          <image src='../../images/account/order_finshed.png'></image>
           <text>已完成</text>
+        </view>
+        <view class='items' bindtap='toOrderListPage' data-sts="5">
+          <image src='../../images/account/order_tk.png'></image>
+          <text>退款/售后</text>
         </view>
       </view>
     </view>
-    <!--end 订单状态 -->
+    <!-- 常用功能 -->
+    <view class='total-order normal-func'>
+      <view class='order-tit'>
+        <text style='font-weight:bold'>常用功能</text>
+      </view>
+      <view class='procedure'>
+        <view class='items' bindtap='toOrderListPage' data-sts="1">
+          <image src='../../images/account/func_pl.png'></image>
+          <text>评论互动</text>
+          <text class='num-badge' wx:if="{{orderAmount.unPay>0}}">{{orderAmount.unPay}}</text>
+        </view>
+        <view class='items' bindtap='toOrderListPage' data-sts="2">
+          <image src='../../images/account/func_sc.png'></image>
+          <text>我的收藏</text>
+          <text class='num-badge' wx:if="{{orderAmount.payed>0}}">{{orderAmount.payed}}</text>
+        </view>
+        <view class='items' bindtap='toOrderListPage' data-sts="3">
+          <image src='../../images/account/func_dz.png'></image>
+          <text>收货地址</text>
+          <text class='num-badge' wx:if="{{orderAmount.consignment>0}}">{{orderAmount.consignment}}</text>
+        </view>
+        <view class='items' bindtap='toOrderListPage' data-sts="5">
+          <image src='../../images/account/func_tg.png'></image>
+          <text>我要推广</text>
+        </view>
+      </view>
+    </view>
+    <!-- 服务中心 -->
+    <view class='total-order customer-center'>
+      <view class='order-tit'>
+        <text style='font-weight:bold'>服务中心</text>
+      </view>
+      <view class='procedure'>
+        <view class='items' bindtap='toOrderListPage' data-sts="1">
+          <image src='../../images/account/customer_yj.png'></image>
+          <text>意见反馈</text>
+          <text class='num-badge' wx:if="{{orderAmount.unPay>0}}">{{orderAmount.unPay}}</text>
+        </view>
+        <view class='items' bindtap='toOrderListPage' data-sts="2">
+          <image src='../../images/account/customer_kf.png'></image>
+          <text>专属客服</text>
+          <text class='num-badge' wx:if="{{orderAmount.payed>0}}">{{orderAmount.payed}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 好物推荐 -->
+    <view class="good-recommond">
+      <text class="gs-head">好物推荐</text>
+      <view class="goods-list" >
+        <view class="goods-item" wx:for="{{recommendList}}">
+          <image src='{{item.mainImage}}' class="gs-img"></image>
+          <view class="gs-title">{{item.goodsName}}</view>
+          <view class="gs-info">
+            <text class="lf">零售价:￥{{item.retailPrice}}</text>
+            <view class="rf"><text class="unit">￥</text>{{item.salePrice}}</view>
+          </view>
+        </view>
 
-    <view class="prod-col">
+      </view>
+    </view>
+    <!--  好物推荐 end-->
+    <!-- <view class="prod-col">
       <view class="col-item" bindtap='myCollectionHandle'>
         <view class="num">{{collectionCount}}</view>
         <view class="tit">我的收藏</view>
@@ -94,7 +160,7 @@
         </view>
         <view class='arrowhead'></view>
       </view>
-    </view>
+    </view> -->
     <!--end 列表项 -->
   </view>
 

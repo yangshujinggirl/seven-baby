@@ -9,7 +9,8 @@ Page({
   data: {
     orderAmount: '',
     sts: '',
-    collectionCount: 0
+    collectionCount: 0,
+    recommendList:[]
   },
 
   /**
@@ -36,13 +37,15 @@ Page({
     // var status = ths.data.status
     wx.showLoading();
     var params = {
-      url: "/p/myOrder/orderCount",
+      url: "/index/recommend",
       method: "GET",
       data: {},
       callBack: function(res) {
+        console.log('res',res)
         wx.hideLoading();
         ths.setData({
-          orderAmount: res
+          orderAmount: res,
+          recommendList:res?.data?.list
         });
       }
     };
