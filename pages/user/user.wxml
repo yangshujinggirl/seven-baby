@@ -103,28 +103,20 @@
     <!-- 好物推荐 -->
     <view class="good-recommond">
       <text class="gs-head">好物推荐</text>
-      <view class="goods-list">
-        <view class="goods-item">
-          <image src='../../images/icon/toPay.png' class="gs-img"></image>
-          <view class="gs-title">婴蓓INBER 莫兰迪色牙刷10支装</view>
+      <view class="goods-list" >
+        <view class="goods-item" wx:for="{{recommendList}}">
+          <image src='{{item.mainImage}}' class="gs-img"></image>
+          <view class="gs-title">{{item.goodsName}}</view>
           <view class="gs-info">
-            <text class="lf">零售价:￥19.9</text>
-            <view class="rf"><text class="unit">￥</text>9.9</view>
-          </view>
-        </view>
-        <view class="goods-item">
-          <image src='../../images/icon/toPay.png' class="gs-img"></image>
-          <view class="gs-title">婴蓓INBER 莫兰迪色牙刷10支装</view>
-          <view class="gs-info">
-            <text class="lf">零售价:￥19.9</text>
-            <view class="rf"><text class="unit">￥</text>9.9</view>
+            <text class="lf">零售价:￥{{item.retailPrice}}</text>
+            <view class="rf"><text class="unit">￥</text>{{item.salePrice}}</view>
           </view>
         </view>
 
       </view>
     </view>
     <!--  好物推荐 end-->
-    <view class="prod-col">
+    <!-- <view class="prod-col">
       <view class="col-item" bindtap='myCollectionHandle'>
         <view class="num">{{collectionCount}}</view>
         <view class="tit">我的收藏</view>
@@ -168,7 +160,7 @@
         </view>
         <view class='arrowhead'></view>
       </view>
-    </view>
+    </view> -->
     <!--end 列表项 -->
   </view>
 

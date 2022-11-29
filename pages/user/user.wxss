@@ -172,6 +172,7 @@ page {
 .good-recommond .goods-list {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .goods-list .goods-item {
   width: 48%;
@@ -179,6 +180,7 @@ page {
   overflow: hidden;
   background-color: #fff;
   text-align: left;
+  margin-bottom: 20rpx;
 }
 .goods-list .goods-item .gs-img {
   width: 100%;
