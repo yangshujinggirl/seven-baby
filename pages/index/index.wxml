@@ -1,0 +1,94 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='bg-sear'>
+    <view class="scrolltop">
+      <view class='section' bindtap='toSearchPage'>
+        <image src='../../images/icon/search.png' class='search-img'></image>
+        <text class='placeholder'>搜索</text>
+      </view>
+    </view>
+  </view>
+
+  <view class='content'>
+    <!-- swiper -->
+    <swiper autoplay="{{autoplay}}" indicator-color="{{indicatorColor}}"
+    interval="{{interval}}" duration="{{duration}}" indicator-active-color="{{indicatorActiveColor}} "
+    circular='true' class='pic-swiper' indicator-dots previous-margin='20rpx' next-margin='20rpx'>
+      <block wx:for='{{indexImgs}}' wx:key='jumpType'>
+        <swiper-item class="banner-item">
+          <view class='img-box'>
+            <image src='{{item.navImage}}' data-prodid='{{item.jumpType}}' bindtap='toProdPage' class='banner'></image>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <!-- end swiper -->
+
+    <view class='cat-item'>
+      <view class='item' wx:for="{{navIcons}}" wx:key="{{item.navId}}" bindtap='toClassifyPage' data-id="{{item.navId}}" data-title="{{item.navName}}">
+        <image src='{{item.navImage}}'></image>
+        <text>{{item.navName}}</text>
+      </view>
+    </view>
+    <!-- 广告 -->
+    <view class='ad-item' bindtap='toClassifyPage' data-sts="{{ad.jumpType}}" data-navId="{{ad.navId}}">
+      <image src='{{ad.navImage}}'></image>
+    </view>
+    <!-- 捡漏专区 -->
+    <view class="leak-item">
+      <view class="item-wrap" wx:for="{{leak}}" wx:key="{{item.navId}}" style="background-image:url({{item.navImage}})">
+        <text class="name">{{item.navName}}</text>
+      </view>
+    </view>
+    <!-- 精选品牌 -->
+    <view class="jingxuan-item">
+      <view class="title-wrap">
+        <view class="line"></view>
+        <text class="name">精选品牌</text>
+      </view>
+      <swiper autoplay="{{brand}}" indicator-color="{{indicatorColor}}"
+      interval="{{interval}}" duration="{{duration}}" indicator-active-color="{{indicatorActiveColor}} "
+      circular='true' class='pic-swiper jingpin' indicator-dots previous-margin='20rpx' next-margin='20rpx'>
+        <block wx:for='{{brand}}' wx:key='jumpType'>
+          <swiper-item class="banner-item">
+            <view class='img-box'>
+              <image src='{{item.navImage}}' data-prodid='{{item.jumpType}}' bindtap='toProdPage' class='banner'></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+    <!-- 好物推荐 -->
+  <view class="title-wrap">
+    <view class="line"></view>
+    <text class="name">好物推荐</text>
+  </view>
+  <view class='hot-sale'>
+    <view class='hotsale-item-cont'>
+      <block wx:for="{{leak}}" wx:for-item="prod" wx:key="{{prod.navId}}">
+        <view class='prod-items' bindtap='toProdPage' data-prodid="{{prod.navId}}">
+          <view class='hot-imagecont'>
+            <image src='{{prod.navImage}}' class='hotsaleimg'></image>
+          </view>
+          <view class='hot-text'>
+            <view class='hotprod-text'>{{prod.navName}}</view>
+            <!-- <view class='prod-info'>{{prod.navName}}</view>-->
+            <view class='prod-text-info'>
+              <view class='singal-price'>
+                <text>￥</text>
+                <text>{{100.00}}</text>
+              </view>
+              <view class='price'>
+                <text class='symbol'>￥</text>
+                <text class='big-num'>{{wxs.parsePrice(125.0)[0]}}</text>
+                <text class='small-num'>.{{wxs.parsePrice(125.0)[1]}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<wxs module="wxs" src="../../wxs/number.wxs" />
