@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    currentBrandId: 0,
     navId: 0,
     prodList: [],
     title: "",
@@ -13,7 +14,7 @@ Page({
     size: 10,
     pages: 0,
     banner:'',
-    bannerList:[]
+    brandList:[]
   },
 
   /**
@@ -29,204 +30,73 @@ Page({
     wx.setNavigationBarTitle({
       title: this.data.title
     })
-    this.loadProdData(options.tagid);
-
+    this.getNavPageData()
   },
 
-  /**
-   * 加载商品数据
-   */
-  loadProdData: function(id) {
-    this.getNavPageData(id)
-    // let sts = this.data.sts
-    // if (sts == 0) {
-    //   // 分组标签商品列表
-    //   this.getTagProd();
-    // } else if (sts == 1) {
-    //   // 新品推荐
-    //   let url = "/prod/lastedProdPage"
-    //   this.getActProd(url)
-    // } else if (sts == 2) {
-    //   // 限时特惠
-    //   let url = "/prod/discountProdList"
-    //   this.getActProd(url)
-    // } else if (sts == 3) {
-    //   // 每日疯抢
-    //   let url = "/prod/moreBuyProdList"
-    //   this.getActProd(url)
-    // } else if (sts == 4) {
-    //   // 优惠券商品列表
-    //   this.getProdByCouponId(options.tagid)
-    // } else if (sts == 5) {
-    //   // 收藏商品列表
-    //   this.getCollectionProd()
-    // }
+  changeBrandType(e){
+    const {id} = e.currentTarget.dataset
+    this.setData({
+      currentBrandId: id,
+      prodList:[],
+      current: 1
+    })
+    this.getProductList(id)
   },
 
-  getNavPageData(id) {
-    var ths = this;
+  getNavPageData() {
     wx.showLoading();
     var params = {
-      url: `/index/${id}/goods-brand`,
+      url: `/index/${this.data.navId}/goods-brand`,
       method: "GET",
-      data: {
-        current: ths.data.current,
-        size: ths.data.size,
-      },
-      callBack: function(res) {
-        console.log('res:', res);
+      callBack: (res) => {
         const {data, error} = res
         if (error === 0) {
-          const {banner, bannerList} = data
-          ths.setData({
+          const {banner, brandList} = data
+          this.setData({
             banner,
-            bannerList
+            brandList
           })
-          if(bannerList.length){
+          if(brandList.length){
             this.getProductList()
           }
         }
-        // let list = []
-        // if (res.current == 1) {
-        //   list = res.records
-        // } else {
-        //   list = ths.data.prodList
-        //   list = list.concat(res.records)
-        // }
-        // ths.setData({
-        //   prodList: list,
-        //   pages: res.pages
-        // });
         wx.hideLoading();
       }
     };
     http.request(params);
   },
-
-  getProductList(){
-    
-  },
-
-  getActProd: function(url) {
-    var ths = this;
+  // 获取商品列表
+  getProductList(brandId){
     wx.showLoading();
     var params = {
-      url: url,
+      url: `/index/${this.data.navId}/goods`,
       method: "GET",
       data: {
-        current: ths.data.current,
-        size: ths.data.size,
+        brandId:brandId?brandId:this.data.currentBrandId,
+        page: this.data.current,
+        size: this.data.size,
       },
-      callBack: function(res) {
-        let list = []
-        if (res.current == 1) {
-          list = res.records
-        } else {
-          list = ths.data.prodList
-          list = list.concat(res.records)
+      callBack: (res) => {
+        let prodList = []
+        const {data, error} = res
+        if (error === 0) {
+          const {current, list, pageTotal} = data
+          if (current == 1) {
+            prodList = list
+          } else {
+            prodList = this.data.prodList
+            prodList = prodList.concat(list)
+          }
+          this.setData({
+            prodList,
+            current:parseInt(current),
+            pages: current == 1 ? pageTotal : this.data.pages
+          });
         }
-        ths.setData({
-          prodList: list,
-          pages: res.pages
-        });
         wx.hideLoading();
       }
     };
     http.request(params);
-  },
-
-  /**
-   * 获取我的收藏商品
-   */
-  getCollectionProd: function() {
-    var ths = this;
-    wx.showLoading();
-    var params = {
-      url: "/p/user/collection/prods",
-      method: "GET",
-      data: {
-        current: ths.data.current,
-        size: ths.data.size,
-      },
-      callBack: function(res) {
-
-        let list = []
-        if (res.current == 1) {
-          list = res.records
-        } else {
-          list = ths.data.prodList
-          list = list.concat(res.records)
-        }
-        ths.setData({
-          prodList: list,
-          pages: res.pages
-        });
-        wx.hideLoading();
-      }
-    };
-    http.request(params);
-  },
-
-  /**
-   * 获取标签列表
-   */
-  getTagProd: function(id) {
-    var ths = this;
-    wx.showLoading();
-    var param = {
-      url: "/prod/prodListByTagId",
-      method: "GET",
-      data: {
-        tagId: ths.data.tagid,
-        current: ths.data.current,
-        size: ths.data.size
-      },
-      callBack: (res) => {
-        let list = []
-        if (res.current == 1) {
-          list = res.records
-        } else {
-          list = ths.data.prodList.concat(res.records)
-        }
-        ths.setData({
-          prodList: list,
-          pages: res.pages
-        });
-        wx.hideLoading();
-      }
-    };
-    http.request(param);
-  },
-
-  /**
-   * 获取优惠券商品列表
-   */
-  getProdByCouponId(id) {
-    var ths = this;
-    wx.showLoading();
-    var param = {
-      url: "/coupon/prodListByCouponId",
-      method: "GET",
-      data: {
-        couponId: id,
-        current: this.data.current,
-        size: this.data.size
-      },
-      callBack: (res) => {
-        let list = []
-        if (res.current == 1) {
-          list = res.records
-        } else {
-          list = ths.data.prodList.concat(res.records)
-        }
-        ths.setData({
-          prodList: list,
-          pages: res.pages
-        });
-        wx.hideLoading();
-      }
-    };
-    http.request(param);
   },
 
   /**
@@ -272,7 +142,7 @@ Page({
       this.setData({
         current: this.data.current + 1
       })
-      this.loadProdData()
+      this.getProductList(this.data.currentBrandId)
     }
   },
 

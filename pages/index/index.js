@@ -62,7 +62,6 @@ Page({
 
   //跳转商品活动页面
   toClassifyPage: function(e) {
-    console.log('toClassifyPage:', e);
     var url = '/pages/prod-classify/prod-classify';
     var id = e.currentTarget.dataset.id;
     var title = e.currentTarget.dataset.title;
