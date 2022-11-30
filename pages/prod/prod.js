@@ -446,16 +446,13 @@ Page({
     if (!this.data.findSku) {
       return;
     }
-    wx.setStorageSync("orderItem", JSON.stringify({
-      prodId: this.data.prodId,
-      skuId: this.data.defaultSku.skuId,
-      prodCount: this.data.prodNum,
-      shopId: this.data.shopId
-    }));
+    wx.setStorageSync("orderItem", JSON.stringify([{
+      goodsId:this.data.defaultSku.attrId,
+      goodsNum:this.data.prodNum
+    }]));
     wx.navigateTo({
       url: '/pages/submit-order/submit-order?orderEntry=1',
     })
-
   },
 
   /**
