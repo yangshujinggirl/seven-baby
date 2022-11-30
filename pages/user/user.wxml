@@ -25,32 +25,32 @@
     <view class='total-order'>
       <view class='order-tit'>
         <text style='font-weight:bold'>我的订单</text>
-        <view class='checkmore' bindtap='toOrderListPage' data-sts="0">
+        <view class='checkmore' bindtap='toOrderListPage' data-sts="-1">
           <text>查看全部 </text>
           <text class='arrowhead'></text>
         </view>
       </view>
       <view class='procedure'>
-        <view class='items' bindtap='toOrderListPage' data-sts="1">
+        <view class='items' bindtap='toOrderListPage' data-sts="0">
           <image src='../../images/account/order_fk.png'></image>
           <text>待付款</text>
           <text class='num-badge' wx:if="{{orderAmount.unPay>0}}">{{orderAmount.unPay}}</text>
         </view>
-        <view class='items' bindtap='toOrderListPage' data-sts="2">
+        <view class='items' bindtap='toOrderListPage' data-sts="20">
           <image src='../../images/account/order_fh.png'></image>
           <text>待发货</text>
           <text class='num-badge' wx:if="{{orderAmount.payed>0}}">{{orderAmount.payed}}</text>
         </view>
-        <view class='items' bindtap='toOrderListPage' data-sts="3">
+        <view class='items' bindtap='toOrderListPage' data-sts="60">
           <image src='../../images/account/order_sh.png'></image>
           <text>待收货</text>
           <text class='num-badge' wx:if="{{orderAmount.consignment>0}}">{{orderAmount.consignment}}</text>
         </view>
-        <view class='items' bindtap='toOrderListPage' data-sts="5">
+        <view class='items' bindtap='toOrderListPage' data-sts="70">
           <image src='../../images/account/order_finshed.png'></image>
           <text>已完成</text>
         </view>
-        <view class='items' bindtap='toOrderListPage' data-sts="5">
+        <view class='items' bindtap='toOrderListPage' data-sts="50">
           <image src='../../images/account/order_tk.png'></image>
           <text>退款/售后</text>
         </view>

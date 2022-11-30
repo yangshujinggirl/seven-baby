@@ -39,6 +39,7 @@ page {
 
 .main {
   margin-top: 100rpx;
+  padding-bottom: 50rpx;
 }
 
 /* 商品列表 */
@@ -59,12 +60,13 @@ page {
   display: flex;
   justify-content: space-between;
   font-size: 28rpx;
+  align-items: center;
+  color: #000;
 }
 
-.order-state {
-  display: flex;
-  align-items: center;
+.order-state .order-sts{
   font-size: 24rpx;
+  color: #EB5412;
 }
 
 .prod-item .item-cont .categories {
@@ -80,7 +82,7 @@ page {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
-  background: #fafafa;
+  /* background: #fafafa; */
 }
 
 .prod-item .order-num .clear-btn {
@@ -167,7 +169,11 @@ page {
   padding: 20rpx 30rpx;
   font-size: 28rpx;
 }
-
+.prod-item .price-nums {
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+}
 .prod-item .price-nums .prodprice {
   color: #333;
   position: absolute;
@@ -175,9 +181,9 @@ page {
 }
 
 .prod-item  .price-nums .prodcount {
-  position: absolute;
+  /* position: absolute;
   bottom: 5rpx;
-  right: 0;
+  right: 0; */
   color: #999;
   font-family: verdana;
 }

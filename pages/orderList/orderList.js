@@ -10,7 +10,7 @@ Page({
     list: [],
     current: 1,
     pages: 0,
-    sts: 0
+    sts: '-1'
   },
 
   /**
@@ -40,7 +40,7 @@ Page({
       data: {
         page: current,
         size: 10,
-        status: sts,
+        orderStatus: sts,
       },
       callBack: function(res) {
         //console.log(res);
@@ -51,6 +51,63 @@ Page({
           list = ths.data.list;
           Array.prototype.push.apply(list, res.records);
         }
+        list=[
+          {
+            status:6,
+            orderId:1,
+            supplierName:'七个宝宝备份',
+            goodsNum:'4',
+            totalAmount:20,
+            orderStatus:50,
+            orderStatusShow:'待付款',
+            goods:[
+              {
+                goodsId:'12',
+                goodsName:'南极男士背心夏季纯棉运动白色打底衫',
+                mainImage:'../../images/account/customer_kf.png',
+                attrValue:'L50',
+                goodsNum:'2',
+              },{
+                goodsId:'12344',
+                goodsName:'南极男士背心夏季纯棉运动白色打底衫备份',
+                mainImage:'../../images/account/customer_kf.png',
+                attrValue:'L70',
+                goodsNum:'2',
+              }
+            ],
+            button:[
+              {
+                action:'cancel',
+                name:'取消订单'
+              },{
+                action:'payMent',
+                name:'立即支付'
+              },
+            ]
+          },{
+            orderId:1,
+            supplierName:'七个宝宝备份',
+            goodsNum:'4',
+            totalAmount:20,
+            orderStatus:50,
+            orderStatusShow:'待付款',
+            goods:[
+              {
+                goodsId:'12',
+                goodsName:'南极男士背心夏季纯棉运动白色打底衫',
+                mainImage:'../../images/account/customer_kf.png',
+                attrValue:'L50',
+                goodsNum:'2',
+              },{
+                goodsId:'12344',
+                goodsName:'南极男士背心夏季纯棉运动白色打底衫备份',
+                mainImage:'../../images/account/customer_kf.png',
+                attrValue:'L70',
+                goodsNum:'2',
+              }
+            ],
+          }
+        ]
         ths.setData({
           list: list,
           pages: res.pages,
