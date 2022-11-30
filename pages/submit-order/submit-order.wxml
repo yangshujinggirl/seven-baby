@@ -3,7 +3,7 @@
   <view class='submit-order'>
     <!-- 收货地址 -->
     <view class='delivery-addr ' bindtap='toAddrListPage'>
-      <view class='addr-bg ' wx:if="{{!userAddr}}">
+      <view class='addr-bg ' wx:if="{{!userAddr.length}}">
         <view class='add-addr'>
           <view class='plus-sign-img'>
             <image src='../../images/icon/plus-sign.png'></image>
@@ -12,7 +12,7 @@
         </view>
         <view class='arrow empty'></view>
       </view>
-      <view class='addr-bg whole' wx:if="{{userAddr}}">
+      <view class='addr-bg whole' wx:if="{{userAddr.length}}">
         <view class='addr-icon'>
           <image src='../../images/icon/addr.png'></image>
         </view>
@@ -20,109 +20,74 @@
           <text class='item'>{{userAddr.receiver}}</text>
           <text class='item'>{{userAddr.mobile}}</text>
         </view>
-        <view class='addr'>{{userAddr.province}}{{userAddr.city}}{{userAddr.area}}{{userAddr.addr}}</view>
+        <view class='addr'>{{userAddr.provinceName}}{{userAddr.cityName}}{{userAddr.districtName}}{{userAddr.address}}</view>
         <view class='arrow'></view>
       </view>
     </view>
 
     <!-- 商品详情 -->
-    <view class='prod-item'>
-      <block wx:for="{{orderItems}}" wx:key=''>
-        <view class='item-cont' bindtap='toOrderDetailPage' data-ordernum="{{item.primaryOrderNo}}">
+    <view class='prod-item' wx:for="{{orderItems}}" wx:for-item="supplier" wx:key="orderitem">
+      <block wx:for="{{supplier.goods}}" wx:key='product'>
+        <view class='item-cont' bindtap='toOrderDetailPage' data-ordernum="{{supplier.supplierId}}">
           <view class='prod-pic'>
-            <image src='{{item.pic}}'></image>
+            <image src='{{item.mainImage}}'></image>
           </view>
           <view class='prod-info'>
             <view class='prodname'>
-              {{item.prodName}}
+              {{item.goodsName}}
             </view>
-            <view class='prod-info-cont'>{{item.skuName}}</view>
+            <view class='prod-info-cont'>{{item.attrValue}}</view>
             <view class='price-nums'>
               <text class='prodprice'><text class='symbol'>￥</text>
-              <text class='big-num'>{{wxs.parsePrice(item.price)[0]}}</text>
-              <text class='small-num'>.{{wxs.parsePrice(item.price)[1]}}</text></text>
-              <text class="prodcount">x{{item.prodCount}}</text>
+              <text class='big-num'>{{wxs.parsePrice(item.salePrice)[0]}}</text>
+              <text class='small-num'>.{{wxs.parsePrice(item.salePrice)[1]}}</text></text>
+              <text class="prodcount">x{{item.goodsNum}}</text>
             </view>
           </view>
         </view>
       </block>
-      <!-- <view class='item-cont' bindtap='toOrderDetailPage' data-ordernum="{{item.primaryOrderNo}}">
-        <view class='prod-pic'>
-          <image src='../../images/prod/pic09.jpg'></image>
-        </view>
-        <view class='prod-info'>
-          <view class='prodname'>
-            THE BEAST/野兽派 易烊千玺同款
-          </view>
-          <view class='prod-info-cont'>经典杯型升级，杯型更细长优雅</view>
-          <view class='price-nums'>
-            <text class='prodprice'><text class='symbol'>￥</text>
-            <text class='big-num'>{{wxs.parsePrice(40.00)[0]}}</text>
-            <text class='small-num'>.{{wxs.parsePrice(40.00)[1]}}</text></text>
-            <text class="prodcount">x1</text>
-          </view>
-        </view>
-      </view> -->
-
       <view class='total-num'>
-        <text class="prodcount">共{{totalCount}}件商品</text>
+        <text class="prodcount">共{{supplier.goodsNum}}件商品</text>
         <view class='prodprice'>合计：
           <text class='symbol'>￥</text>
-          <text class='big-num'>{{wxs.parsePrice(total)[0]}}</text>
-          <text class='small-num'>.{{wxs.parsePrice(total)[1]}}</text>
+          <text class='big-num'>{{wxs.parsePrice(supplier.goodsAmount)[0]}}</text>
+          <text class='small-num'>.{{wxs.parsePrice(supplier.goodsAmount)[1]}}</text>
         </view>
       </view>
-    </view>
-
-    <!-- 订单详情 -->
-    <view class='order-msg'>
-      <view class='msg-item'>
-        <view class='item coupon' bindtap='showCouponPopup'>
-          <text class='item-tit'>优惠券：</text>
-          <text class='item-txt' wx:if="{{!coupons.canUseCoupons}}">暂无可用</text>
-          <text class='coupon-btn'>{{coupons.totalLength? coupons.totalLength: 0}}张</text>
-          <text class='arrow'></text>
-        </view>
-        <view class='item'>
-          <text>买家留言：</text>
-          <input value='{{remarks}}' placeholder='给卖家留言' bindinput="onRemarksInput"></input>
+      <!-- 订单详情 -->
+      <view class='order-msg'>
+        <view class='msg-item'>
+          <view class='item'>
+            <text>买家留言：</text>
+            <input value='{{remarks}}' placeholder='给卖家留言' bindinput="onRemarksInput"></input>
+          </view>
         </view>
       </view>
-
-    </view>
-
-    <view class='order-msg'>
-      <view class='msg-item'>
-        <view class='item'>
-          <view class='item-tit'>订单总额：</view>
-          <view class='item-txt price'>
-            <text class='symbol'>￥</text>
-            <text class='big-num'>{{wxs.parsePrice(total)[0]}}</text>
-            <text class='small-num'>.{{wxs.parsePrice(total)[1]}}</text>
+      <view class='order-msg'>
+        <view class='msg-item'>
+          <view class='item'>
+            <view class='item-tit'>订单总额：</view>
+            <view class='item-txt price'>
+              <text class='symbol'>￥</text>
+              <text class='big-num'>{{wxs.parsePrice(supplier.goodsAmount)[0]}}</text>
+              <text class='small-num'>.{{wxs.parsePrice(supplier.goodsAmount)[1]}}</text>
+            </view>
           </view>
-        </view>
-        <view class='item'>
-          <view class='item-tit'>运费：</view>
-          <view class='item-txt price'>
-            <text class='symbol'>￥</text>
-            <text class='big-num'>{{wxs.parsePrice(transfee)[0]}}</text>
-            <text class='small-num'>.{{wxs.parsePrice(transfee)[1]}}</text>
+          <view class='item'>
+            <view class='item-tit'>运费：</view>
+            <view class='item-txt price'>
+              <text class='symbol'>￥</text>
+              <text class='big-num'>{{wxs.parsePrice(supplier.expressAmount)[0]}}</text>
+              <text class='small-num'>.{{wxs.parsePrice(supplier.expressAmount)[1]}}</text>
+            </view>
           </view>
-        </view>
-        <view class='item'>
-          <view class='item-tit'>优惠金额：</view>
-          <view class='item-txt price'>
-            <text class='symbol'>-￥</text>
-            <text class='big-num'>{{wxs.parsePrice(shopReduce)[0]}}</text>
-            <text class='small-num'>.{{wxs.parsePrice(shopReduce)[1]}}</text>
-          </view>
-        </view>
-        <view class='item payment'>
-          <view class='item-txt price'>
-            小计：
-            <text class='symbol'>￥</text>
-            <text class='big-num'>{{wxs.parsePrice(actualTotal)[0]}}</text>
-            <text class='small-num'>.{{wxs.parsePrice(actualTotal)[1]}}</text>
+          <view class='item payment'>
+            <view class='item-txt price'>
+              小计：
+              <text class='symbol'>￥</text>
+              <text class='big-num'>{{wxs.parsePrice(supplier.goodsAmount+supplier.expressAmount)[0]}}</text>
+              <text class='small-num'>.{{wxs.parsePrice(supplier.totalAmount+supplier.expressAmount)[1]}}</text>
+            </view>
           </view>
         </view>
       </view>
@@ -137,8 +102,8 @@
         合计：
         <view class='price'>
           <text class='symbol'>￥</text>
-          <text class='big-num'>{{wxs.parsePrice(actualTotal)[0]}}</text>
-          <text class='small-num'>.{{wxs.parsePrice(actualTotal)[1]}}</text>
+          <text class='big-num'>{{wxs.parsePrice(actualTotal.totalAmount)[0]}}</text>
+          <text class='small-num'>.{{wxs.parsePrice(actualTotal.totalAmount)[1]}}</text>
         </view>
       </view>
     </view>

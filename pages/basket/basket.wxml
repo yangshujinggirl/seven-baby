@@ -1,13 +1,13 @@
 <!--pages/basket/basket.wxml-->
 <view class='container'>
   <view class="prod-list">
-    <block wx:for="{{shopCartItemDiscounts}}" wx:key='' wx:for-index="scIndex">
+    <block wx:for="{{shopCartItemDiscounts}}" wx:key='shopCart' wx:for-index="scIndex">
       <view class='prod-block'>
         <!-- <view class='discount-tips' hidden='{{!item.chooseDiscountItemDto}}'>
           <text class='text-block'>{{wxs.parseDiscount(item.chooseDiscountItemDto.discountRule)}}discountRule</text>
           <text class='text-list'>{{wxs.parseDiscountMsg(item.chooseDiscountItemDto.discountRule,item.chooseDiscountItemDto.needAmount,item.chooseDiscountItemDto.discount)}}discount</text>
         </view> -->
-        <block wx:for="{{item.goods}}" wx:key='' wx:for-item="prod">
+        <block wx:for="{{item.goods}}" wx:key='product' wx:for-item="prod">
           <view class='item'>
             <view class="btn">
               <label>
