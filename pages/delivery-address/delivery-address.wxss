@@ -65,7 +65,12 @@ page {
 .address .select-btn .box {
   font-size: 26rpx;
 }
-
+.address .select-btn .action-wrap {
+  font-size: 24rpx;
+}
+.address .select-btn .action-wrap text {
+  margin-left: 20rpx;
+}
 .footer {
   position: fixed;
   bottom: 0;

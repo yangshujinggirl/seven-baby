@@ -23,6 +23,13 @@ page {
   box-sizing: border-box;
   border-bottom: 2rpx solid #e5e5e5;
 }
+.input-box .default-address {
+  border: none;
+  justify-content: space-between;
+}
+.input-box .default-address.section text {
+  width: auto;
+}
 
 .input-box .section text {
   width: 20%;

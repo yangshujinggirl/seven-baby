@@ -14,7 +14,6 @@
             <view class='info-tit'>
               <text class='name'>{{item.consignee}}</text>
               <text class='tel'>{{item.mobile}}</text>
-              <image src='../../images/icon/revise.png' catchtap='toEditAddress' data-addrid="{{item.addrId}}"></image>
             </view>
             <view class='addr'>
               <text class='addr-get'> {{item.provinceName}}{{item.cityName}}{{item.districtName}}{{item.address}}</text>
@@ -22,8 +21,12 @@
           </view>
           <view class='select-btn'>
             <view class="box">
-              <label  bindtap='onDefaultAddr' data-addrid="{{item.addrId}}">
-                <radio value="{{item.prodId}}" checked="{{item.commonAddr==1}}" color="#eb2444" />设为默认地址</label>
+              <label  bindtap='onDefaultAddr' data-addrid="{{item.id}}">
+                <radio value="{{item.prodId}}" checked="{{item.isDefault==1}}" color="#eb2444" />设为默认地址</label>
+            </view>
+            <view class="action-wrap">
+              <text catchtap='toEditAddress' data-addrid="{{item.id}}">编辑</text>
+              <text  bindtap="onDeleteAddr" data-addrid="{{item.id}}">删除</text>
             </view>
           </view>
         </view>
