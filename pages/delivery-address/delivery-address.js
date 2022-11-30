@@ -15,7 +15,7 @@ Page({
   },
 
   onLoad: function (option) {
-    if (option.order) {
+    if (option?.order) {
       this.setData({
         order: option.order
       });
@@ -32,18 +32,13 @@ Page({
   //设置为默认地址
   onDefaultAddr: function (e) {
     var addrId = e.currentTarget.dataset.addrid;
-    console.log(addrId)
     var ths = this;
     wx.showLoading();
     var params = {
-      url: "/p/address/defaultAddr/" + addrId,
+      url: `/address/${addrId}/modify`,
       method: "PUT",
-      data: {
-        addrId:addrId
-         },
       callBack: function (res) {
         wx.hideLoading();
-
       }
     }
     http.request(params);
@@ -58,10 +53,8 @@ Page({
       method: "GET",
       data: {},
       callBack: res => {
-        console.log('res:',res);
         const {error, data} = res
         if (error === 0) {
-          console.log('address:', data);
           ths.setData({
             addressList: data.list
           });

@@ -7,7 +7,6 @@ var t = 0;
 var show = false;
 var moveY = 200;
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -16,48 +15,20 @@ Page({
     provArray: [],
     cityArray: [],
     areaArray: [],
-    province: "",
-    city: "",
-    area: "",
     provinceItem:{},cityItem:{},areaItem:{},
-    // provinceId: 0,
-    // cityId: 0,
-    // areaId: 0,
     consignee: "",
     mobile: "",
     address: "",
-    addrId: 0
+    addrId: null
   },
 
   onLoad: function (options) {
     if (options?.addrId) {
       wx.showLoading();
-      var params = {
-        url: "/p/address/addrInfo/" + options.addrId,
-        method: "GET",
-        data: {},
-        callBack: res => {
-          //console.log(res)
-          this.setData({
-            province: res.province,
-            city: res.city,
-            area: res.area,
-            provinceId: res.provinceId,
-            cityId: res.cityId,
-            areaId: res.areaId,
-            receiver: res.receiver,
-            mobile: res.mobile,
-            addr: res.addr,
-            addrId: options.addrId
-          });
-          this.initCityData(res.provinceId, res.cityId, res.areaId);
-          wx.hideLoading();
-        }
-      }
-      http.request(params);
-    } else {
-      this.initCityData(this.data.provinceId, this.data.cityId, this.data.areaId);
+      this.setData({addrId:options?.addrId})
+      this.fetchInfo(options?.addrId)
     }
+    this.initCityData();
   },
 
   initCityData: function (provinceId, cityId, areaId) {
@@ -70,9 +41,29 @@ Page({
         const { data } =res;
         ths.setData({
           provArray: data?.areaList,
-          value:areaindex
         });
-        ths.formatArea('prov',areaindex[0]);
+        ths.formatArea('prov',0);
+        wx.hideLoading();
+      }
+    }
+    http.request(params);
+  },
+  //地址详情
+  fetchInfo: function (id) {
+    var ths = this;
+    wx.showLoading();
+    var params = {
+      url: `/address/${id}`,
+      method: "GET",
+      callBack: function (res) {
+        const { data } =res;
+        const vals = {
+          ...data,
+          provinceItem:{name:data.provinceName,adcode:data.provinceId},
+          cityItem:{name:data.cityName,adcode:data.cityId},
+          areaItem:{name:data.districtName,adcode:data.districtId},
+        }
+        ths.setData(vals);
         wx.hideLoading();
       }
     }
@@ -284,8 +275,6 @@ Page({
       region: e.detail.value
     })
   },
-
-
   /**
    * 保存地址
    */
@@ -325,8 +314,9 @@ Page({
     wx.showLoading();
     var url = "/address";
     var method = "POST";
-    if (ths.data.addrId != 0) {
-      url = "/p/address/updateAddr";
+    const { addrId } =ths.data;
+    if (addrId) {
+      url = `/address/${addrId}`;
       method = "PUT";
     }
     //添加或修改地址
@@ -350,32 +340,8 @@ Page({
     }
     http.request(params);
   },
-  tskl:function(){
-    console.log('qwwwwww')
-  },
-
-  onReceiverInput: function (e) {
-    console.log('e',e)
-    // this.setData({
-    //   receiver: e.detail.value
-    // });
-  },
-
-  onMobileInput: function (e) {
-    this.setData({
-      mobile: e.detail.value
-    });
-  },
-
-  onAddrInput: function (e) {
-    this.setData({
-      addr: e.detail.value
-    });
-  },
-
-
-  //删除配送地址
-  onDeleteAddr: function (e) {
+   //删除配送地址
+   onDeleteAddr: function (e) {
     var ths = this;
     wx.showModal({
       title: '',
@@ -384,10 +350,9 @@ Page({
       success(res) {
         if (res.confirm) {
           var addrId = ths.data.addrId;
-        
           wx.showLoading();
           var params = {
-            url: "/p/address/deleteAddr/" + addrId,
+            url: `/address/${addrId}`,
             method: "DELETE",
             data: {},
             callBack: function (res) {
@@ -405,5 +370,4 @@ Page({
     })
 
   },
-
 })
