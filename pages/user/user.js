@@ -1,7 +1,8 @@
 // pages/user/user.js
 
 var http = require("../../utils/http.js");
-const app = getApp()
+const app = getApp();
+console.log('app',app)
 
 Page({
 
@@ -18,53 +19,65 @@ Page({
       {
         name:'评论互动',
         icon:'../../images/account/func_pl.png',
-        linkUrl:''
+        linkUrl:'',
+        action:''
       },{
         name:'我的收藏',
         icon:'../../images/account/func_sc.png',
-        linkUrl:''
+        linkUrl:'',
+        action:'myCollectionHandle'
       },{
         name:'收货地址',
         icon:'../../images/account/func_dz.png',
-        linkUrl:''
+        linkUrl:'',
+        action:'toAddressList'
       },{
         name:'我要推广',
         icon:'../../images/account/func_tg.png',
-        linkUrl:''
+        linkUrl:'',
+        action:''
       }],
       otherFuncList:[
         {
           name:'佣金商品',
           icon:'../../images/account/func_yjsp.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },{
           name:'推广订单',
           icon:'../../images/account/func_tgdd.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },{
           name:'推荐会员',
           icon:'../../images/account/func_tjhy.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },{
           name:'推广码',
           icon:'../../images/account/func_tgm.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },{
           name:'提现管理',
           icon:'../../images/account/func_txgl.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },{
           name:'社区管理',
           icon:'../../images/account/func_sqgl.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },{
           name:'我的收藏',
           icon:'../../images/account/func_sc.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },{
           name:'收货地址',
           icon:'../../images/account/func_dz.png',
-          linkUrl:''
+          linkUrl:'',
+          action:''
         },
       ]
   },
@@ -105,7 +118,7 @@ Page({
       }
     };
     http.request(params);
-    this.showCollectionCount();
+    // this.showCollectionCount();
   },
 
   /**
@@ -167,6 +180,11 @@ Page({
   toAddressList: function() {
     wx.navigateTo({
       url: '/pages/delivery-address/delivery-address',
+    })
+  },
+  toSettings:function() {
+    wx.navigateTo({
+      url: '/pages/settings/settings'
     })
   },
 
