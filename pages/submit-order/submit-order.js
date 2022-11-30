@@ -22,7 +22,8 @@ Page({
     transfee: 0,
     reduceAmount: 0,
     remark: "",
-    couponIds: []
+    couponIds: [],
+    remarks:[]
   },
 
   /**
@@ -53,7 +54,6 @@ Page({
       },
       callBack: res => {
         wx.hideLoading();
-        console.log('corf:', res);
         const {error, data} = res
         if (error === 0) {
           const { address, count, list } = data
@@ -75,9 +75,13 @@ Page({
               }
             }),
             actualTotal: count,
-            userAddr: address,
             transfee: expressAmountSum
           });
+          if (address.length) {
+            this.setData({
+              userAddr
+            })
+          }
         }
       },
       errCallBack: res => {
@@ -89,8 +93,12 @@ Page({
   },
 
   onRemarksInput: function (e) {
+    console.log('dedd:',e);
+    const {index} = e.target.dataset
+    let orderItems = this.data.orderItems
+    orderItems[index].remarks = e.detail.value
     this.setData({
-      remarks: e.detail.value
+      orderItems
     });
   },
 
@@ -114,18 +122,38 @@ Page({
     wx.showLoading({
       mask: true
     });
+    const goods = []
+    const messages = []
+    this.data.orderItems.forEach(supplier => {
+      messages.push({
+        supplierId: supplier.supplierId,
+        message: supplier.remarks
+      })
+      supplier.goods.forEach(pro => {
+        goods.push({
+          goodsId: pro.goodsId,
+          goodsNum: pro.goodsNum
+        })
+      })
+    })
     var params = {
-      url: "/p/order/submit",
+      url: "/order",
       method: "POST",
       data: {
-        orderShopParam: [{
-          remarks: this.data.remark,
-          shopId: 1
-        }]
+        goods,
+        messages,
+        addressId: this.data.userAddr.id
       },
       callBack: res => {
         wx.hideLoading();
-        this.calWeixinPay(res.orderNumbers);
+        if (res.error === 0) {
+          this.calWeixinPay(res.data.orderIds);
+        } else {
+          wx.showToast({
+            title: `下单失败${res.message}`,
+            icon: "none"
+          })
+        }
       }
     };
     http.request(params);
@@ -139,33 +167,39 @@ Page({
       mask: true
     });
     var params = {
-      url: "/p/order/pay",
+      url: "/payment",
       method: "POST",
       data: {
-        payType: 1,
-        orderNumbers: orderNumbers
+        orderIds: orderNumbers
       },
       callBack: function(res) {
         wx.hideLoading();
-        wx.requestPayment({
-          timeStamp: res.timeStamp,
-          nonceStr: res.nonceStr,
-          package: res.packageValue,
-          signType: res.signType,
-          paySign: res.paySign,
-          success: e => {
-            // console.log("支付成功");
-            wx.navigateTo({
-              url: '/pages/pay-result/pay-result?sts=1&orderNumbers=' + orderNumbers + "&orderType=" + this.data.orderType,
-            })
-          },
-          fail: err => {
-            wx.navigateTo({
-              url: '/pages/pay-result/pay-result?sts=0&orderNumbers=' + orderNumbers + "&orderType=" + this.data.orderType,
-            })
-          }
-        })
-
+        if (res.error === 0) {
+          const {paymentData} = res.data
+          wx.requestPayment({
+            timeStamp: paymentData.timeStamp,
+            nonceStr: paymentData.nonceStr,
+            package: paymentData.package,
+            signType: paymentData.signType,
+            paySign: paymentData.paySign,
+            success: e => {
+              // console.log("支付成功");
+              wx.navigateTo({
+                url: '/pages/pay-result/pay-result?sts=1&orderNumbers=' + orderNumbers + "&orderType=" + this.data.orderType,
+              })
+            },
+            fail: err => {
+              wx.navigateTo({
+                url: '/pages/pay-result/pay-result?sts=0&orderNumbers=' + orderNumbers + "&orderType=" + this.data.orderType,
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: `获取支付信息失败${res.message}`,
+            icon: "none"
+          })
+        }
       }
     };
     http.request(params);
@@ -182,22 +216,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // var params = {
-    //   url: "/p/address/defaultAddr/" + addrId,
-    //   method: "PUT",
-    //   data: {
-    //     addrId:addrId
-    //      },
-    //   callBack: function (res) {
-    //     wx.hideLoading();
-
-    //   }
-    // }
-    // http.request(params);
-
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];
     if (currPage.data.selAddress == "yes") {
+      console.log('jashdas:',currPage.data.item);
       this.setData({ //将携带的参数赋值
         userAddr: currPage.data.item
       });

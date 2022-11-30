@@ -2,8 +2,8 @@
 <view class='container'>
   <view class='submit-order'>
     <!-- 收货地址 -->
-    <view class='delivery-addr ' bindtap='toAddrListPage'>
-      <view class='addr-bg ' wx:if="{{!userAddr.length}}">
+    <view class='delivery-addr' bindtap='toAddrListPage'>
+      <view class='addr-bg ' wx:if="{{!userAddr.id}}">
         <view class='add-addr'>
           <view class='plus-sign-img'>
             <image src='../../images/icon/plus-sign.png'></image>
@@ -12,12 +12,12 @@
         </view>
         <view class='arrow empty'></view>
       </view>
-      <view class='addr-bg whole' wx:if="{{userAddr.length}}">
+      <view class='addr-bg whole' wx:if="{{userAddr.id}}">
         <view class='addr-icon'>
           <image src='../../images/icon/addr.png'></image>
         </view>
         <view class='user-info'>
-          <text class='item'>{{userAddr.receiver}}</text>
+          <text class='item'>{{userAddr.consignee}}</text>
           <text class='item'>{{userAddr.mobile}}</text>
         </view>
         <view class='addr'>{{userAddr.provinceName}}{{userAddr.cityName}}{{userAddr.districtName}}{{userAddr.address}}</view>
@@ -26,7 +26,7 @@
     </view>
 
     <!-- 商品详情 -->
-    <view class='prod-item' wx:for="{{orderItems}}" wx:for-item="supplier" wx:key="orderitem">
+    <view class='prod-item' wx:for="{{orderItems}}" wx:for-item="supplier" wx:for-index="bindex" wx:key="orderitem">
       <block wx:for="{{supplier.goods}}" wx:key='product'>
         <view class='item-cont' bindtap='toOrderDetailPage' data-ordernum="{{supplier.supplierId}}">
           <view class='prod-pic'>
@@ -59,7 +59,7 @@
         <view class='msg-item'>
           <view class='item'>
             <text>买家留言：</text>
-            <input value='{{remarks}}' placeholder='给卖家留言' bindinput="onRemarksInput"></input>
+            <input value='{{supplier.remarks}}' data-index="{{bindex}}" placeholder='给卖家留言' bindinput="onRemarksInput"></input>
           </view>
         </view>
       </view>
