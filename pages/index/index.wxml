@@ -73,7 +73,6 @@
           </view>
           <view class='hot-text'>
             <view class='hotprod-text'>{{prod.navName}}</view>
-            <!-- <view class='prod-info'>{{prod.navName}}</view>-->
             <view class='prod-text-info'>
               <view class='singal-price'>
                 <text>￥</text>

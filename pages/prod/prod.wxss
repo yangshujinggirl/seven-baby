@@ -481,6 +481,10 @@ swiper image {
   position: relative;
   line-height: 48rpx;
 }
+.rice-text-view{
+  padding: 0 25rpx;
+  background-color:#fff;
+}
 
 .det-tit {
   width: 300rpx;
@@ -497,9 +501,16 @@ swiper image {
   width: 750rpx !important;
   display: block;
 }
+rich-text{
+  width: 700rpx;
+}
 
 rich-text image {
   width: 100% !important;
+}
+rich-text img{
+  width: 100% !important;
+  display: block;
 }
 
 img {
