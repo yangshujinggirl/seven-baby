@@ -1,24 +1,19 @@
 <!--pages/prod-classify/prod-classify.wxml-->
 
 <view class='container'>
-  <view class="banner-wrap">
-    <image src="{{banner}}" />
-  </view>
   <view class='line-fix'></view>
   <view class='tit-background'></view>
   <scroll-view scroll-x="true" class="brand-scroll">
     <text
       class="{{currentBrandId === 0?'active':''}}"
-      bindtap='changeBrandType'
-      data-id="{{0}}"
-    >全部</text>
+      bindtap='changetab'
+      data-id="0"
+    >商品</text>
     <text
-      wx:for="{{brandList}}"
-      wx:key="brandId"
-      class="{{currentBrandId === item.brandId?'active':''}}"
-      bindtap='changeBrandType'
-      data-id="{{item.brandId}}"
-    >{{item.brandName}}</text>
+      class="{{currentBrandId === 0?'active':''}}"
+      bindtap='changetab'
+      data-id="1"
+    >内容</text>
   </scroll-view>
   <block wx:for="{{prodList}}" wx:key ="key">
     <prod item="{{item}}" ></prod>
