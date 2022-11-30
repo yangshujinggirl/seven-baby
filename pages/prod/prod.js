@@ -412,9 +412,8 @@ Page({
       url: "/cart",
       method: "POST",
       data: {
-        goodsId: this.data.prodId,
-        goodsNum: this.data.prodNum,
-        skuId: this.data.defaultSku.attrId
+        goodsId: this.data.defaultSku.attrId,
+        goodsNum: this.data.prodNum
       },
       callBack: function(res) {
         //console.log(res);

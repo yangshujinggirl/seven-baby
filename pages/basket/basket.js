@@ -35,39 +35,43 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-	this.loadBasketData();
+	  this.loadBasketData();
     http.getCartCount();//重新计算购物车总数量
   },
   
   loadBasketData(){
 		wx.showLoading(); //加载购物车
-		
 		var params = {
-		  url: "/p/shopCart/info",
-		  method: "POST",
+		  url: "/cart",
+		  method: "GET",
 		  data: {},
 		  callBack: res => {
-			if (res.length > 0) {
-			  // 默认不选中
-			  var shopCartItemDiscounts = res[0].shopCartItemDiscounts;
-			  shopCartItemDiscounts.forEach(shopCartItemDiscount => {
-				shopCartItemDiscount.shopCartItems.forEach(shopCartItem => {
-				  shopCartItem.checked = false;
-				});
-			  });
-			  this.setData({
-				shopCartItemDiscounts: shopCartItemDiscounts,
-				allChecked: false
-			  });
-			} else {
-			  this.setData({
-				shopCartItemDiscounts: []
-			  });
-			}
-		
-			this.calTotalPrice(); //计算总价
-		
-			wx.hideLoading();
+        console.log('res:',res);
+        const {error, data} = res
+        if (error === 0) {
+          const {list} = data
+          if (list.length > 0) {
+            // 默认不选中
+            var shopCartItemDiscounts = list;
+            shopCartItemDiscounts.forEach(shopCartItemDiscount => {
+              shopCartItemDiscount.goods.forEach(shopCartItem => {
+                shopCartItem.checked = false;
+                shopCartItem.salePrice = Number(shopCartItem.salePrice)
+              });
+            });
+            this.setData({
+              shopCartItemDiscounts: shopCartItemDiscounts,
+              allChecked: false
+            });
+            console.log('shopCartItemDiscounts:', shopCartItemDiscounts);
+          } else {
+            this.setData({
+              shopCartItemDiscounts: []
+            });
+          }
+        }
+        this.calTotalPrice(); //计算总价
+        wx.hideLoading();
 		  }
 		};
 		http.request(params);
@@ -78,11 +82,14 @@ Page({
    */
   toFirmOrder: function () {
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;
-    var basketIds = [];
+    var basketIds = []
     shopCartItemDiscounts.forEach(shopCartItemDiscount => {
-      shopCartItemDiscount.shopCartItems.forEach(shopCartItem => {
+      shopCartItemDiscount.goods.forEach(shopCartItem => {
         if (shopCartItem.checked) {
-          basketIds.push(shopCartItem.basketId)
+          basketIds.push({
+            goodsId:shopCartItem.goodsId,
+            goodsNum: shopCartItem.goodsNum
+          })
         }
       })
     })
@@ -108,7 +115,7 @@ Page({
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;
 
     for (var i = 0; i < shopCartItemDiscounts.length; i++) {
-      var cItems = shopCartItemDiscounts[i].shopCartItems;
+      var cItems = shopCartItemDiscounts[i].goods;
       for (var j = 0; j < cItems.length; j++) {
         cItems[j].checked = allChecked;
       }
@@ -129,8 +136,8 @@ Page({
     var scindex = e.currentTarget.dataset.scindex;
 
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;// 获取购物车列表
-    var checked = shopCartItemDiscounts[scindex].shopCartItems[index].checked; // 获取当前商品的选中状态
-    shopCartItemDiscounts[scindex].shopCartItems[index].checked = !checked; // 改变状态
+    var checked = shopCartItemDiscounts[scindex].goods[index].checked; // 获取当前商品的选中状态
+    shopCartItemDiscounts[scindex].goods[index].checked = !checked; // 改变状态
     this.setData({
       shopCartItemDiscounts: shopCartItemDiscounts
     });
@@ -147,7 +154,7 @@ Page({
 
     var flag = false;
     for (var i = 0; i < shopCartItemDiscounts.length; i++) {
-      var cItems = shopCartItemDiscounts[i].shopCartItems;
+      var cItems = shopCartItemDiscounts[i].goods;
       for (var j = 0; j < cItems.length; j++) {
         if (!cItems[j].checked) {
           allChecked = !allChecked;
@@ -169,32 +176,21 @@ Page({
    */
   calTotalPrice: function () {
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;
-    var shopCartIds = [];
+    var totalMoney = 0
     for (var i = 0; i < shopCartItemDiscounts.length; i++) {
-      var cItems = shopCartItemDiscounts[i].shopCartItems;
+      var cItems = shopCartItemDiscounts[i].goods;
       for (var j = 0; j < cItems.length; j++) {
         if (cItems[j].checked) {
-          shopCartIds.push(cItems[j].basketId);
+          totalMoney += cItems[j].salePrice * cItems[j].goodsNum
         }
       }
     }
 
-    var ths = this;
-    wx.showLoading();
-    var params = {
-      url: "/p/shopCart/totalPay",
-      method: "POST",
-      data: shopCartIds,
-      callBack: function (res) {
-        ths.setData({
-          finalMoney: res.finalMoney,
-          totalMoney: res.totalMoney,
-          subtractMoney: res.subtractMoney
-        });
-        wx.hideLoading();
-      }
-    };
-    http.request(params);
+    this.setData({
+      finalMoney: totalMoney,
+      totalMoney: totalMoney,
+      subtractMoney: 0
+    });
 
   },
 
@@ -205,7 +201,7 @@ Page({
     var index = e.currentTarget.dataset.index;
     var scindex = e.currentTarget.dataset.scindex;
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;
-    var prodCount = shopCartItemDiscounts[scindex].shopCartItems[index].prodCount;
+    var prodCount = shopCartItemDiscounts[scindex].goods[index].goodsNum;
     if (prodCount > 1) {
       this.updateCount(shopCartItemDiscounts, scindex, index, -1);
     }
@@ -218,7 +214,11 @@ Page({
     var index = e.currentTarget.dataset.index;
     var scindex = e.currentTarget.dataset.scindex;
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;
-    this.updateCount(shopCartItemDiscounts, scindex, index, 1);
+    var prodCount = shopCartItemDiscounts[scindex].goods[index].goodsNum;
+    var goodsStock = shopCartItemDiscounts[scindex].goods[index].goodsStock;
+    if (prodCount < goodsStock) {
+      this.updateCount(shopCartItemDiscounts, scindex, index, 1);
+    }
   },
 
 
@@ -226,28 +226,27 @@ Page({
    * 改变购物车数量接口
    */
   updateCount: function (shopCartItemDiscounts, scindex, index, prodCount) {
-    var ths = this;
     wx.showLoading({
       mask: true
     });
+    const goodsNum = shopCartItemDiscounts[scindex].goods[index].goodsNum + prodCount
     var params = {
-      url: "/p/shopCart/changeItem",
-      method: "POST",
+      url: "/cart",
+      method: "PUT",
       data: {
-        count: prodCount,
-        prodId: shopCartItemDiscounts[scindex].shopCartItems[index].prodId,
-        skuId: shopCartItemDiscounts[scindex].shopCartItems[index].skuId,
-        shopId: 1
+        goodsNum,
+        goodsId: shopCartItemDiscounts[scindex].goods[index].goodsId
       },
-      callBack: function (res) {
-        shopCartItemDiscounts[scindex].shopCartItems[index].prodCount += prodCount;
-        ths.setData({
-          shopCartItemDiscounts: shopCartItemDiscounts
-        });
-        ths.calTotalPrice();//计算总价
-        wx.hideLoading();
-
-        http.getCartCount();//重新计算购物车总数量
+      callBack: (res) => {
+        if (res.error === 0) {
+          shopCartItemDiscounts[scindex].goods[index].goodsNum = goodsNum;
+          this.setData({
+            shopCartItemDiscounts: shopCartItemDiscounts
+          });
+          this.calTotalPrice();//计算总价
+          wx.hideLoading();
+          http.getCartCount();//重新计算购物车总数量
+        }
       }
     };
     http.request(params);
@@ -257,15 +256,13 @@ Page({
    * 删除购物车商品
    */
   onDelBasket: function () {
-    var ths = this;
-
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;
-    var basketIds = [];
+    var goodsId = [];
     for (var i = 0; i < shopCartItemDiscounts.length; i++) {
-      var cItems = shopCartItemDiscounts[i].shopCartItems;
+      var cItems = shopCartItemDiscounts[i].goods;
       for (var j = 0; j < cItems.length; j++) {
         if (cItems[j].checked) {
-          basketIds.push(cItems[j].basketId);
+          goodsId.push(cItems[j].goodsId);
         }
       }
     }
@@ -282,14 +279,15 @@ Page({
         confirmColor: "#eb2444",
         success(res) {
           if (res.confirm) {
-
             wx.showLoading({
               mask: true
             });
             var params = {
-              url: "/p/shopCart/deleteItem",
+              url: "/cart",
               method: "DELETE",
-              data: basketIds,
+              data: {
+                goodsId
+              },
               callBack: function (res) {
                 wx.hideLoading();
                 ths.loadBasketData();

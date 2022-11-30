@@ -121,23 +121,26 @@ function updateUserInfo() {
 //获取购物车商品数量
 function getCartCount() {
   var params = {
-    url: "/p/shopCart/prodCount",
+    url: "/cart/count",
     method: "GET",
     data: {},
-    callBack: function(res) {
-      if (res > 0) {
-        wx.setTabBarBadge({
-          index: 2,
-          text: res + "",
-        })
+    callBack: (res) => {
+      const {error, data} = res
+      if (error === 0) {
+        const totalCartCount = data.count.goodsNum
         var app = getApp();
-        app.globalData.totalCartCount = res;
-      } else {
-        wx.removeTabBarBadge({
-          index: 2
-        })
-        var app = getApp();
-        app.globalData.totalCartCount = 0;
+        if (totalCartCount > 0) {
+          wx.setTabBarBadge({
+            index: 2,
+            text: totalCartCount + "",
+          })
+          app.globalData.totalCartCount = totalCartCount;
+        } else {
+          wx.removeTabBarBadge({
+            index: 2
+          })
+          app.globalData.totalCartCount = 0;
+        }
       }
     }
   };
