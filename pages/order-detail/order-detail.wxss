@@ -3,18 +3,37 @@
 page {
   background: #f4f4f4;
 }
+.banner {
+  height: 226rpx;
+  background: #F46017;
+  color: #fff;
+  font-weight: bold;
+  padding: 60rpx 0 0 30%;
+  box-sizing: border-box;
+}
 
 .order-detail {
-  margin-bottom: 120rpx;
+  width: 95%;
+  margin:0 auto 120rpx;
+  position: relative;
+  top: -80rpx;
 }
+
 
 .order-detail .delivery-addr {
   padding: 20rpx 30rpx;
   background: #fff;
+  border-radius: 12rpx;
+  display: flex;
+  align-items:flex-start;
 }
-
+.delivery-addr .address {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 16rpx;
+}
 .order-detail .delivery-addr .user-info {
-  line-height: 48rpx;
+  line-height: 28rpx;
   word-wrap: break-word;
   word-break: break-all;
   overflow: hidden;
@@ -43,6 +62,7 @@ page {
   background-color: #fff;
   margin-top: 15rpx;
   font-size: 28rpx;
+  border-radius: 12rpx;
 }
 
 .prod-item .item-cont .prod-pic image {
@@ -118,21 +138,31 @@ page {
   width: 70%;
 }
 
-.prod-item .item-cont .prod-info .prod-info-cont .number {
-  float: left;
-  margin-right: 20rpx;
+.prod-item .item-cont .prod-info .attrValue {
+  display: inline-block;
+  background: #F6F6F6;
+  border-radius: 10rpx;
+  padding: 10rpx 14rpx;
+  font-size: 24rpx;
+  margin-top: 10rpx;
 }
 
 .prod-item .price-nums {
+  display: flex;
   margin-top: 30rpx;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .prod-item .price-nums .prodprice {
-  color: #333;
+  color: #EB5412;
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 24rpx;
-  float: left;
+  font-size: 36rpx;
+}
+.prod-item .price-nums .number {
+  color: #595959;
+  font-size: 28rpx;
 }
 
 .prod-item .price-nums .btn-box {
@@ -157,6 +187,7 @@ page {
   background: #fff;
   margin-top: 15rpx;
   font-size: 28rpx;
+  border-radius: 12rpx;
 }
 
 .order-msg .msg-item {
@@ -193,11 +224,10 @@ page {
 .order-msg .msg-item .item  .copy-btn {
   display: block;
   margin-left: 20rpx;
-  border: 2rpx solid #e4e4e4;
-  padding: 6rpx 24rpx;
   border-radius: 50rpx;
   font-size: 24rpx;
   line-height: 28rpx;
+color: #EB5412;
 }
 
 .order-msg .msg-item .item .item-txt.price {

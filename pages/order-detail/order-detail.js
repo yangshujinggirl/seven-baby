@@ -19,7 +19,8 @@ Page({
     reduceAmount: '',
     shopId: '',
     prodid: '',
-    order:{goods:[]}
+    order:{goods:[]},
+    consignee:{}
   },
 
   //跳转商品详情页
@@ -87,21 +88,11 @@ Page({
       url: `/order/${orderNum}`,
       method: "GET",
       callBack: function(res) {
+        const { data } =res;
+        console.log('data',data)
         ths.setData({
-          order:res.order,
-          consignee:res.consignee,
-          // orderNumber: orderNum,
-          // actualTotal: res.actualTotal,
-          // userAddrDto: res.userAddrDto,
-          // remarks: res.remarks,
-          // orderItemDtos: res.orderItemDtos,
-          // createTime: res.createTime,
-          // status: res.status,
-          // productTotalAmount: res.orderItemDtos[0].productTotalAmount,
-          // transfee: res.transfee,
-          // reduceAmount: res.reduceAmount,
-          // actualTotal: res.actualTotal,
-          // shopId: res.shopId
+          order:data?.order,
+          consignee:data?.consignee,
         });
         wx.hideLoading();
       }

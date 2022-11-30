@@ -233,6 +233,17 @@ Page({
     wx.navigateTo({
       url: url
     })
+  },
+   /**
+   * 跳转至商品详情
+   */
+  toProdPage: function(e) {
+    var prodid = e.currentTarget.dataset.prodid;
+    if (prodid) {
+      wx.navigateTo({
+        url: '/pages/prod/prod?prodid=' + prodid,
+      })
+    }
   }
 
 

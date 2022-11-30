@@ -98,7 +98,7 @@
     <view class="good-recommond">
       <text class="gs-head">好物推荐</text>
       <view class="goods-list" >
-        <view class="goods-item" wx:for="{{recommendList}}" wx:key="goodsId">
+        <view class="goods-item" wx:for="{{recommendList}}" wx:key="goodsId" bindtap="toProdPage" data-prodId="{{item.goodsId}}">
           <image src='{{item.mainImage}}' class="gs-img"></image>
           <view class="gs-title">{{item.goodsName}}</view>
           <view class="gs-info">

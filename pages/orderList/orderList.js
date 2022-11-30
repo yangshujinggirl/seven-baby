@@ -130,14 +130,33 @@ Page({
   /**
    * 取消订单
    */
+  handleTab:function(e){
+    const type = e.currentTarget.dataset.bindtype;
+    console.log('e',e)
+    switch(type){
+      case 'cancel':
+        this.onCancelOrder(e);
+        break;
+      case 'goto_pay':
+        // this.onPayAgain();
+        break;
+      case 'delete':
+        this.delOrderList(e);
+        break;
+      case 'receipt':
+        this.onConfirmReceive(e);
+        break;
+    }
+  },
+  //取消订单
   onCancelOrder: function(e) {
     var ordernum = e.currentTarget.dataset.ordernum;
     var ths = this;
     wx.showModal({
       title: '',
-      content: '要取消此订单？',
-      confirmColor: "#3e62ad",
-      cancelColor: "#3e62ad",
+      content: '确定要取消此订单？',
+      confirmColor: "#EB5412",
+      cancelColor: "#181818",
       cancelText: '否',
       confirmText: '是',
       success(res) {
@@ -147,11 +166,10 @@ Page({
           });
 
           var params = {
-            url: "/p/myOrder/cancel/" + ordernum,
+            url: `/order/${ordernum}/cancel`,
             method: "PUT",
             data: {},
             callBack: function(res) {
-              //console.log(res);
               ths.loadOrderData(ths.data.sts, 1);
               wx.hideLoading();
             }
@@ -219,6 +237,7 @@ Page({
    */
   onConfirmReceive: function(e) {
     var ths = this;
+    const  ordernum = e.currentTarget.dataset.ordernum;
     wx.showModal({
       title: '',
       content: '我已收到货？',
@@ -228,9 +247,8 @@ Page({
           wx.showLoading({
             mask: true
           });
-
           var params = {
-            url: "/p/myOrder/receipt/" + e.currentTarget.dataset.ordernum,
+            url: `/order/${ordernum}/receipt`,
             method: "PUT",
             data: {},
             callBack: function(res) {
@@ -252,17 +270,25 @@ Page({
     wx.showModal({
       title: '',
       content: '确定要删除此订单吗？',
-      confirmColor: "#eb2444",
+      confirmColor: "#EB5412",
+      cancelColor: "#181818",
       success(res) {
         if (res.confirm) {
           var ordernum = e.currentTarget.dataset.ordernum;
           wx.showLoading();
           var params = {
-            url: "/p/myOrder/" + ordernum,
+            url: `/order/${ordernum}`,
             method: "DELETE",
             data: {},
             callBack: function(res) {
+              if(res.error) {
+                wx.showToast({
+                  title: res.message,
+                  icon: "none"
+                })
+              } else {
               ths.loadOrderData(ths.data.sts, 1);
+              }
               wx.hideLoading();
             }
           }
