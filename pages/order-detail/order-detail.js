@@ -18,7 +18,8 @@ Page({
     transfee: '',
     reduceAmount: '',
     shopId: '',
-    prodid: ''
+    prodid: '',
+    order:{goods:[]}
   },
 
   //跳转商品详情页
@@ -71,7 +72,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.loadOrderDetail(options.orderNum);
+    console.log('options',options)
+    this.loadOrderDetail(options?.orderNum);
   },
 
   /**
@@ -82,25 +84,24 @@ Page({
     wx.showLoading();
     //加载订单详情
     var params = {
-      url: "/p/myOrder/orderDetail",
+      url: `/order/${orderNum}`,
       method: "GET",
-      data: {
-        orderNumber: orderNum
-      },
       callBack: function(res) {
         ths.setData({
-          orderNumber: orderNum,
-          actualTotal: res.actualTotal,
-          userAddrDto: res.userAddrDto,
-          remarks: res.remarks,
-          orderItemDtos: res.orderItemDtos,
-          createTime: res.createTime,
-          status: res.status,
-          productTotalAmount: res.orderItemDtos[0].productTotalAmount,
-          transfee: res.transfee,
-          reduceAmount: res.reduceAmount,
-          actualTotal: res.actualTotal,
-          shopId: res.shopId
+          order:res.order,
+          consignee:res.consignee,
+          // orderNumber: orderNum,
+          // actualTotal: res.actualTotal,
+          // userAddrDto: res.userAddrDto,
+          // remarks: res.remarks,
+          // orderItemDtos: res.orderItemDtos,
+          // createTime: res.createTime,
+          // status: res.status,
+          // productTotalAmount: res.orderItemDtos[0].productTotalAmount,
+          // transfee: res.transfee,
+          // reduceAmount: res.reduceAmount,
+          // actualTotal: res.actualTotal,
+          // shopId: res.shopId
         });
         wx.hideLoading();
       }

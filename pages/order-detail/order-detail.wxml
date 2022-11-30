@@ -20,22 +20,22 @@
           <text class="order-sts  gray">{{status}}</text>
         </view>
       </view> -->
-      <block wx:for="{{orderItemDtos}}"  wx:for-index="index" wx:key='index'>
+      <block wx:for="{{order.goods}}"  wx:for-index="index" wx:key='index'>
         <view class='item-cont' bindtap='toProdPage' data-prodid="{{item.prodId}}">
           <view class='prod-pic'>
-            <image src='{{item.pic}}'></image>
+            <image src='{{item.mainImage}}'></image>
           </view>
           <view class='prod-info'>
             <view class='prodname'>
-              {{item.prodName}}
+              {{item.goodsName}}
             </view>
             <view class='prod-info-cont'>
-              <text class='number'>数量：{{item.prodCount}}</text>
+              <text class='number'>数量：{{item.goodsNum}}</text>
               <text class='info-item'>{{item.skuName}}</text>
             </view>
             <view class='price-nums clearfix'>
               <text class='prodprice'><text class='symbol'>￥</text>
-              <text class='big-num'>{{wxs.parsePrice(item.price)[0]}}</text>
+              <text class='big-num'>{{wxs.parsePrice(item.salePrice)[0]}}</text>
               <text class='small-num'>.{{wxs.parsePrice(item.price)[1]}}</text></text>
               <view class='btn-box'>
                 <text class='btn' wx:if="{{item.status!=1}}">申请售后</text>
