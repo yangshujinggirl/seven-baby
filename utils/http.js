@@ -82,14 +82,14 @@ var getToken = function() {
           code: res.code
         },
         callBack: result => {
-          debugger
           // 没有获取到用户昵称，说明服务器没有保存用户的昵称，也就是用户授权的信息并没有传到服务器
           if (!result.data.user.nickName) {
             updateUserInfo();
           }
           wx.setStorageSync('token', 'Bearer ' + result.data.user.token); //把token存入缓存，请求接口数据时要用
           var globalData = getApp().globalData;
-          globalData.isLanding = true;
+          globalData.isLanding = false;
+          globalData.roleId = result.data.user.roleId;
           while (globalData.requestQueue.length) {
             request(globalData.requestQueue.pop());
           }
@@ -106,11 +106,12 @@ function updateUserInfo() {
     success: (res) => {
       var userInfo = JSON.parse(res.rawData)
       request({
-        url: "/user",
+        url: "/user/information",
         method: "PUT",
         data: {
-          field: userInfo.avatarUrl,
-          nickName: userInfo.nickName
+          nickname: userInfo.nickName,
+          avatar: userInfo.avatarUrl,
+          mobile: ''
         }
       });
     }
