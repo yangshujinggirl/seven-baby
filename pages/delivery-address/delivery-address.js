@@ -46,6 +46,9 @@ Page({
 
   //加载地址列表
   onShow: function () {
+   this.fetchList()
+  },
+  fetchList:function(){
     wx.showLoading();
     const ths = this;
     var params = {
@@ -88,5 +91,32 @@ Page({
         delta: 1
       })
     }
-  }
+  },
+   //删除配送地址
+   onDeleteAddr: function (e) {
+    var ths = this;
+    var addrId = e.currentTarget.dataset.addrid;
+    wx.showModal({
+      title: '',
+      content: '确定要删除此收货地址吗？',
+      confirmColor: "#eb2444",
+      success(res) {
+        if (res.confirm) {
+          wx.showLoading();
+          var params = {
+            url: `/address/${addrId}`,
+            method: "DELETE",
+            data: {},
+            callBack: function (res) {
+              wx.hideLoading();
+              ths.fetchList()
+            }
+          }
+          http.request(params);
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
 })

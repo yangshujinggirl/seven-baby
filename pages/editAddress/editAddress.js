@@ -19,6 +19,7 @@ Page({
     consignee: "",
     mobile: "",
     address: "",
+    isDefault:0,
     addrId: null
   },
 
@@ -76,7 +77,9 @@ Page({
   onShow: function () {
 
   },
-
+  switchChange:function(e){
+    this.setData({isDefault:e?.detail?.value?1:0})
+  },
   //滑动事件
   bindChange: function (e) {
     var ths = this;
@@ -280,7 +283,7 @@ Page({
    */
   onSaveAddr: function () {
     var ths = this;
-    const { consignee, mobile, address,provinceItem,cityItem,areaItem } =ths.data;
+    const { isDefault,consignee, mobile, address,provinceItem,cityItem,areaItem } =ths.data;
     if (!consignee) {
       wx.showToast({
         title: '请输入收货人姓名',
@@ -330,6 +333,7 @@ Page({
         provinceId: provinceItem.adcode,
         cityId: cityItem.adcode,
         districtId: areaItem.adcode,
+        isDefault
       },
       callBack: function (res) {
         wx.hideLoading();
@@ -368,6 +372,5 @@ Page({
         }
       }
     })
-
   },
 })
