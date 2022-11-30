@@ -1,0 +1,60 @@
+.my-menu {
+  /* width: 100%; */
+  background-color: #fff;
+  margin-top:20rpx;
+}
+
+.my-menu .memu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100rpx;
+  border-bottom: 2rpx solid #f7f7f7;
+  padding:0 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.info-rf {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 28rpx;
+  color: #3F3F3F;
+}
+.my-menu .memu-item .avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.my-menu .memu-item:nth-child(1) {
+  border-top: 2rpx solid #f7f7f7;
+}
+
+.my-menu .memu-item:last-child {
+  border-bottom: none;
+}
+
+.my-menu .memu-item text {
+  font-size: 28rpx;
+}
+.my-menu .memu-item image{
+  width:50rpx;
+  height:50rpx;
+  margin-right:20rpx;
+
+}
+.my-menu .memu-item .i-name{
+  display: flex;
+  align-items: center;
+}
+
+.arrowhead {
+  width: 15rpx;
+  height: 15rpx;
+  border-top: 2rpx solid #999;
+  border-right: 2rpx solid #999;
+  transform: rotate(45deg);
+  margin-left: 10rpx;
+}

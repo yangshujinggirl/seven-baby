@@ -1,7 +1,7 @@
 // pages/editAddress/editAddress.js
 var http = require("../../utils/http.js");
 var config = require("../../utils/config.js");
-var index = [18, 0, 0];
+var areaindex = [10, 0, 0];
 
 var t = 0;
 var show = false;
@@ -19,17 +19,18 @@ Page({
     province: "",
     city: "",
     area: "",
-    provinceId: 0,
-    cityId: 0,
-    areaId: 0,
-    receiver: "",
+    provinceItem:{},cityItem:{},areaItem:{},
+    // provinceId: 0,
+    // cityId: 0,
+    // areaId: 0,
+    consignee: "",
     mobile: "",
-    addr: "",
+    address: "",
     addrId: 0
   },
 
   onLoad: function (options) {
-    if (options.addrId) {
+    if (options?.addrId) {
       wx.showLoading();
       var params = {
         url: "/p/address/addrInfo/" + options.addrId,
@@ -63,26 +64,15 @@ Page({
     var ths = this;
     wx.showLoading();
     var params = {
-      url: "/p/area/listByPid",
+      url: "/common/area-list",
       method: "GET",
-      data: {
-        pid: 0
-      },
       callBack: function (res) {
-        //console.log(res)
+        const { data } =res;
         ths.setData({
-          provArray: res
+          provArray: data?.areaList,
+          value:areaindex
         });
-        if (provinceId) {
-          for (var index in res) {
-            if (res[index].areaId == provinceId) {
-              ths.setData({
-                value: [index, ths.data.value[1], ths.data.value[2]]
-              });
-            }
-          }
-        }
-        ths.getCityArray(provinceId ? provinceId : res[0].areaId, cityId, areaId);
+        ths.formatArea('prov',areaindex[0]);
         wx.hideLoading();
       }
     }
@@ -99,38 +89,49 @@ Page({
   //滑动事件
   bindChange: function (e) {
     var ths = this;
-    var val = e.detail.value
-
+    var val = e.detail.value;
     //判断滑动的是第几个column
     //若省份column做了滑动则定位到地级市和区县第一位
-    if (index[0] != val[0]) {
+    if (areaindex[0] != val[0]) {
       val[1] = 0;
       val[2] = 0;
-      //更新数据
-      ths.getCityArray(this.data.provArray[val[0]].areaId);//获取地级市数据
+      this.formatArea('prov',val[0]);
     } else {    //若省份column未做滑动，地级市做了滑动则定位区县第一位
-      if (index[1] != val[1]) {
+      if (areaindex[1] != val[1]) {
         val[2] = 0;
-        //更新数据
-        ths.getAreaArray(this.data.cityArray[val[1]].areaId);//获取区县数据
-      } else {
-
-      }
+        this.formatArea('city',val[1]);
+      } 
     }
-    index = val;
+    areaindex = val;
     this.setData({
-      value: [val[0], val[1], val[2]],
-    })
-    ths.setData({
-      province: ths.data.provArray[ths.data.value[0]].areaName,
-      city: ths.data.cityArray[ths.data.value[1]].areaName,
-      area: ths.data.areaArray[ths.data.value[2]].areaName,
-      provinceId: ths.data.provArray[ths.data.value[0]].areaId,
-      cityId: ths.data.cityArray[ths.data.value[1]].areaId,
-      areaId: ths.data.areaArray[ths.data.value[2]].areaId
+      value: val,
     })
   },
-
+  formatArea:function(areaType,index){
+    const { provArray, cityArray, areaArray,provinceItem,cityItem,areaItem } =this.data;
+    let cityArr = cityArray,areaArr = areaArray;
+    if(areaType === 'prov') {
+      let proItem = provArray[index];
+      cityArr = proItem.city;
+      areaArr = cityArr[0].district;
+    }else if(areaType === 'city') {
+      let cityItem = cityArray[index];
+      areaArr = cityItem.district;
+    }
+    this.setData({
+      cityArray:cityArr,
+      areaArray:areaArr,
+    })
+  },
+  //确定选中地址
+  onSelectArea:function(areaType,index){
+    const { provArray, cityArray, areaArray,value } =this.data;
+    this.setData({
+      provinceItem:provArray[value[0]],
+      cityItem:cityArray[value[1]],
+      areaItem:areaArray[value[2]],
+    })
+  },
   onReady: function () {
     this.animation = wx.createAnimation({
       transformOrigin: "50% 50%",
@@ -165,12 +166,12 @@ Page({
   },
   //隐藏弹窗浮层
   hiddenFloatView(e) {
-    //console.log(e);
+    console.log('hiddenFloatView',e);
     moveY = 200;
     show = true;
     t = 0;
     this.animationEvents(this, moveY, show);
-
+    this.onSelectArea()
   },
 
   //动画事件
@@ -197,7 +198,7 @@ Page({
   getCityArray: function (provinceId, cityId, areaId) {
     var ths = this;
     var params = {
-      url: "/p/area/listByPid",
+      url: "/common/area-list",
       method: "GET",
       data: {
         pid: provinceId
@@ -290,11 +291,8 @@ Page({
    */
   onSaveAddr: function () {
     var ths = this;
-    var receiver = ths.data.receiver;
-    var mobile = ths.data.mobile;
-    var addr = ths.data.addr;
-
-    if (!receiver) {
+    const { consignee, mobile, address,provinceItem,cityItem,areaItem } =ths.data;
+    if (!consignee) {
       wx.showToast({
         title: '请输入收货人姓名',
         icon: "none"
@@ -316,7 +314,7 @@ Page({
       })
       return;
     }
-    if (!addr) {
+    if (!address) {
       wx.showToast({
         title: '请输入详细地址',
         icon: "none"
@@ -325,7 +323,7 @@ Page({
     }
 
     wx.showLoading();
-    var url = "/p/address/addAddr";
+    var url = "/address";
     var method = "POST";
     if (ths.data.addrId != 0) {
       url = "/p/address/updateAddr";
@@ -336,17 +334,12 @@ Page({
       url: url,
       method: method,
       data: {
-        receiver: ths.data.receiver,
-        mobile: ths.data.mobile,
-        addr: ths.data.addr,
-        province: ths.data.province,
-        provinceId: ths.data.provinceId,
-        city: ths.data.city,
-        cityId: ths.data.cityId,
-        areaId: ths.data.areaId,
-        area: ths.data.area,
-        userType: 0,
-        addrId: ths.data.addrId
+        consignee,
+        mobile,
+        address,
+        provinceId: provinceItem.adcode,
+        cityId: cityItem.adcode,
+        districtId: areaItem.adcode,
       },
       callBack: function (res) {
         wx.hideLoading();
@@ -357,11 +350,15 @@ Page({
     }
     http.request(params);
   },
+  tskl:function(){
+    console.log('qwwwwww')
+  },
 
   onReceiverInput: function (e) {
-    this.setData({
-      receiver: e.detail.value
-    });
+    console.log('e',e)
+    // this.setData({
+    //   receiver: e.detail.value
+    // });
   },
 
   onMobileInput: function (e) {

@@ -49,6 +49,10 @@ page {
   border-radius:30rpx;
   background-color: #EB5412;
 }
+.settings-icon {
+  width:40rpx;
+  height: 40rpx;
+}
 
 .binding-phone {
   position: relative;

@@ -11,7 +11,9 @@
         <view wx:if="{{userRole === '2'}}" class="promote-status">推广者</view>
       </view>
     </view>
-    <view>设置</view>
+    <view bindtap='toSettings'>
+      <image src='../../images/account/settings.png' class="settings-icon"></image>
+    </view>
   </view>
   <!-- <view class='binding-phone'>
     <text class='show-tip'>绑定手机号后可查看订单和领取优惠券，</text>
@@ -68,7 +70,7 @@
         </view>
       </view>
       <view class='procedure'  wx:else>
-        <view class='items' bindtap='toOrderListPage' data-sts="1" wx:for="{{funcList}}" wx:key="index">
+        <view class='items' bindtap='{{item.action}}' data-sts="1" wx:for="{{funcList}}" wx:key="index">
           <image src='{{item.icon}}'></image>
           <text>{{item.name}}</text>
         </view>

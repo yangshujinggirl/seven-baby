@@ -52,6 +52,7 @@ Page({
   //加载地址列表
   onShow: function () {
     wx.showLoading();
+    const ths = this;
     var params = {
       url: "/address",
       method: "GET",
@@ -61,9 +62,9 @@ Page({
         const {error, data} = res
         if (error === 0) {
           console.log('address:', data);
-          // ths.setData({
-          //   addressList: res
-          // });
+          ths.setData({
+            addressList: data.list
+          });
           wx.hideLoading();
         }
       }
