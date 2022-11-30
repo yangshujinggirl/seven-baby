@@ -66,22 +66,22 @@
   </view>
   <view class='hot-sale'>
     <view class='hotsale-item-cont'>
-      <block wx:for="{{leak}}" wx:for-item="prod" wx:key="prodGoods">
-        <view class='prod-items' bindtap='toProdPage' data-prodid="{{prod.navId}}">
+      <block wx:for="{{prodList}}" wx:for-item="prod" wx:key="prodGoods">
+        <view class='prod-items' bindtap='toProdPage' data-prodid="{{prod.goodsId}}">
           <view class='hot-imagecont'>
-            <image src='{{prod.navImage}}' class='hotsaleimg'></image>
+            <image src='{{prod.mainImage}}' class='hotsaleimg'></image>
           </view>
           <view class='hot-text'>
-            <view class='hotprod-text'>{{prod.navName}}</view>
+            <view class='hotprod-text'>{{prod.goodsName}}</view>
             <view class='prod-text-info'>
               <view class='singal-price'>
                 <text>￥</text>
-                <text>{{100.00}}</text>
+                <text>{{prod.retailPrice}}</text>
               </view>
               <view class='price'>
                 <text class='symbol'>￥</text>
-                <text class='big-num'>{{wxs.parsePrice(125.0)[0]}}</text>
-                <text class='small-num'>.{{wxs.parsePrice(125.0)[1]}}</text>
+                <text class='big-num'>{{wxs.parsePrice(prod.salePrice)[0]}}</text>
+                <text class='small-num'>.{{wxs.parsePrice(prod.salePrice)[1]}}</text>
               </view>
             </view>
           </view>
