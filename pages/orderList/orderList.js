@@ -17,13 +17,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (options.sts) {
+    if (options?.sts) {
       this.setData({
         sts: options.sts
       });
       this.loadOrderData(options.sts, 1);
     } else {
-      this.loadOrderData(0, 1);
+      this.loadOrderData(this.data.sts, 1);
     }
   },
 
@@ -43,73 +43,9 @@ Page({
         orderStatus: sts,
       },
       callBack: function(res) {
-        //console.log(res);
-        var list = [];
-        if (res.current == 1) {
-          list = res.records;
-        } else {
-          list = ths.data.list;
-          Array.prototype.push.apply(list, res.records);
-        }
-        list=[
-          {
-            status:6,
-            orderId:1,
-            supplierName:'七个宝宝备份',
-            goodsNum:'4',
-            totalAmount:20,
-            orderStatus:50,
-            orderStatusShow:'待付款',
-            goods:[
-              {
-                goodsId:'12',
-                goodsName:'南极男士背心夏季纯棉运动白色打底衫',
-                mainImage:'../../images/account/customer_kf.png',
-                attrValue:'L50',
-                goodsNum:'2',
-              },{
-                goodsId:'12344',
-                goodsName:'南极男士背心夏季纯棉运动白色打底衫备份',
-                mainImage:'../../images/account/customer_kf.png',
-                attrValue:'L70',
-                goodsNum:'2',
-              }
-            ],
-            button:[
-              {
-                action:'cancel',
-                name:'取消订单'
-              },{
-                action:'payMent',
-                name:'立即支付'
-              },
-            ]
-          },{
-            orderId:1,
-            supplierName:'七个宝宝备份',
-            goodsNum:'4',
-            totalAmount:20,
-            orderStatus:50,
-            orderStatusShow:'待付款',
-            goods:[
-              {
-                goodsId:'12',
-                goodsName:'南极男士背心夏季纯棉运动白色打底衫',
-                mainImage:'../../images/account/customer_kf.png',
-                attrValue:'L50',
-                goodsNum:'2',
-              },{
-                goodsId:'12344',
-                goodsName:'南极男士背心夏季纯棉运动白色打底衫备份',
-                mainImage:'../../images/account/customer_kf.png',
-                attrValue:'L70',
-                goodsNum:'2',
-              }
-            ],
-          }
-        ]
+        console.log('res?.data?.list',res?.data?.list)
         ths.setData({
-          list: list,
+          list: res?.data?.list||[],
           pages: res.pages,
           current: res.current
         });
@@ -272,6 +208,7 @@ Page({
    * 查看订单详情
    */
   toOrderDetailPage: function(e) {
+    console.log('e',e)
     wx.navigateTo({
       url: '/pages/order-detail/order-detail?orderNum=' + e.currentTarget.dataset.ordernum,
     })

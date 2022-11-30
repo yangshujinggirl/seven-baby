@@ -31,7 +31,7 @@
         <!-- 一个订单单个商品的显示 -->
           <block wx:for="{{item.goods}}" wx:for-item="prod" wx:key='goodsId'>
             <view>
-              <view class='item-cont' bindtap='toOrderDetailPage' data-ordernum="{{item.orderNumber}}">
+              <view class='item-cont' bindtap='toOrderDetailPage' data-ordernum="{{item.orderId}}">
                 <view class='prod-pic'>
                   <image src='{{prod.mainImage}}'></image>
                 </view>
@@ -64,7 +64,7 @@
           <text class="prodcount">共{{item.goodsNum}}件商品</text>
           <view class='prodprice'>合计：
             <text class='symbol'>￥</text>
-            <text class='big-num'>{{wxs.parsePrice(item.totalAmount)}}</text>
+            <text class='big-num'>{{wxs.parsePrice(Number(item.totalAmount))}}</text>
           </view>
         </view>
         <!-- end 商品列表 -->
