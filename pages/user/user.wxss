@@ -35,9 +35,19 @@ page {
 }
 
 .userinfo .userinfo-name {
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: bold;
   margin-left: 20rpx;
+  line-height: 44rpx;
+}
+.userinfo .promote-status {
+  width: 80rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  color: #fff;
+  font-size: 16rpx;
+  border-radius:30rpx;
+  background-color: #EB5412;
 }
 
 .binding-phone {
@@ -141,6 +151,16 @@ page {
 .list .customer-center .order-tit,
 .list-cont .normal-func .order-tit {
   border: none;
+}
+.list-cont .normal-func .procedure{
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-height: 160rpx;
+  height: auto;
+}
+.list-cont .normal-func .procedure .items {
+  width: 25%;
+  margin-bottom: 30rpx;
 }
 .list-cont .customer-center .procedure{
   justify-content: flex-start;
