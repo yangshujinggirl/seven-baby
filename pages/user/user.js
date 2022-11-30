@@ -2,7 +2,7 @@
 
 var http = require("../../utils/http.js");
 const app = getApp()
-console.log('app',app)
+
 Page({
 
   /**
@@ -13,7 +13,7 @@ Page({
     sts: '',
     collectionCount: 0,
     recommendList:[],
-    userRole:app.globalData.userRole || '2',
+    userRole:app.globalData.roleId || '2',
     funcList:[
       {
         name:'评论互动',
