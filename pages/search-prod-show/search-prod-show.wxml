@@ -33,18 +33,17 @@
 
     <!-- 纵向列表 -->
     <view class='cont-item' wx:if="{{showType==2}}">
-      <block wx:for='{{searchProdList}}' wx:key=''>
-        <view class='show-item' bindtap='toProdPage' data-prodid="{{item.prodId}}">
+      <block wx:for='{{searchProdList}}' wx:key='id'>
+        <view class='show-item' bindtap='toProdPage' data-prodid="{{item.goodsId}}">
           <view class='more-prod-pic'>
-            <image src='{{item.pic}}' class='more-pic'></image>
+            <image src='{{item.mainImage}}' class='more-pic'></image>
           </view>
           <view class='prod-text-right'>
-            <view class='prod-text more'>{{item.prodName}}</view>
-            <view class='cate-prod-info'>{{item.praiseNumber}}评价 {{item.positiveRating}}%好评</view>
+            <view class='prod-text more'>{{item.goodsName}}</view>
             <view class='prod-price more'>
               <text class='symbol'>￥</text>
-              <text class='big-num'>{{wxs.parsePrice(item.price)[0]}}</text>
-              <text class='small-num'>.{{wxs.parsePrice(item.price)[1]}}</text>
+              <text class='big-num'>{{wxs.parsePrice(item.salePrice)[0]}}</text>
+              <text class='small-num'>.{{wxs.parsePrice(item.salePrice)[1]}}</text>
             </view>
           </view>
         </view>

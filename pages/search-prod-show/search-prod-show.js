@@ -60,18 +60,18 @@ Page({
     var ths = this;
     //热门搜索
     var params = {
-      url: "/search/searchProdPage",
+      url: "/goods",
       method: "GET",
       data: {
-        current: 1,
-        prodName: this.data.prodName,
-        size: 10,
-        sort: this.data.sts
+        page: 1,
+        keywords: this.data.prodName,
       },
       callBack: function (res) {
-        ths.setData({
-          searchProdList: res.records,
-        });
+        if (res.error === 0) {
+          ths.setData({
+            searchProdList: res.data.list,
+          });
+        }
       },
     };
     http.request(params);

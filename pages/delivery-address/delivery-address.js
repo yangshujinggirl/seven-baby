@@ -58,10 +58,8 @@ Page({
       method: "GET",
       data: {},
       callBack: res => {
-        console.log('res:',res);
         const {error, data} = res
         if (error === 0) {
-          console.log('address:', data);
           ths.setData({
             addressList: data.list
           });
