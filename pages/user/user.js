@@ -1,6 +1,8 @@
 // pages/user/user.js
 
 var http = require("../../utils/http.js");
+const app = getApp()
+console.log('app',app)
 Page({
 
   /**
@@ -10,7 +12,61 @@ Page({
     orderAmount: '',
     sts: '',
     collectionCount: 0,
-    recommendList:[]
+    recommendList:[],
+    userRole:app.globalData.userRole || '2',
+    funcList:[
+      {
+        name:'评论互动',
+        icon:'../../images/account/func_pl.png',
+        linkUrl:''
+      },{
+        name:'我的收藏',
+        icon:'../../images/account/func_sc.png',
+        linkUrl:''
+      },{
+        name:'收货地址',
+        icon:'../../images/account/func_dz.png',
+        linkUrl:''
+      },{
+        name:'我要推广',
+        icon:'../../images/account/func_tg.png',
+        linkUrl:''
+      }],
+      otherFuncList:[
+        {
+          name:'佣金商品',
+          icon:'../../images/account/func_yjsp.png',
+          linkUrl:''
+        },{
+          name:'推广订单',
+          icon:'../../images/account/func_tgdd.png',
+          linkUrl:''
+        },{
+          name:'推荐会员',
+          icon:'../../images/account/func_tjhy.png',
+          linkUrl:''
+        },{
+          name:'推广码',
+          icon:'../../images/account/func_tgm.png',
+          linkUrl:''
+        },{
+          name:'提现管理',
+          icon:'../../images/account/func_txgl.png',
+          linkUrl:''
+        },{
+          name:'社区管理',
+          icon:'../../images/account/func_sqgl.png',
+          linkUrl:''
+        },{
+          name:'我的收藏',
+          icon:'../../images/account/func_sc.png',
+          linkUrl:''
+        },{
+          name:'收货地址',
+          icon:'../../images/account/func_dz.png',
+          linkUrl:''
+        },
+      ]
   },
 
   /**
@@ -41,7 +97,6 @@ Page({
       method: "GET",
       data: {},
       callBack: function(res) {
-        console.log('res',res)
         wx.hideLoading();
         ths.setData({
           orderAmount: res,

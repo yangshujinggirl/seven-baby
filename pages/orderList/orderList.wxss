@@ -18,6 +18,8 @@ page {
   line-height: 100rpx;
   background-color: #fff;
   border-bottom: 2rpx solid #f4f4f4;
+  overflow-x:auto;
+  flex-wrap: nowrap;
 }
 
 .order-tit text {

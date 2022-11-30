@@ -3,11 +3,14 @@
 <view class='container'>
   <!-- 头部菜单 -->
   <view class='order-tit'>
-    <text bindtap='onStsTap' data-sts="0" class="{{sts==0?'on':''}}">全部</text>
-    <text bindtap='onStsTap' data-sts="1" class="{{sts==1?'on':''}}">待支付</text>
-    <text bindtap='onStsTap' data-sts="2" class="{{sts==2?'on':''}}">待发货</text>
-    <text bindtap='onStsTap' data-sts="3" class="{{sts==3?'on':''}}">待收货</text>
-    <text bindtap='onStsTap' data-sts="5" class="{{sts==5?'on':''}}">已完成</text>
+    <text bindtap='onStsTap' data-sts="99" class="{{sts==0?'on':''}}">全部</text>
+    <text bindtap='onStsTap' data-sts="0" class="{{sts==1?'on':''}}">待付款</text>
+    <text bindtap='onStsTap' data-sts="20" class="{{sts==2?'on':''}}">待发货</text>
+    <text bindtap='onStsTap' data-sts="60" class="{{sts==3?'on':''}}">待收货</text>
+    <text bindtap='onStsTap' data-sts="70" class="{{sts==5?'on':''}}">已完成</text>
+    <text bindtap='onStsTap' data-sts="10" class="{{sts==1?'on':''}}">已取消</text>
+    <text bindtap='onStsTap' data-sts="30" class="{{sts==1?'on':''}}">退款中</text>
+    <text bindtap='onStsTap' data-sts="50" class="{{sts==1?'on':''}}">已退款</text>
   </view>
   <!-- end 头部菜单 -->
   <view class='main'>
