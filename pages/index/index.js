@@ -106,18 +106,47 @@ Page({
 
   // 加载商品列表
   getGoodsList() {
+    wx.showLoading();
     var params = {
       url: "/index/recommend",
       method: "GET",
-      data: {},
+      data: {
+        page:this.data.current
+      },
       callBack: (res) => {
-        console.log('res:',res);
-        // this.setData({
-        //   taglist: res,
-        // })
+        let prodList = []
+        const {data, error} = res
+        if (error === 0) {
+          const {current, list, pageTotal} = data
+          if (current == 1) {
+            prodList = list
+          } else {
+            prodList = this.data.prodList
+            prodList = prodList.concat(list)
+          }
+          this.setData({
+            prodList,
+            current:parseInt(current),
+            pages: current == 1 ? pageTotal : this.data.pages
+          });
+        }
+        wx.hideLoading();
       }
     };
     http.request(params);
+  },
+
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+   onReachBottom: function() {
+    if (this.data.current < this.data.pages) {
+      this.setData({
+        current: this.data.current + 1
+      })
+      this.getGoodsList()
+    }
   },
 
   onPullDownRefresh: function() {
