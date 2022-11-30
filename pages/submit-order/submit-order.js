@@ -45,81 +45,56 @@ Page({
     wx.showLoading({
       mask: true
     });
+    let goods = this.data.orderEntry === "0" ? JSON.parse(wx.getStorageSync("basketIds")) : JSON.parse(wx.getStorageSync("orderItem"))
     var params = {
-      url: "/p/order/confirm",
+      url: "/order/confirm",
       method: "POST",
       data: {
-        addrId: addrId,
-        orderItem: this.data.orderEntry === "1" ? JSON.parse(wx.getStorageSync("orderItem")) : undefined,
-        basketIds: this.data.orderEntry === "0" ? JSON.parse(wx.getStorageSync("basketIds")) : undefined,
-        couponIds: this.data.couponIds,
-        userChangeCoupon: 1
+        addrId,
+        goods
       },
       callBack: res => {
         wx.hideLoading();
-        let orderItems = [];
+        console.log('corf:', res);
+        // let orderItems = [];
+        // res.shopCartOrders[0].shopCartItemDiscounts.forEach(itemDiscount => {
+        //   orderItems = orderItems.concat(itemDiscount.shopCartItems)
+        // })
+        // if (res.shopCartOrders[0].coupons) {
+        //   let canUseCoupons = []
+        //   let unCanUseCoupons = []
+        //   res.shopCartOrders[0].coupons.forEach(coupon => {
+        //     if (coupon.canUse) {
+        //       canUseCoupons.push(coupon)
+        //     } else {
+        //       unCanUseCoupons.push(coupon)
+        //     }
+        //   })
+        //   this.setData({
+        //     coupons: {
+        //       totalLength: res.shopCartOrders[0].coupons.length,
+        //       canUseCoupons: canUseCoupons,
+        //       unCanUseCoupons: unCanUseCoupons
+        //     }
+        //   })
+        // }
 
-        res.shopCartOrders[0].shopCartItemDiscounts.forEach(itemDiscount => {
-          orderItems = orderItems.concat(itemDiscount.shopCartItems)
-        })
-        if (res.shopCartOrders[0].coupons) {
-          let canUseCoupons = []
-          let unCanUseCoupons = []
-          res.shopCartOrders[0].coupons.forEach(coupon => {
-            if (coupon.canUse) {
-              canUseCoupons.push(coupon)
-            } else {
-              unCanUseCoupons.push(coupon)
-            }
-          })
-          this.setData({
-            coupons: {
-              totalLength: res.shopCartOrders[0].coupons.length,
-              canUseCoupons: canUseCoupons,
-              unCanUseCoupons: unCanUseCoupons
-            }
-          })
-        }
-
-        this.setData({
-          orderItems: orderItems,
-          actualTotal: res.actualTotal,
-          total: res.total,
-          totalCount: res.totalCount,
-          userAddr: res.userAddr,
-          transfee: res.shopCartOrders[0].transfee,
-          shopReduce: res.shopCartOrders[0].shopReduce,
-        });
+        // this.setData({
+        //   orderItems: orderItems,
+        //   actualTotal: res.actualTotal,
+        //   total: res.total,
+        //   totalCount: res.totalCount,
+        //   userAddr: res.userAddr,
+        //   transfee: res.shopCartOrders[0].transfee,
+        //   shopReduce: res.shopCartOrders[0].shopReduce,
+        // });
       },
       errCallBack: res => {
-        wx.hideLoading();
-        this.chooseCouponErrHandle(res)
+        wx.hideLoading()
       }
     };
     http.request(params);
 
-  },
-
-  /**
-   * 优惠券选择出错处理方法
-   */
-  chooseCouponErrHandle(res) {
-    // 优惠券不能共用处理方法
-    if (res.statusCode == 601) {
-      wx.showToast({
-        title: res.data,
-        icon: "none",
-        duration: 3000,
-        success: res => {
-          this.setData({
-            couponIds: []
-          })
-        }
-      })
-      setTimeout(() => {
-        this.loadOrderData();
-      }, 2500)
-    }
   },
 
   onRemarksInput: function (e) {
@@ -216,6 +191,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // var params = {
+    //   url: "/p/address/defaultAddr/" + addrId,
+    //   method: "PUT",
+    //   data: {
+    //     addrId:addrId
+    //      },
+    //   callBack: function (res) {
+    //     wx.hideLoading();
+
+    //   }
+    // }
+    // http.request(params);
+
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];
     if (currPage.data.selAddress == "yes") {

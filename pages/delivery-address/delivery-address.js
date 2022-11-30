@@ -51,23 +51,23 @@ Page({
 
   //加载地址列表
   onShow: function () {
-    var ths = this;
     wx.showLoading();
-
-
-      var params = {
-        url: "/p/address/list",
-        method: "GET",
-        data: {},
-        callBack: function (res) {
-          //console.log(res)
-          ths.setData({
-            addressList: res
-          });
+    var params = {
+      url: "/address",
+      method: "GET",
+      data: {},
+      callBack: res => {
+        console.log('res:',res);
+        const {error, data} = res
+        if (error === 0) {
+          console.log('address:', data);
+          // ths.setData({
+          //   addressList: res
+          // });
           wx.hideLoading();
         }
       }
-    
+    };
     http.request(params);
   },
 
