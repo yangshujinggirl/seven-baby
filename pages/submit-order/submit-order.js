@@ -19,8 +19,6 @@ Page({
       noCanUseCoupons: []
     },
     actualTotal: 0,
-    total: 0,
-    totalCount: 0,
     transfee: 0,
     reduceAmount: 0,
     remark: "",
@@ -56,38 +54,31 @@ Page({
       callBack: res => {
         wx.hideLoading();
         console.log('corf:', res);
-        // let orderItems = [];
-        // res.shopCartOrders[0].shopCartItemDiscounts.forEach(itemDiscount => {
-        //   orderItems = orderItems.concat(itemDiscount.shopCartItems)
-        // })
-        // if (res.shopCartOrders[0].coupons) {
-        //   let canUseCoupons = []
-        //   let unCanUseCoupons = []
-        //   res.shopCartOrders[0].coupons.forEach(coupon => {
-        //     if (coupon.canUse) {
-        //       canUseCoupons.push(coupon)
-        //     } else {
-        //       unCanUseCoupons.push(coupon)
-        //     }
-        //   })
-        //   this.setData({
-        //     coupons: {
-        //       totalLength: res.shopCartOrders[0].coupons.length,
-        //       canUseCoupons: canUseCoupons,
-        //       unCanUseCoupons: unCanUseCoupons
-        //     }
-        //   })
-        // }
-
-        // this.setData({
-        //   orderItems: orderItems,
-        //   actualTotal: res.actualTotal,
-        //   total: res.total,
-        //   totalCount: res.totalCount,
-        //   userAddr: res.userAddr,
-        //   transfee: res.shopCartOrders[0].transfee,
-        //   shopReduce: res.shopCartOrders[0].shopReduce,
-        // });
+        const {error, data} = res
+        if (error === 0) {
+          const { address, count, list } = data
+          const expressAmountArr = list.map(item => item.expressAmount)
+          let expressAmountSum = 0
+          expressAmountArr.forEach(item => {expressAmountSum+=item})
+          this.setData({
+            orderItems: list.map(item=>{
+              const goods = item.goods.map(ele=>{
+                ele.salePrice = Number(ele.salePrice)
+                return ele
+              })
+              return {
+                goods,
+                expressAmount: item.expressAmount,
+                goodsAmount: item.goodsAmount,
+                goodsNum: item.goodsNum,
+                supplierId: item.supplierId
+              }
+            }),
+            actualTotal: count,
+            userAddr: address,
+            transfee: expressAmountSum
+          });
+        }
       },
       errCallBack: res => {
         wx.hideLoading()
