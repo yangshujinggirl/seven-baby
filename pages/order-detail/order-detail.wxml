@@ -1,7 +1,7 @@
 <!--pages/order-detail/order-detail.wxml-->
 
 <view class='container'>
-  <view class="banner">{{order.orderStatusShow||'已取消'}}</view>
+  <view class="banner">{{order.orderStatusShow}}</view>
   <view class='order-detail'>
     <view class='delivery-addr'>
     <image src="../../images/order/address.png" class="address"></image>
