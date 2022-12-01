@@ -1,0 +1,151 @@
+page {
+  background-color: #f7f7f7 !important;
+}
+/* 用户信息 */
+
+.userinfo {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  text-align: center;
+  padding:20rpx 30rpx 80rpx;
+  display: flex;
+  justify-content: space-between;
+  background-color: #FFE0D2;
+  align-items: center;
+  box-sizing: border-box;
+}
+.userinfo .lf {
+  display: flex;
+  align-items: center;
+}
+
+.userinfo .userinfo-avatar {
+  overflow: hidden;
+  display: block;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  margin: auto;
+}
+
+.userinfo .userinfo-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-left: 20rpx;
+  line-height: 44rpx;
+}
+.userinfo .promote-status {
+  width: 80rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  color: #fff;
+  font-size: 16rpx;
+  border-radius:30rpx;
+  background-color: #EB5412;
+}
+.content  {
+  width: 96%;
+  margin: 0 auto;
+  position: relative;
+  top: -60rpx;
+}
+.content .part-one {
+  background: #fff;
+  padding: 30rpx 20rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+}
+.content .part-one .item {
+  width: 50%;
+  display: inline-block;
+  margin-bottom: 30rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #000;
+}
+
+.part-two {
+  border-radius: 12rpx;
+  background: #fff;
+  padding: 20rpx 20rpx 400rpx;
+}
+.part-two .title {
+  font-size: 28rpx;
+  color: #000;
+}
+.widthdraw-action {
+  display: flex;
+  justify-content: space-around;
+  padding: 60rpx 0;
+  border-bottom: 2rpx solid #B8B8B8;
+}
+.widthdraw-action  .unit {
+  width: 10%;
+  font-size: 48rpx;
+  font-weight: bold;
+  line-height: 66rpx;
+}
+.widthdraw-action  .number {
+  width: 70%;
+  height: 66rpx;
+  line-height: 66rpx;
+}
+.widthdraw-action .action {
+  width: 205;
+  height: 66rpx;
+  line-height: 66rpx;
+  color: #EB5412;
+}
+.part-two  .tips {
+  font-size: 28rpx;
+  color: #878787;
+  padding: 28rpx 0;
+  line-height: 40rpx;
+}
+/* 功能按钮 */
+
+.btn-box {
+  padding: 5px 2%;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: left;
+  box-sizing: border-box;
+  background:#fff ;
+}
+.btn-box  .checked-action {
+  font-size: 24rpx;
+  color: #8F8F8F;
+}
+
+.btn-box .keep {
+  width:100%;
+  text-align: center;
+  color: #fff;
+  height: 82rpx;
+  line-height: 82rpx;
+  border-radius: 12rpx;
+  background: #EB5412;
+  border-radius: 16rpx;
+  margin-top: 16rpx;
+  border: none;
+}
+/* .btn-box .keep::after {
+  bord
+} */
+/* end 功能按钮 */
+button[disabled]:not([type]) {
+  background: rgba(0,0,0,.2);
+}
+.infoText {
+  margin-top: 20rpx;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+}

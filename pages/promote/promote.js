@@ -252,6 +252,9 @@ Page({
           wx.showToast({
             title: res.message,
           })
+          wx.navigateTo({
+            url:'/pages/promotionCode/promotionCode'
+          })
         } else {
           wx.hideLoading();
           wx.navigateBack({

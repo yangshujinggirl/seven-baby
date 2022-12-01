@@ -22,7 +22,11 @@
     "pages/news-detail/news-detail",
     "pages/settings/settings",
     "pages/promote/promote",
-    "pages/customer/customer"
+    "pages/customer/customer",
+    "pages/promotionCode/promotionCode",
+    "pages/promoteStatus/promoteStatus",
+    "pages/recommend-member/recommend-member",
+    "pages/withdraw-manage/withdraw-manage"
   ],
   "window": {
     "backgroundTextStyle": "light",

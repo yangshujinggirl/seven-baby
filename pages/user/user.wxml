@@ -8,7 +8,7 @@
       </view>
       <view class='userinfo-name'>
         <open-data type="userNickName"></open-data>
-        <view wx:if="{{userRole === '2'}}" class="promote-status">推广者</view>
+        <view wx:if="{{userRole == '1'}}" class="promote-status">推广者</view>
       </view>
     </view>
     <view bindtap='toSettings'>
@@ -63,7 +63,7 @@
       <view class='order-tit'>
         <text style='font-weight:bold'>常用功能</text>
       </view>
-      <view class='procedure'  wx:if="{{userRole === '2'}}">
+      <view class='procedure'  wx:if="{{userRole == '1'}}">
         <view class='items' bindtap='handleOperate' data-linkUrl="{{item.linkUrl}}" data-action="{{item.action}}" wx:for="{{otherFuncList}}" wx:key="index">
           <image src='{{item.icon}}'></image>
           <text>{{item.name}}</text>

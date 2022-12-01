@@ -1,0 +1,19 @@
+page {
+  background-color: #f7f7f7 !important;
+}
+.promote-status {
+  width: 78%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 40rpx;
+  color: #000;
+  line-height: 56rpx;
+  padding: 110rpx 0 0;
+}
+.title {
+  font-weight: 500;
+  color: #000000;
+  line-height: 74rpx;
+  font-size: 52rpx;
+  margin-bottom: 40rpx;
+}
