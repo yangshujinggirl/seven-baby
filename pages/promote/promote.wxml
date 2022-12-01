@@ -1,6 +1,6 @@
 <!--pages/editAddress/editAddress.wxml-->
 
-<view class='container'>
+<view class='tg-container'>
   <!--input列表 -->
   <view class='input-box'>
     <view class="section">
@@ -51,7 +51,7 @@
     </view>
     <view class="section advantage">
       <text>个人优势</text>
-      <textarea placeholder="填写个人成为推广者的优势：例如是母婴门店" name="advantage"/>
+      <textarea placeholder="填写个人成为推广者的优势：例如是母婴门店" name="advantage" model:value="{{advantage}}"/>
     </view>
   </view>
   <!-- 身份证件 -->
@@ -59,19 +59,25 @@
       <view class="card-title">
         <text>身份证件<text class="desc">(请上传身份证正反面)</text></text>
       </view>
-      <view class="upload">+</view>
-      <view class="upload">+</view>
+      <view class="upload" bindtap="uoloadFile" data-card="idCardFront">
+        <image src="{{idCardFront}}"></image>
+        <text class="plus-icon">+</text>
+      </view>
+      <view class="upload" bindtap="uoloadFile" data-card="idCardBack">
+        <image src="{{idCardBack}}"></image>
+        <text class="plus-icon">+</text>
+      </view>
     </view>
   <!-- end input列表 -->
   <!-- 功能按钮 -->
   <view class='btn-box'>
-    <label class="checked-action">
-      <radio value="isChecked" checked="{{isChecked}}" color="#EB5412" />
-      我已阅读并接受《七个宝宝申请推广协议》
-    </label>
-    <view class='keep' bindtap='onSaveAddr'>
-      <text>去推广</text>
-    </view>
+    <checkbox-group bindchange="switchChange">
+      <label class="checked-action">
+        <checkbox value="isChecked" checked="{{isChecked}}" color="#EB5412"/>
+        我已阅读并接受《七个宝宝申请推广协议》
+      </label>
+    </checkbox-group>
+    <button disabled="{{!isChecked}}" class='keep' bindtap='onSaveAddr'>去推广</button>
   </view>
   <!-- end 功能按钮 -->
 </view>

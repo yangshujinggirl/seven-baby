@@ -16,11 +16,12 @@ Page({
     cityArray: [],
     areaArray: [],
     provinceItem:{},cityItem:{},areaItem:{},
-    consignee: "",
+    truename: "",
     mobile: "",
-    address: "",
-    isDefault:0,
-    addrId: null
+    detailAddress: "",
+    isChecked:0,
+    idCardFront:'',
+    idCardBack:''
   },
 
   onLoad: function (options) {
@@ -78,7 +79,8 @@ Page({
 
   },
   switchChange:function(e){
-    this.setData({isDefault:e?.detail?.value?1:0})
+    console.log('3')
+    this.setData({isChecked:!this.data.isChecked})
   },
   //滑动事件
   bindChange: function (e) {
@@ -185,93 +187,6 @@ Page({
     })
 
   },
-
-  /**
-   * 根据省份ID获取 城市数据
-   */
-  getCityArray: function (provinceId, cityId, areaId) {
-    var ths = this;
-    var params = {
-      url: "/common/area-list",
-      method: "GET",
-      data: {
-        pid: provinceId
-      },
-      callBack: function (res) {
-        //console.log(res)
-        ths.setData({
-          cityArray: res
-        });
-        if (cityId) {
-          for (var index in res) {
-            if (res[index].areaId == cityId) {
-              ths.setData({
-                value: [ths.data.value[0], index, ths.data.value[2]]
-              });
-            }
-          }
-        }
-        ths.getAreaArray(cityId ? cityId : res[0].areaId, areaId);
-        wx.hideLoading();
-      }
-    }
-    http.request(params);
-  },
-
-  /**
-    * 根据城市ID获取 区数据
-    */
-  getAreaArray: function (cityId, areaId) {
-    var ths = this;
-    var params = {
-      url: "/p/area/listByPid",
-      method: "GET",
-      data: {
-        pid: cityId
-      },
-      callBack: function (res) {
-        //console.log(res)
-        ths.setData({
-          areaArray: res
-        });
-        if (areaId) {
-
-          for (var _index in res) {
-            if (res[_index].areaId == areaId) {
-              ths.setData({
-                value: [ths.data.value[0], ths.data.value[1], _index]
-              });
-            }
-          }
-
-          index = ths.data.value;
-
-          ths.setData({
-            province: ths.data.province,
-            city: ths.data.city,
-            area: ths.data.area,
-            provinceId: ths.data.provinceId,
-            cityId: ths.data.cityId,
-            areaId: ths.data.areaId
-          })
-
-        } else {
-          ths.setData({
-            province: ths.data.provArray[ths.data.value[0]].areaName,
-            city: ths.data.cityArray[ths.data.value[1]].areaName,
-            area: ths.data.areaArray[ths.data.value[2]].areaName,
-            provinceId: ths.data.provArray[ths.data.value[0]].areaId,
-            cityId: ths.data.cityArray[ths.data.value[1]].areaId,
-            areaId: ths.data.areaArray[ths.data.value[2]].areaId
-          })
-        }
-
-        wx.hideLoading();
-      }
-    }
-    http.request(params);
-  },
-
   bindRegionChange: function (e) {
     //console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -283,8 +198,8 @@ Page({
    */
   onSaveAddr: function () {
     var ths = this;
-    const { isDefault,consignee, mobile, address,provinceItem,cityItem,areaItem } =ths.data;
-    if (!consignee) {
+    const { truename, mobile, detailAddress,idCardFront, idCardBack, advantage,provinceItem,cityItem,areaItem } =ths.data;
+    if (!truename) {
       wx.showToast({
         title: '请输入收货人姓名',
         icon: "none"
@@ -306,7 +221,7 @@ Page({
       })
       return;
     }
-    if (!address) {
+    if (!detailAddress) {
       wx.showToast({
         title: '请输入详细地址',
         icon: "none"
@@ -315,37 +230,41 @@ Page({
     }
 
     wx.showLoading();
-    var url = "/address";
+    var url = "/promoter";
     var method = "POST";
-    const { addrId } =ths.data;
-    if (addrId) {
-      url = `/address/${addrId}`;
-      method = "PUT";
-    }
     //添加或修改地址
     var params = {
       url: url,
       method: method,
       data: {
-        consignee,
-        mobile,
-        address,
+        truename, 
+        mobile, 
+        detailAddress,
+        idCardFront, 
+        idCardBack, 
+        advantage,
         provinceId: provinceItem.adcode,
         cityId: cityItem.adcode,
         districtId: areaItem.adcode,
-        isDefault
       },
       callBack: function (res) {
-        wx.hideLoading();
-        wx.navigateBack({
-          delta: 1
-        })
+        if(res.error) {
+          wx.showToast({
+            title: res.message,
+          })
+        } else {
+          wx.hideLoading();
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+        
       }
     }
     http.request(params);
   },
    //删除配送地址
-   onDeleteAddr: function (e) {
+  onDeleteAddr: function (e) {
     var ths = this;
     wx.showModal({
       title: '',
@@ -373,4 +292,27 @@ Page({
       }
     })
   },
+  uoloadFile:function(e) {
+    const _this = this;
+    const  card = e.currentTarget.dataset.card;
+    wx.chooseMedia({
+      success (res) {
+        const tempFilePaths = res.tempFiles
+        wx.uploadFile({
+          url: 'https://api.qigebaobao.com/api/common/upload-image', //仅为示例，非真实的接口地址
+          filePath: tempFilePaths[0].tempFilePath,
+          name: 'file',
+          formData: {
+            'sourceType': 'member-idcard'
+          },
+          success (res){
+            let data = res.data;
+            data = JSON.parse(data);
+            console.log('card1',res)
+            _this.setData({[card]:data.data?.imageUrl})
+          }
+        })
+      }
+    })
+  }
 })

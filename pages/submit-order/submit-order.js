@@ -77,11 +77,9 @@ Page({
             actualTotal: count,
             transfee: expressAmountSum
           });
-          if (address.length) {
-            this.setData({
-              userAddr
-            })
-          }
+          this.setData({
+            userAddr:{...address,id:address.addressId }
+          })
         }
       },
       errCallBack: res => {

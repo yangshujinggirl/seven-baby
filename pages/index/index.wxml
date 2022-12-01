@@ -51,14 +51,13 @@
       data-sts="{{item.jumpType}}" 
       data-id="{{item.navId}}"
       data-title="{{item.navName}}">
-        <text class="name">{{item.navName}}</text>
+        <!-- <text class="name">{{item.navName}}</text> -->
       </view>
     </view>
     <!-- 精选品牌 -->
     <view class="jingxuan-item">
       <view class="title-wrap">
-        <view class="line"></view>
-        <text class="name">精选品牌</text>
+        <image src="../../images/home/jxpp.png" class="name-pic"></image>
       </view>
       <swiper autoplay="{{brand}}" indicator-color="{{indicatorColor}}"
       interval="{{interval}}" duration="{{duration}}" indicator-active-color="{{indicatorActiveColor}} "
@@ -81,8 +80,7 @@
   </view>
     <!-- 好物推荐 -->
   <view class="title-wrap">
-    <view class="line"></view>
-    <text class="name">好物推荐</text>
+    <image src="../../images/home/hwtj.png" class="name-pic"></image>
   </view>
   <view class='hot-sale'>
     <view class='hotsale-item-cont'>

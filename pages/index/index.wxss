@@ -77,35 +77,19 @@ swiper.pic-swiper .img-box {
   border-radius: 20rpx;
 }
 .title-wrap{
-  height:100rpx;
+  /* height:100rpx; */
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
   position: relative;
   margin-top: 16rpx;
   background-color:#fff;
-}
-.title-wrap .line{
-  height:2rpx;
-  background: #FE4500;
-  position:absolute;
-  width: 534rpx;
-  top:49rpx;
-  left:88rpx;
-}
-.title-wrap .name{
-  height:42rpx;
-  background: #fff;
-  position:absolute;
-  width: 248rpx;
-  top:26rpx;
-  color:#FE4500;
-  left: 230rpx;
   text-align: center;
-  line-height: 42rpx;
+  padding: 40rpx 0;
 }
-
-
-
+.title-wrap image {
+  width: 72%;
+  height: 42rpx;
+}
 swiper.pic-swiper .banner {
   position: absolute;
   width: 690rpx;

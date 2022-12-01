@@ -504,6 +504,9 @@ swiper image {
 rich-text{
   width: 700rpx;
 }
+.rich-img {
+  width: 100%;
+}
 
 rich-text image {
   width: 100% !important;

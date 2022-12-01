@@ -13,6 +13,7 @@ page {
 .submit-order .delivery-addr {
   position: relative;
   background: #fff;
+  margin-top:16rpx;
 }
 
 .delivery-addr .addr-bg .add-addr .plus-sign {
