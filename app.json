@@ -22,6 +22,7 @@
     "pages/news-detail/news-detail",
     "pages/settings/settings",
     "pages/promote/promote",
+    "pages/prod-promote/prod-promote",
     "pages/customer/customer",
     "pages/promotionCode/promotionCode",
     "pages/promoteStatus/promoteStatus",
@@ -64,8 +65,5 @@
       }
     ]
   },
-  "sitemapLocation": "sitemap.json",
-  "usingComponents": {
-    "van-popup": "miniprogram/vant-weapp/popup/index"
-  }
+  "sitemapLocation": "sitemap.json"
 }

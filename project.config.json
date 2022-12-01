@@ -40,7 +40,7 @@
 		"minifyWXML": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.14.4",
+	"libVersion": "2.14.3",
 	"appid": "wxddb7727dc63d8d20",
 	"projectname": "save-baby",
 	"simulatorType": "wechat",
