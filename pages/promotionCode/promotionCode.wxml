@@ -1,7 +1,7 @@
 <view class="promotion-code">
   <view class="head">
     <text class="lf">我的推广码</text>
-    <image src="../../images/account/settings.png" class="rf"></image>
+    <button open-type="share"><image src="../../images/account/settings.png" class="rf"></image></button>
   </view>
   <image src="{{qrcodeUrl}}" class="qrcode"></image>
   <view class="footer">

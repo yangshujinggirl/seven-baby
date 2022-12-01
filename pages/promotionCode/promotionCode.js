@@ -64,7 +64,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+    return {
+      title: '我的分享码',
+      path: '/pages/promotionCode/promotionCode',
+      imageUrl: '../../images/customer/pic.png',
+      success: (res) => {
+        // 分享成功
+      },
+      fail: (res) => {
+        // 分享失败
+      }
+    }
   },
   fetCode:function(){
     var ths = this;

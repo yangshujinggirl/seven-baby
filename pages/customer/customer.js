@@ -1,11 +1,16 @@
 // pages/customer/customer.js
+var http = require("../../utils/http.js");
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    serviceData:{
+      wechat:[],
+      mobile:[]
+    }
   },
 
   /**
@@ -26,7 +31,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.fetchInfo()
+  },
+  fetchInfo:function(){
+    const _this = this;
+    wx.showLoading();
+    var params = {
+      url: `/service/customer-service`,
+      method: "GET",
+      callBack: function (res) {
+        wx.hideLoading();
+        if(!res.error) {
+          _this.setData({ serviceData: res.data })
+        }
+      }
+    }
+    http.request(params);
   },
 
   /**

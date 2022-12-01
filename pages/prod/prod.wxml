@@ -96,19 +96,20 @@
   <!-- end 商品详情 -->
   <!-- 底部按钮 -->
   <view class="cart-footer {{findSku?'':'gray'}}">
-    <view class="btn icon" bindtap='toHomePage'>
-      <image src="../../images/tabbar/homepage.png"></image>
-      首页
+    <view class="btn icon" bindtap='addOrCannelCollection'>
+      <image wx-if="{{!isCollection}}" src="../../images/icon/prod-col.png"></image>
+      <image wx-if="{{isCollection}}" src="../../images/icon/prod-col-red.png"></image>
+        收藏
     </view>
     <view class="btn icon" bindtap='toCartPage'>
-      <image src="../../images/tabbar/basket.png"></image>
+      <image src="../../images/tabbar/car.png"></image>
       购物车
       <view class='badge badge-1' wx:if="{{totalCartNum>0}}">{{totalCartNum}}</view>
     </view>
-    <view class="btn cart" bindtap='showSku'>
+    <view class="btn cart btn-same" bindtap='showSku'>
       <text>加入购物车</text>
     </view>
-    <view class="btn buy" bindtap='showSku'>
+    <view class="btn buy btn-same" bindtap='showSku'>
       <text>立即购买</text>
     </view>
   </view>
