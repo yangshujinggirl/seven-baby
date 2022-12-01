@@ -6,7 +6,7 @@
       <text class="warn">30分钟</text>内完成付款</view>
     <view class='tips'>否则订单会被系统取消</view>
     <view class="btns">
-      <text class='button checkorder' bindtap='toOrderList'>查看订单</text>
+      <text class='button checkorder' bindtap='toOrderList' data-orderStatus="0">查看订单</text>
       <text class='button payagain' bindtap='payAgain'>重新支付</text>
     </view>
   </view>
@@ -15,7 +15,7 @@
     <view class="pay-sts succ">支付成功</view>
     <view class='tips'>感谢您的购买</view>
     <view class="btns">
-      <text class='button checkorder' bindtap='toOrderList'>查看订单</text>
+      <text class='button checkorder' bindtap='toOrderList' data-orderStatus="20">查看订单</text>
       <text class='button shopcontinue' bindtap='toIndex'>继续购物</text>
     </view>
   </view>

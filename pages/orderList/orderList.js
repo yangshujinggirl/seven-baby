@@ -133,7 +133,6 @@ Page({
   handleTab:function(e){
     const type = e.currentTarget.dataset.bindtype;
     const orderid = e.currentTarget.dataset.orderid;
-    console.log('e',e)
     switch(type){
       case 'cancel':
         this.onCancelOrder(e);

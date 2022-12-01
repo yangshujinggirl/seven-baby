@@ -1,4 +1,6 @@
 // pages/pay-result/pay-result.js
+var http = require('../../utils/http.js');
+
 Page({
 
   /**
@@ -14,13 +16,15 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      sts: options.sts,
-      orderNumbers: options.orderNumbers
+      sts: options?.sts,
+      orderNumbers: options?.orderNumbers
     });
   },
-  toOrderList: function () {
+  toOrderList: function (e) {
+    var orderStatus = e.currentTarget.dataset.orderstatus;
+    console.log('orderStatus',orderStatus)
     wx.navigateTo({
-      url: '/pages/orderList/orderList?sts=20'
+      url: `/pages/orderList/orderList?sts=${orderStatus}`
     })
   },
   toIndex: function () {
@@ -29,33 +33,33 @@ Page({
     })
   },
   payAgain: function () {
+    console.log('orderNumbers',this.data)
     wx.showLoading({
       mask: true
     });
     var params = {
-      url: "/p/order/pay",
+      url: "/payment",
       method: "POST",
       data: {
-        payType: 1,
-        orderNumbers: this.data.orderNumbers
+        // payType: 1,
+        orderIds: [this.data.orderNumbers]
       },
       callBack: function (res) {
-        //console.log(res);
+        const { paymentData } =res.data;
         wx.hideLoading();
         wx.requestPayment({
-          timeStamp: res.timeStamp,
-          nonceStr: res.nonceStr,
-          package: res.packageValue,
-          signType: res.signType,
-          paySign: res.paySign,
+          timeStamp: paymentData.timeStamp,
+          nonceStr: paymentData.nonceStr,
+          package: paymentData.package,
+          signType: paymentData.signType,
+          paySign: paymentData.paySign,
           success: e => {
-            //console.log("支付成功");
-            wx.redirectTo({
-              url: '/pages/pay-result/pay-result?sts=1&orderNum=' + orderNumbers + "&orderType=" + this.data.orderType,
+            wx.navigateTo({
+              url: `/pages/orderList/orderList?sts=20`
             })
           },
           fail: err => {
-            
+            console.log("err",err);
           }
         })
 
