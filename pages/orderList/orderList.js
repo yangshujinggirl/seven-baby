@@ -146,6 +146,9 @@ Page({
       case 'receipt':
         this.onConfirmReceive(e);
         break;
+      case 'refund':
+        this.onRefund(e);
+        break;
     }
   },
   //取消订单
@@ -182,7 +185,6 @@ Page({
     })
 
   },
-
   /**
    * 付款
    */
@@ -228,8 +230,6 @@ Page({
     };
     http.request(params);
   },
-
-
   /**
    * 查看订单详情
    */
@@ -239,7 +239,6 @@ Page({
       url: '/pages/order-detail/order-detail?orderNum=' + e.currentTarget.dataset.ordernum,
     })
   },
-
   /**
    * 确认收货
    */
@@ -287,6 +286,41 @@ Page({
           var params = {
             url: `/order/${ordernum}`,
             method: "DELETE",
+            data: {},
+            callBack: function(res) {
+              if(res.error) {
+                wx.showToast({
+                  title: res.message,
+                  icon: "none"
+                })
+              } else {
+              ths.loadOrderData(ths.data.sts, 1);
+              }
+              wx.hideLoading();
+            }
+          }
+          http.request(params);
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  //申请退款
+  onRefund: function(e) {
+    var ths = this
+    wx.showModal({
+      title: '',
+      content: '确定要退款吗？',
+      confirmColor: "#EB5412",
+      cancelColor: "#181818",
+      success(res) {
+        if (res.confirm) {
+          var ordernum = e.currentTarget.dataset.ordernum;
+          wx.showLoading();
+          var params = {
+            url: `/order/${ordernum}/refund`,
+            method: "PUT",
             data: {},
             callBack: function(res) {
               if(res.error) {
