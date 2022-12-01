@@ -51,7 +51,7 @@ Page({
           action:''
         },{
           name:'推荐会员',
-          icon:'../../images/account/func_tjhy.png',
+          icon:'../../images/account/func_tgdd.png',
           linkUrl:'/pages/recommend-member/recommend-member',
           action:''
         },{
