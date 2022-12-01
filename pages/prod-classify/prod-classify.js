@@ -8,26 +8,13 @@ Page({
   data: {
     currentBrandId: 0,
     navId: 0,
-    prodList: [{
-      goodsId:1,
-      inSale:1,
-      goodsName:1,
-      mainImage:1,
-      retailPrice:1,
-      salePrice:1,
-    },{
-      goodsId:2,
-      inSale:0,
-      goodsName:'飞鹤星飞帆2段罐装幼儿精装牛奶粉',
-      mainImage:1,
-      retailPrice:200,
-      salePrice:168,
-    }],
+    prodList: [],
     title: "",
     current: 1,
     size: 10,
     pages: 0,
-    contentList:[]
+    banner:'',
+    brandList:[]
   },
 
   /**
@@ -43,17 +30,18 @@ Page({
     wx.setNavigationBarTitle({
       title: this.data.title
     })
-    this.getProductList()
+    this.getNavPageData()
   },
 
-  changetab(e){
+  changeBrandType(e){
     const {id} = e.currentTarget.dataset
     this.setData({
       currentBrandId: id,
+      prodList:[],
+      current: 1
     })
-    this.getProductList()
+    this.getProductList(id)
   },
-
 
   getNavPageData() {
     wx.showLoading();
@@ -66,6 +54,7 @@ Page({
           const {banner, brandList} = data
           this.setData({
             banner,
+            brandList
           })
           if(brandList.length){
             this.getProductList()
@@ -77,44 +66,31 @@ Page({
     http.request(params);
   },
   // 获取商品列表
-  getProductList(){
+  getProductList(brandId){
     wx.showLoading();
     var params = {
-      url: `/user/goods-collection`,
+      url: `/index/${this.data.navId}/goods`,
       method: "GET",
       data: {
-        page: 100,
+        brandId:brandId?brandId:this.data.currentBrandId,
+        page: this.data.current,
+        size: this.data.size,
       },
       callBack: (res) => {
         let prodList = []
         const {data, error} = res
         if (error === 0) {
           const {current, list, pageTotal} = data
-          // this.setData({
-          //   prodList:list,
-          // });
-        }
-        wx.hideLoading();
-      }
-    };
-    http.request(params);
-  },
-   // 获取内容列表
-  getContentList(){
-    wx.showLoading();
-    var params = {
-      url: `/user/community-collection`,
-      method: "GET",
-      data: {
-        page: 100,
-      },
-      callBack: (res) => {
-        let prodList = []
-        const {data, error} = res
-        if (error === 0) {
-          const {current, list, pageTotal} = data
+          if (current == 1) {
+            prodList = list
+          } else {
+            prodList = this.data.prodList
+            prodList = prodList.concat(list)
+          }
           this.setData({
-            contentList:list,
+            prodList,
+            current:parseInt(current),
+            pages: current == 1 ? pageTotal : this.data.pages
           });
         }
         wx.hideLoading();
