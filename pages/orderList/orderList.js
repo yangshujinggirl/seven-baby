@@ -149,7 +149,15 @@ Page({
       case 'refund':
         this.onRefund(e);
         break;
+      case 'contact':
+          this.toCustomerPage();
+          break;
     }
+  },
+  toCustomerPage:function() {
+    wx.navigateTo({
+      url: '/pages/customer/customer',
+    })
   },
   //取消订单
   onCancelOrder: function(e) {

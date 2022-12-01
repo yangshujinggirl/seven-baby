@@ -20,7 +20,9 @@
     "pages/prod-classify/prod-classify",
     "pages/recent-news/recent-news",
     "pages/news-detail/news-detail",
-    "pages/settings/settings"
+    "pages/settings/settings",
+    "pages/promote/promote",
+    "pages/customer/customer"
   ],
   "window": {
     "backgroundTextStyle": "light",

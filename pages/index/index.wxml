@@ -17,7 +17,13 @@
       <block wx:for='{{indexImgs}}' wx:key='jumpType'>
         <swiper-item class="banner-item">
           <view class='img-box'>
-            <image src='{{item.navImage}}' data-prodid='{{item.jumpType}}' bindtap='toProdPage' class='banner'></image>
+            <image 
+              src='{{item.navImage}}' 
+              bindtap='toClassifyPage' 
+              data-sts="{{item.jumpType}}" 
+              data-id="{{item.navId}}" 
+              data-title="{{item.navName}}" 
+              class='banner'></image>
           </view>
         </swiper-item>
       </block>
@@ -31,12 +37,20 @@
       </view>
     </view>
     <!-- 广告 -->
-    <view class='ad-item' bindtap='toClassifyPage' data-sts="{{ad.jumpType}}" data-navId="{{ad.navId}}">
+    <view class='ad-item' bindtap='toClassifyPage' data-sts="{{ad.jumpType}}" data-id="{{ad.navId}}" data-title="{{ad.navName}}">
       <image src='{{ad.navImage}}'></image>
     </view>
     <!-- 捡漏专区 -->
     <view class="leak-item">
-      <view class="item-wrap" wx:for="{{leak}}" wx:key="leadId" style="background-image:url({{item.navImage}})">
+      <view 
+      class="item-wrap" 
+      wx:for="{{leak}}" 
+      wx:key="leadId" 
+      style="background-image:url({{item.navImage}})"
+      bindtap='toClassifyPage'
+      data-sts="{{item.jumpType}}" 
+      data-id="{{item.navId}}"
+      data-title="{{item.navName}}">
         <text class="name">{{item.navName}}</text>
       </view>
     </view>
@@ -52,7 +66,13 @@
         <block wx:for='{{brand}}' wx:key='jumpType'>
           <swiper-item class="banner-item">
             <view class='img-box'>
-              <image src='{{item.navImage}}' data-prodid='{{item.jumpType}}' bindtap='toProdPage' class='banner'></image>
+              <image 
+              src='{{item.navImage}}' 
+              bindtap='toClassifyPage'
+              data-sts="{{item.jumpType}}" 
+              data-id="{{item.navId}}"
+              data-title="{{item.navName}}"
+              class='banner'></image>
             </view>
           </swiper-item>
         </block>

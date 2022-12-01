@@ -34,7 +34,7 @@ Page({
       },{
         name:'我要推广',
         icon:'../../images/account/func_tg.png',
-        linkUrl:'',
+        linkUrl:'/pages/promote/promote',
         action:''
       }],
       otherFuncList:[
@@ -155,25 +155,18 @@ Page({
   onShareAppMessage: function() {
 
   },
-
-  toDistCenter: function () {
-    wx.showToast({
-      icon: "none",
-      title: '该功能未开源'
-    })
-  },
-
-  toCouponCenter: function() {
-    wx.showToast({
-      icon: "none",
-      title: '该功能未开源'
-    })
-  },
-
-  toMyCouponPage: function() {
-    wx.showToast({
-      icon: "none",
-      title: '该功能未开源'
+  handleOperate:function(e){
+    const linkurl = e.currentTarget.dataset.linkurl;
+    const action = e.currentTarget.dataset.action;
+    if(!linkurl) {
+      wx.showToast({
+        icon: "none",
+        title: '该功能尚未开启'
+      })
+      return;
+    }
+    wx.navigateTo({
+      url: linkurl
     })
   },
 

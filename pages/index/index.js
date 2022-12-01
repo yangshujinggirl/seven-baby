@@ -61,6 +61,7 @@ Page({
     var url = '/pages/prod-classify/prod-classify';
     var id = e.currentTarget.dataset.id;
     var title = e.currentTarget.dataset.title;
+    console.log('id',e)
     if (id) {
       url += "?tagid=" + id + "&title=" + title;
     }

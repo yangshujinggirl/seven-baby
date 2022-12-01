@@ -64,13 +64,13 @@
         <text style='font-weight:bold'>常用功能</text>
       </view>
       <view class='procedure'  wx:if="{{userRole === '2'}}">
-        <view class='items' bindtap='toOrderListPage' data-sts="1" wx:for="{{otherFuncList}}" wx:key="index">
+        <view class='items' bindtap='handleOperate' data-linkUrl="{{item.linkUrl}}" data-action="{{item.action}}" wx:for="{{otherFuncList}}" wx:key="index">
           <image src='{{item.icon}}'></image>
           <text>{{item.name}}</text>
         </view>
       </view>
       <view class='procedure'  wx:else>
-        <view class='items' bindtap='{{item.action}}' data-sts="1" wx:for="{{funcList}}" wx:key="index">
+        <view class='items' bindtap='handleOperate' data-linkUrl="{{item.linkUrl}}" data-action="{{item.action}}" wx:for="{{funcList}}" wx:key="index">
           <image src='{{item.icon}}'></image>
           <text>{{item.name}}</text>
         </view>
@@ -82,12 +82,12 @@
         <text style='font-weight:bold'>服务中心</text>
       </view>
       <view class='procedure'>
-        <view class='items' bindtap='toOrderListPage' data-sts="1">
+        <view class='items' bindtap='handleOperate'>
           <image src='../../images/account/customer_yj.png'></image>
           <text>意见反馈</text>
           <text class='num-badge' wx:if="{{orderAmount.unPay>0}}">{{orderAmount.unPay}}</text>
         </view>
-        <view class='items' bindtap='toOrderListPage' data-sts="2">
+        <view class='items' bindtap='handleOperate' data-linkurl="/pages/customer/customer">
           <image src='../../images/account/customer_kf.png'></image>
           <text>专属客服</text>
           <text class='num-badge' wx:if="{{orderAmount.payed>0}}">{{orderAmount.payed}}</text>

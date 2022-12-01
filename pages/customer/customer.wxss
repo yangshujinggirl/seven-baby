@@ -1,0 +1,51 @@
+page {
+  background: #F4F4F4;
+}
+.customer {
+  width: 92%;
+  margin: 0 auto;
+}
+.customer .part-top {
+  background: #fff;
+  border-radius: 16rpx;
+  margin: 16rpx 0;
+  text-align: center;
+  padding: 56rpx 92rpx 100rpx;
+  color: #9A9A9A;
+  font-size: 28rpx;
+}
+.customer .part-top  image {
+  width: 140rpx;
+  height: 140rpx;
+}
+.customer .part-top .high {
+  color: #EB5412;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  margin-bottom: 20rpx;
+  font-weight: bold;
+}
+.customer .part-bottom {
+  background: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 16rpx;
+  padding: 56rpx 92rpx 100rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+.contact-item {
+  margin-bottom: 40rpx;
+}
+.contact-item .contents {
+  font-size: 36rpx;
+  color: #393939;
+  line-height: 44rpx;
+  margin-top: 10rpx;
+}
+.contact-item .copy {
+  color: #EB5412;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  font-weight: bold;
+  margin-left: 40rpx;
+}
