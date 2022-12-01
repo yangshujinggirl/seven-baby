@@ -20,7 +20,7 @@ Page({
   },
   toOrderList: function () {
     wx.navigateTo({
-      url: '/pages/orderList/orderList?sts=0'
+      url: '/pages/orderList/orderList?sts=20'
     })
   },
   toIndex: function () {

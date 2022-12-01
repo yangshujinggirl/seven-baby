@@ -172,5 +172,8 @@ Page({
         url: 'pages/prod/prod',
       })
     }
+  },
+  onTabItemTap: function (item) {
+    console.log('kajsh:', item);
   }
 })

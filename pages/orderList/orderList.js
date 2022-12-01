@@ -132,13 +132,14 @@ Page({
    */
   handleTab:function(e){
     const type = e.currentTarget.dataset.bindtype;
+    const orderid = e.currentTarget.dataset.orderid;
     console.log('e',e)
     switch(type){
       case 'cancel':
         this.onCancelOrder(e);
         break;
       case 'goto_pay':
-        // this.onPayAgain();
+        this.onPayAgain([orderid]);
         break;
       case 'delete':
         this.delOrderList(e);
@@ -186,36 +187,44 @@ Page({
   /**
    * 付款
    */
-  onPayAgain: function(e) {
+  onPayAgain: function(orderid) {
     wx.showLoading({
       mask: true
     });
     var params = {
-      url: "/p/order/pay",
+      url: "/payment",
       method: "POST",
       data: {
-        payType: 1,
-        orderNumbers: e.currentTarget.dataset.ordernum
+        orderIds: orderid
       },
       callBack: res => {
-        //console.log(res);
         wx.hideLoading();
-        wx.requestPayment({
-          timeStamp: res.timeStamp,
-          nonceStr: res.nonceStr,
-          package: res.packageValue,
-          signType: res.signType,
-          paySign: res.paySign,
-          success: function() {
-            wx.navigateTo({
-              url: '/pages/pay-result/pay-result?sts=1&orderNumbers=' + e.currentTarget.dataset.ordernum,
-            })
-          },
-          fail: function(err) {
-            //console.log("支付失败");
-          }
-        })
-
+        if (res.error === 0) {
+          const {paymentData} = res.data
+          wx.requestPayment({
+            timeStamp: paymentData.timeStamp,
+            nonceStr: paymentData.nonceStr,
+            package: paymentData.package,
+            signType: paymentData.signType,
+            paySign: paymentData.paySign,
+            success: e => {
+              // console.log("支付成功");
+              wx.navigateTo({
+                url: '/pages/pay-result/pay-result?sts=1&orderNumbers=' + orderid,
+              })
+            },
+            fail: err => {
+              wx.navigateTo({
+                url: '/pages/pay-result/pay-result?sts=0&orderNumbers=' + orderid,
+              })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: `获取支付信息失败${res.message}`,
+            icon: "none"
+          })
+        }
       }
     };
     http.request(params);
