@@ -41,7 +41,7 @@ Page({
         {
           name:'佣金商品',
           icon:'../../images/account/func_yjsp.png',
-          linkUrl:'',
+          linkUrl:'/pages/prod-promote/prod-promote',
           action:''
         },{
           name:'推广订单',
