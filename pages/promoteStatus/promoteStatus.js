@@ -1,5 +1,6 @@
-// pages/customer/customer.js
+// pages/promoteStatus/promoteStatus.js
 var http = require("../../utils/http.js");
+const app = getApp();
 
 Page({
 
@@ -7,9 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    serviceData:{
-      wechat:[],
-      mobile:[]
+    status:'0',
+    statusText:{
+      '0':'审核中',
+      '1':'恭喜',
+      '2':'对不起',
     }
   },
 
@@ -31,21 +34,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.fetchInfo()
+    this.fetchPromoteStatus()
   },
-  fetchInfo:function(){
+  fetchPromoteStatus:function (){
     const _this = this;
-    wx.showLoading();
     var params = {
-      url: `/service/customer-service`,
+      url: "/promoter/audit-status",
       method: "GET",
-      callBack: function (res) {
+      data: {},
+      callBack: function(res) {
         wx.hideLoading();
-        if(!res.error) {
-          _this.setData({ serviceData: res.data })
-        }
+        _this.setData({
+          status:res?.data?.audit?.status,
+          message:res?.data?.audit?.message
+        })
       }
-    }
+    };
     http.request(params);
   },
 
@@ -82,17 +86,5 @@ Page({
    */
   onShareAppMessage() {
 
-  },
-  copyBtn: function(e) {
-    var content = e.currentTarget.dataset.content
-    wx.setClipboardData({
-      //准备复制的数据
-      data: content,
-      success: function(res) {
-        wx.showToast({
-          title: '复制成功',
-        });
-      }
-    })
   }
 })

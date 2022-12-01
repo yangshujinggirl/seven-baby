@@ -1,16 +1,14 @@
-// pages/customer/customer.js
+// pages/recommend-member/recommend-member.js
 var http = require("../../utils/http.js");
-
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    serviceData:{
-      wechat:[],
-      mobile:[]
-    }
+    list:[],
+    count:{}
   },
 
   /**
@@ -31,21 +29,34 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.fetchInfo()
+    this.fetchList()
+    this.fetchTotal()
   },
-  fetchInfo:function(){
+  fetchList:function(){
     const _this = this;
-    wx.showLoading();
     var params = {
-      url: `/service/customer-service`,
+      url: "/promoter/member",
       method: "GET",
-      callBack: function (res) {
+      data: {
+        page:1
+      },
+      callBack: function(res) {
         wx.hideLoading();
-        if(!res.error) {
-          _this.setData({ serviceData: res.data })
-        }
+        _this.setData({list:res?.data?.list})
       }
-    }
+    };
+    http.request(params);
+  },
+  fetchTotal:function(){
+    const _this = this;
+    var params = {
+      url: "/promoter/member-count",
+      method: "GET",
+      callBack: function(res) {
+        wx.hideLoading();
+        _this.setData({totalInfo:res?.data?.count})
+      }
+    };
     http.request(params);
   },
 
@@ -82,17 +93,5 @@ Page({
    */
   onShareAppMessage() {
 
-  },
-  copyBtn: function(e) {
-    var content = e.currentTarget.dataset.content
-    wx.setClipboardData({
-      //准备复制的数据
-      data: content,
-      success: function(res) {
-        wx.showToast({
-          title: '复制成功',
-        });
-      }
-    })
   }
 })

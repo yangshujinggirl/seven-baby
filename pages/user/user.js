@@ -10,11 +10,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+
     orderAmount: '',
     sts: '',
     collectionCount: 0,
     recommendList:[],
-    userRole:app.globalData.roleId || '2',
+    userRole:'0',
     funcList:[
       {
         name:'评论互动',
@@ -25,17 +26,17 @@ Page({
         name:'我的收藏',
         icon:'../../images/account/func_sc.png',
         linkUrl:'',
-        action:'myCollectionHandle'
+        action:''
       },{
         name:'收货地址',
         icon:'../../images/account/func_dz.png',
-        linkUrl:'',
-        action:'toAddressList'
+        linkUrl:'/pages/delivery-address/delivery-address',
+        action:''
       },{
         name:'我要推广',
         icon:'../../images/account/func_tg.png',
-        linkUrl:'/pages/promote/promote',
-        action:''
+        linkUrl:'',
+        action:'promote'
       }],
       otherFuncList:[
         {
@@ -51,17 +52,17 @@ Page({
         },{
           name:'推荐会员',
           icon:'../../images/account/func_tjhy.png',
-          linkUrl:'',
+          linkUrl:'/pages/recommend-member/recommend-member',
           action:''
         },{
           name:'推广码',
           icon:'../../images/account/func_tgm.png',
-          linkUrl:'',
+          linkUrl:'/pages/promotionCode/promotionCode',
           action:''
         },{
           name:'提现管理',
           icon:'../../images/account/func_txgl.png',
-          linkUrl:'',
+          linkUrl:'/pages/withdraw-manage/withdraw-manage',
           action:''
         },{
           name:'社区管理',
@@ -76,9 +77,9 @@ Page({
         },{
           name:'收货地址',
           icon:'../../images/account/func_dz.png',
-          linkUrl:'',
+          linkUrl:'/pages/delivery-address/delivery-address',
           action:''
-        },
+        }
       ]
   },
 
@@ -86,7 +87,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
   },
 
   /**
@@ -100,25 +100,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
-    //加载订单数字
-    var ths = this;
-    // var status = ths.data.status
-    wx.showLoading();
-    var params = {
-      url: "/index/recommend",
-      method: "GET",
-      data: {},
-      callBack: function(res) {
-        wx.hideLoading();
-        ths.setData({
-          orderAmount: res,
-          recommendList:res?.data?.list
-        });
-      }
-    };
-    http.request(params);
-    // this.showCollectionCount();
+    this.fetchPromoteStatus();
+    this.fetchRecommond()
   },
 
   /**
@@ -155,25 +138,64 @@ Page({
   onShareAppMessage: function() {
 
   },
+  // 好物推荐
+  fetchRecommond:function(){
+    var ths = this;
+    wx.showLoading();
+    var params = {
+      url: "/index/recommend",
+      method: "GET",
+      data: {},
+      callBack: function(res) {
+        wx.hideLoading();
+        ths.setData({
+          orderAmount: res,
+          recommendList:res?.data?.list
+        });
+      }
+    };
+    http.request(params);
+  },
   handleOperate:function(e){
     const linkurl = e.currentTarget.dataset.linkurl;
     const action = e.currentTarget.dataset.action;
-    if(!linkurl) {
+    if(!linkurl && !action) {
       wx.showToast({
         icon: "none",
         title: '该功能尚未开启'
       })
       return;
     }
-    wx.navigateTo({
-      url: linkurl
-    })
+    if(linkurl) {
+      wx.navigateTo({
+        url: linkurl
+      })
+    }
+    if(action) {
+      switch(action) {
+        case 'promote':
+          this.onPromoteStatus();
+          break;
+      }
+    }
   },
-
-  toAddressList: function() {
-    wx.navigateTo({
-      url: '/pages/delivery-address/delivery-address',
-    })
+  fetchPromoteStatus:function (){
+    const _this = this;
+    var params = {
+      url: "/promoter/audit-status",
+      method: "GET",
+      data: {},
+      callBack: function(res) {
+        wx.hideLoading();
+        _this.setData({userRole:res?.data?.audit?.status})
+      }
+    };
+    http.request(params);
+  },
+  onPromoteStatus:function (){
+    const { userRole } =this.data;
+    let linkUrl = userRole === '-1'?'/pages/promote/promote':'/pages/promoteStatus/promoteStatus'
+    wx.navigateTo({ url: linkUrl })
   },
   toSettings:function() {
     wx.navigateTo({

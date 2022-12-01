@@ -1,0 +1,39 @@
+page {
+  background-color: #f7f7f7 !important;
+}
+.promotion-code {
+  padding: 0 40rpx;
+  text-align: center;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  padding: 36rpx 0 0;
+}
+.head .rf {
+  padding: 0;
+  margin:0;
+  line-height: 0;
+  border: 0;
+}
+.head .rf .pic {
+  width: 40rpx;
+  height: 40rpx;
+}
+.qrcode {
+  width: 400rpx;
+  height: 480rpx;
+  margin: 40rpx 0 66rpx;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer .userinfo-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20rpx;
+}

@@ -1,0 +1,47 @@
+<view class="withwraw-wrap">
+  <view class='userinfo'>
+    <view class="lf">
+      <view class='userinfo-avatar'>
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class='userinfo-name'>
+        <open-data type="userNickName"></open-data>
+        <view class="promote-status">推广者</view>
+      </view>
+    </view>
+  </view>
+  <view class="content">
+    <view class="part-one">
+      <view class="item">
+        已完成推广订单：{{order.completeOrderNum}}
+      </view>
+      <view class="item">
+        总推广佣金：￥{{order.totalPromoterAmount}}
+      </view>
+      <view class="item">
+        未提现佣金：￥{{order.canWithdrawAmount}}
+      </view>
+      <view class="item">
+        成功提现佣金：￥{{order.withdrawAmount}}
+      </view>
+    </view>
+    <view class="part-two">
+      <view class="title">提现金额</view>
+      <view class="widthdraw-action">
+        <span class="unit">¥</span>
+        <input class="number" placeholder="请输入提现金额" model:value="{{withdrawAmount}}"/>
+        <span class="action">全部提现</span>
+      </view>
+      <view class="tips">提现须知：提现金额须为10元或以上金额，提现请求提交后，48小时内安排转账（法定节假延后）</view>
+    </view>
+    <view class='btn-box'>
+    <checkbox-group bindchange="switchChange">
+      <label class="checked-action">
+        <checkbox value="isChecked" checked="{{isChecked}}" color="#EB5412"/>
+        我已阅读并接受《提现资金安全协议》
+      </label>
+    </checkbox-group>
+    <button disabled="{{!isChecked}}" class='keep' bindtap='onSave'>确认提现</button>
+  </view>
+  </view>
+</view>

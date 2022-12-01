@@ -1,0 +1,4 @@
+<view class="promote-status">
+  <view class="title">{{statusText[status]}}</view>
+  <view class="desc">{{message}}</view>
+</view>

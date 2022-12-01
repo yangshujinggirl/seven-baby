@@ -1,16 +1,14 @@
-// pages/customer/customer.js
+// pages/withdraw-manage/withdraw-manage.js
 var http = require("../../utils/http.js");
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    serviceData:{
-      wechat:[],
-      mobile:[]
-    }
+    isChecked:false,
+    user:{},
+    order:{}
   },
 
   /**
@@ -31,22 +29,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.fetchInfo()
+    this.fetchInfo();
   },
   fetchInfo:function(){
-    const _this = this;
+    var ths = this;
     wx.showLoading();
     var params = {
-      url: `/service/customer-service`,
+      url: "/promoter-withdraw/create",
       method: "GET",
-      callBack: function (res) {
+      data: {},
+      callBack: function(res) {
         wx.hideLoading();
-        if(!res.error) {
-          _this.setData({ serviceData: res.data })
-        }
+        ths.setData({
+          user: res?.data?.user,
+          order:res?.data?.order
+        });
       }
-    }
+    };
     http.request(params);
+  },
+  switchChange:function(e){
+    this.setData({isChecked:!this.data.isChecked})
+  },
+  onSave:function(){
+    const { withdrawAmount } =this.data;
+    console.log('withdrawAmount',withdrawAmount)
   },
 
   /**
@@ -82,17 +89,5 @@ Page({
    */
   onShareAppMessage() {
 
-  },
-  copyBtn: function(e) {
-    var content = e.currentTarget.dataset.content
-    wx.setClipboardData({
-      //准备复制的数据
-      data: content,
-      success: function(res) {
-        wx.showToast({
-          title: '复制成功',
-        });
-      }
-    })
   }
 })

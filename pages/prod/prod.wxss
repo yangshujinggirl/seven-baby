@@ -535,6 +535,9 @@ img {
   height: 98rpx;
   z-index: 999;
   box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: space-around;
+  background: #fff;
 }
 
 .cart-footer .btn {
@@ -544,7 +547,6 @@ img {
   justify-content: center;
   align-items: center;
   width: 0;
-  background-color: #fff;
   font-size: 28rpx;
   flex-flow: column;
 }
@@ -562,14 +564,20 @@ img {
   height: 50rpx;
 }
 
-.cart-footer .btn.cart {
-  background: #584e61;
+.cart-footer .btn.btn-same {
+  width: 200rpx;
+  height: 68rpx;
+  line-height: 68rpx;
   color: #fff;
+  font-size: 28rpx;
+  border-radius: 34rpx;
+  flex-grow: 0;
 }
-
+.cart-footer .btn.cart {
+  background: #EB9912;
+}
 .cart-footer .btn.buy {
-  background: #eb2444;
-  color: #fff;
+  background: #EB5412;
 }
 
 .cart-footer.gray .btn.cart, .cart-footer.gray .btn.buy{

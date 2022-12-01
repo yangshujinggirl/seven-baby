@@ -1,17 +1,17 @@
 <view class="customer">
   <view class="part-top">
-      <image src="../../images/customer/pic.jpg"></image>
+      <image src="../../images/customer/pic.png"></image>
       <view class="high">我是您的专属客服七宝！</view>
       <view>有什么需要咨询七宝的请加我微信或者拨打下方电话联系我哦！</view>
   </view>
   <view class="part-bottom">
     <view class="contact-item">
       <text>微信号</text>
-      <view class="contents" >H13816515187 <text class="copy" bindtap="copyBtn" data-content="H13816515187">复制</text></view>
+      <view class="contents" wx:for="{{serviceData.wechat}}" wx:key="index">{{item}} <text class="copy" bindtap="copyBtn" data-content="{{item}}">复制</text></view>
     </view>
     <view class="contact-item">
       <text>手机号码</text>
-      <view class="contents">H13816515187 <text class="copy" data-content="H13816515187" bindtap="copyBtn">复制</text></view>
+      <view class="contents"  wx:for="{{serviceData.mobile}}" wx:key="index">{{item}} <text class="copy" data-content="{{item}}" bindtap="copyBtn">复制</text></view>
     </view>
   </view>
 </view>

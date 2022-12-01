@@ -1,0 +1,51 @@
+<!--pages/recommend-member/recommend-member.wxml-->
+<view class="recommend-wrap">
+  <view class='userinfo'>
+    <view class="lf">
+      <view class='userinfo-avatar'>
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class='userinfo-name'>
+        <open-data type="userNickName"></open-data>
+        <view class="promote-status">推广者</view>
+      </view>
+    </view>
+  </view>
+  <view class="content-wrap">
+    <view class="part-one">
+        <view class="item">
+          <view>会员数</view>
+          <view class="val">{{count.memberNum}}</view>
+        </view>
+        <view class="item">
+          <view>订单数</view>
+          <view class="val">{{count.orderNum}}</view>
+        </view>
+        <view class="item">
+          <view>订单金额</view>
+          <view class="val">¥{{count.orderAmount}}</view>
+        </view>
+        <view class="item">
+          <view>佣金</view>
+          <view class="val">¥{{count.promoterAmount}}</view>
+        </view>
+    </view>
+    <view class="tables" wx:if="{{list.length>0}}">
+      <view class="tabs th">
+        <view class="td">昵称</view>
+        <view class="td td-big">手机号</view>
+        <view class="td td-short">订单数</view>
+        <view class="td">订单金额</view>
+        <view class="td">佣金</view>
+      </view>
+      <view class="tabs tr" wx:for="{{list}}" wx:key="index">
+        <view class="td">{{item.nickname}}</view>
+        <view class="td td-big">{{item.mobile}}</view>
+        <view class="td td-short">{{item.orderNum}}</view>
+        <view class="td">￥{{item.orderAmount}}</view>
+        <view class="td">￥{{item.promoterAmount}}</view>
+      </view>
+    </view>
+    <view class="no-data" wx:else>暂无数据</view>
+  </view>
+</view>

@@ -1,5 +1,6 @@
-// pages/customer/customer.js
+// pages/promotionCode/promotionCode.js
 var http = require("../../utils/http.js");
+const app = getApp();
 
 Page({
 
@@ -7,17 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    serviceData:{
-      wechat:[],
-      mobile:[]
-    }
+    qrcodeUrl:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.fetCode()
   },
 
   /**
@@ -31,22 +29,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.fetchInfo()
-  },
-  fetchInfo:function(){
-    const _this = this;
-    wx.showLoading();
-    var params = {
-      url: `/service/customer-service`,
-      method: "GET",
-      callBack: function (res) {
-        wx.hideLoading();
-        if(!res.error) {
-          _this.setData({ serviceData: res.data })
-        }
-      }
-    }
-    http.request(params);
+
   },
 
   /**
@@ -81,18 +64,32 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+    return {
+      title: '我的分享码',
+      path: '/pages/promotionCode/promotionCode',
+      imageUrl: '../../images/customer/pic.png',
+      success: (res) => {
+        // 分享成功
+      },
+      fail: (res) => {
+        // 分享失败
+      }
+    }
   },
-  copyBtn: function(e) {
-    var content = e.currentTarget.dataset.content
-    wx.setClipboardData({
-      //准备复制的数据
-      data: content,
-      success: function(res) {
-        wx.showToast({
-          title: '复制成功',
+  fetCode:function(){
+    var ths = this;
+    wx.showLoading();
+    var params = {
+      url: "/promoter/invitation-image",
+      method: "GET",
+      data: {},
+      callBack: function(res) {
+        wx.hideLoading();
+        ths.setData({
+          qrcodeUrl: res.data.invitationUrl,
         });
       }
-    })
+    };
+    http.request(params);
   }
 })
