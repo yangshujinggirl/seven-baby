@@ -2,7 +2,7 @@
 
 <view class='container'>
   <!-- 头部菜单 -->
-  <view class='order-tit'>
+  <scroll-view class='order-tit' scroll-x="true">
     <text bindtap='onStsTap' data-sts="-1" class="{{sts=='-1'?'on':''}}">全部</text>
     <text bindtap='onStsTap' data-sts="0" class="{{sts==0?'on':''}}">待付款</text>
     <text bindtap='onStsTap' data-sts="20" class="{{sts==20?'on':''}}">待发货</text>
@@ -11,7 +11,7 @@
     <text bindtap='onStsTap' data-sts="10" class="{{sts==10?'on':''}}">已取消</text>
     <text bindtap='onStsTap' data-sts="30" class="{{sts==30?'on':''}}">退款中</text>
     <text bindtap='onStsTap' data-sts="50" class="{{sts==50?'on':''}}">已退款</text>
-  </view>
+  </scroll-view>
   <!-- end 头部菜单 -->
   <view class='main'>
     <view class="empty" wx:if="{{list.length==0}}">
