@@ -11,6 +11,12 @@ page {
   padding: 36rpx 0 0;
 }
 .head .rf {
+  padding: 0;
+  margin:0;
+  line-height: 0;
+  border: 0;
+}
+.head .rf .pic {
   width: 40rpx;
   height: 40rpx;
 }
