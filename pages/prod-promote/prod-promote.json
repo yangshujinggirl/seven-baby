@@ -4,6 +4,6 @@
   "navigationBarTitleText": "佣金商品",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
+    "van-popup": "vant-weapp/popup/index"
   }
 }
