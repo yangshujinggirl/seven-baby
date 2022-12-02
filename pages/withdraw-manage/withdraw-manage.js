@@ -86,11 +86,8 @@ Page({
           wx.showToast({
             title: res.message,
           })
-          wx.navigateTo({
-            url: '/pages/withdraw-list/withdraw-list'
-          })
         } else {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/withdraw-list/withdraw-list'
           })
         }

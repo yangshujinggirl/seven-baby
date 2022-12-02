@@ -21,6 +21,13 @@
   font-size: 28rpx;
   color: #3F3F3F;
 }
+button.getphone {
+  border: none;
+  font-size: 28rpx;
+  color: #3F3F3F;
+  padding: 0;
+  margin:0;
+}
 .my-menu .memu-item .avatar {
   width: 60rpx;
   height: 60rpx;

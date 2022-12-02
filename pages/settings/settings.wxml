@@ -21,7 +21,8 @@
       <text>手机号</text>
     </view>
     <view class="info-rf">
-      <view>15862690368x</view>
+      <view wx:if="{{phone}}">{{phone}}</view>
+      <button wx:else open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getphone">获取手机号</button>
       <view class='arrowhead'></view>
     </view>
   </view>

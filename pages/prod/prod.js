@@ -57,6 +57,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log('options',options)
     this.setData({
       prodId: options.prodid,
     });
@@ -100,7 +101,6 @@ Page({
         if (error===0) {
           const { address, attributeList, goodsItem, isCollection, roleId } = data
           var content = util.formatHtml(goodsItem.goodsDetails);
-          console.log('test:', content);
           this.setData({
             imgs: goodsItem.carouselImage,
             content: content,
@@ -371,14 +371,6 @@ Page({
   onReachBottom: function() {
 
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
-
   /**
    * 跳转到首页
    */
@@ -483,9 +475,18 @@ Page({
    * 分享设置
    */
   onShareAppMessage: function(res) {
+    console.log(this.data)
     return {
       title: this.data.prodName,
-      path: '/pages/prod/prod?prodid=' + this.data.prodid
+      path: '/pages/prod/prod?prodid=' + this.data.prodid,
+      success: (res) => {
+        console.log(res)
+        // 分享成功
+      },
+      fail: (res) => {
+        console.log(res)
+        // 分享失败
+      }
     }
   },
 

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    phone:'',
   },
 
   /**
@@ -13,6 +13,10 @@ Page({
    */
   onLoad(options) {
 
+  },
+  getPhoneNumber:function(e){
+    console.log('e',e)
+    this.setData({ phone:e.detail.code})
   },
 
   /**
