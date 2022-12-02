@@ -1,0 +1,22 @@
+page {
+  background-color: #f7f7f7 !important;
+}
+.withdraw-detail {
+  padding: 32rpx 30rpx 40rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+.item {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #000;
+  display: flex;
+  margin-bottom: 34rpx;
+}
+.item .label {
+  margin-right: 20rpx;
+}
+.line {
+  border: 2rpx solid #f7f7f7;
+  margin-bottom: 34rpx;
+}

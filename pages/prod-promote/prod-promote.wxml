@@ -35,7 +35,7 @@
           <text>毛利:{{item.grossProfit}}%</text>
           <text>佣金:¥{{item.promoterProfit}}</text>
         </view>
-        <button class="mini-btn" size="mini" class="promote-btn">去推广</button>
+        <button class="mini-btn" size="mini" class="promote-btn" open-type="share" data-id="{{item.goodsId}}">去推广</button>
       </view>
     </view>
   </view>

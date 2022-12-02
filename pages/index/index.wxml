@@ -107,5 +107,16 @@
       </block>
     </view>
   </view>
+  <van-dialog
+    use-slot
+    title="标题"
+    show="{{ show }}"
+    show-cancel-button
+    confirm-button-open-type="getUserInfo"
+    bind:close="onClose"
+    bind:getuserinfo="getUserInfo"
+  >
+  <button bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+</van-dialog>
 </view>
 <wxs module="wxs" src="../../wxs/number.wxs" />

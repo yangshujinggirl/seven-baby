@@ -28,7 +28,9 @@
     "pages/promotionCode/promotionCode",
     "pages/promoteStatus/promoteStatus",
     "pages/recommend-member/recommend-member",
-    "pages/withdraw-manage/withdraw-manage"
+    "pages/withdraw-manage/withdraw-manage",
+    "pages/withdraw-list/withdraw-list",
+    "pages/withdraw-detail/withdraw-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

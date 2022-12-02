@@ -29,8 +29,8 @@
       <view class="title">提现金额</view>
       <view class="widthdraw-action">
         <span class="unit">¥</span>
-        <input class="number" placeholder="请输入提现金额" model:value="{{withdrawAmount}}"/>
-        <span class="action">全部提现</span>
+        <input class="number" placeholder="请输入提现金额" model:value="{{withdrawAmount}}" type="number"/>
+        <span class="action" bindtap="takeAll">全部提现</span>
       </view>
       <view class="tips">提现须知：提现金额须为10元或以上金额，提现请求提交后，48小时内安排转账（法定节假延后）</view>
     </view>
@@ -44,4 +44,22 @@
     <button disabled="{{!isChecked}}" class='keep' bindtap='onSave'>确认提现</button>
   </view>
   </view>
+  <van-popup show="{{ show }}" bind:close="onClose" custom-style="border-radius:18rpx">
+       <!-- 以下为输入密码关键代码 -->
+        <view class="form-wrap">
+            <image  class="close" src="../../images/icon/close.png" bindtap="onCalcel"/>
+            <view class="tit">请输入6位提现密码</view>
+            <view class="tex">提现</view>
+            <view class="money">¥{{withdrawAmount}}</view>
+            <view class='password-content'>
+                <block wx:for="{{Length}}" wx:key="item">
+                    <input class='iptbox' value="{{Value.length>index?'*':''}}" disabled password='{{ispassword}}' catchtap='Tap' type="number"></input>
+                </block>
+            </view>
+            <input name="password" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus"></input>
+            <!-- <view>
+                <button class="btn-area" disabled='{{disabled}}' formType="submit">下一步</button>
+            </view> -->
+        </view>
+  </van-popup>
 </view>

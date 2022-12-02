@@ -1,0 +1,39 @@
+page {
+  background-color: #f7f7f7 !important;
+}
+.filter-wrap {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16rpx 30rpx;
+  color: #3f3f3f;
+}
+.filter-wrap view {
+  margin-left: 30rpx;
+}
+.tables {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #fff;
+  border-radius: 12rpx;
+}
+.tables .tabs {
+  font-size: 24rpx;
+  display: flex;
+  padding: 20rpx 0;
+  color: #000;
+  line-height: 80rpx;
+  text-align: center;
+  border-bottom:2rpx solid #DADADA;
+  justify-content: space-around;
+}
+.tables .tabs.th {
+  color: #000;
+  font-size: 28rpx;
+}
+.tables .td {
+  width: 20%;
+}
+.no-data {
+  text-align: center;
+}

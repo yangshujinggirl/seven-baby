@@ -252,8 +252,8 @@ Page({
           wx.showToast({
             title: res.message,
           })
-          wx.navigateTo({
-            url:'/pages/promotionCode/promotionCode'
+          wx.redirectTo({
+            url:'/pages/promoteStatus/promoteStatus'
           })
         } else {
           wx.hideLoading();
@@ -305,6 +305,9 @@ Page({
           url: 'https://api.qigebaobao.com/api/common/upload-image', //仅为示例，非真实的接口地址
           filePath: tempFilePaths[0].tempFilePath,
           name: 'file',
+          header:{
+            'Authorization': wx.getStorageSync('token')
+          },
           formData: {
             'sourceType': 'member-idcard'
           },

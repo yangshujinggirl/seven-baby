@@ -178,11 +178,21 @@ Page({
       this.getProductList(this.data.currentBrandId)
     }
   },
-
-  /**
+ /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
-  }
+  onShareAppMessage(e) {
+    const prodid= e.target?.dataset?.id;
+    return {
+      title: '我的商品',
+      path: '/pages/prod/prod?prodid=' + prodid,
+      imageUrl: '../../images/customer/pic.png',
+      success: (res) => {
+        // 分享成功
+      },
+      fail: (res) => {
+        // 分享失败
+      }
+    }
+  },
 })

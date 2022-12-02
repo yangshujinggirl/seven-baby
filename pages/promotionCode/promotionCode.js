@@ -91,5 +91,11 @@ Page({
       }
     };
     http.request(params);
+  },
+  toHome:function(){
+    console.log('12',12)
+    wx.switchTab({
+      url: '/pages/index/index?invitationId=12',
+    })
   }
 })

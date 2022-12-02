@@ -194,7 +194,7 @@ Page({
   },
   onPromoteStatus:function (){
     const { userRole } =this.data;
-    let linkUrl = userRole === '-1'?'/pages/promote/promote':'/pages/promoteStatus/promoteStatus'
+    let linkUrl = userRole == '-1'?'/pages/promote/promote':'/pages/promoteStatus/promoteStatus'
     wx.navigateTo({ url: linkUrl })
   },
   toSettings:function() {

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "提现记录",
+  "usingComponents": {
+    "van-popup": "vant-weapp/popup/index",
+    "van-picker": "vant-weapp/picker/index",
+    "van-picker-column": "vant-weapp/picker-column/index",
+    "van-datetime-picker":"vant-weapp/datetime-picker/index"
+  }
+}

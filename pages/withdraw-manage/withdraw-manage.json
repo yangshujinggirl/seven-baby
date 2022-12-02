@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "提现管理"
+  "navigationBarTitleText": "提现管理",
+  "usingComponents": {
+    "van-popup": "vant-weapp/popup/index"
+  }
 }
