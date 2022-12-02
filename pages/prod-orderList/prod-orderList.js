@@ -6,25 +6,67 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentBrandId: 0,
-    currentCategoryId: 0,
     navId: 0,
-    prodList: [],
+    orderList: [
+      {
+        orderId:21,
+        orderNo:98098980,
+        createTime:'2022-12-09',
+        consignee:'zhansgan',
+        supplierName:'七个宝宝',
+        goodsAmount:401,
+        totalAmount:402,
+        totalAmount:67,
+        orderStatusShow:'已完成',
+        promoterAmount:56,
+        open:false,
+        goods:[{
+          goodsName:'儿童奶',
+          mainImage:"http://img.qigebaobao.com/oss/admin/2022-11-30/166980782905809453.jpg",
+          attrValue:'2罐',
+          goodsNum: 2,
+          promoterProfit: 29,
+          brandProfit: '10%'
+        },{
+          goodsName:'儿童奶2',
+          mainImage:"http://img.qigebaobao.com/oss/admin/2022-11-30/166980782905809453.jpg",
+          attrValue:'3罐',
+          goodsNum: 3,
+          promoterProfit: 40,
+          brandProfit: '11%'
+        }]
+      }
+    ],
     current: 1,
     size: 10,
     pages: 0,
-    banner:'',
     brandList:[],
     currentBrandId:0,
-    categoryList:[],
-    currentCategoryId: 0,
     keywords:'',
-    showPop: false
+    showPop: false,
+    sts:'-1'
   },
-  changeCategoryId(e) {
-    this.setData({
-      currentCategoryId: e.target.dataset.id === this.data.currentCategoryId?0:e.target.dataset.id
+  openGoodsDetail(e){
+    const orderList = this.data.orderList.map((item,i)=>{
+      if (i === e.currentTarget.dataset.ind) {
+        item.open = !item.open
+      }
+      return item
     })
+    console.log('orderList:', orderList);
+    this.setData({
+      orderList
+    })
+  },
+  /**
+   * 状态点击事件
+   */
+   onStsTap: function(e) {
+    var sts = e.currentTarget.dataset.sts;
+    this.setData({
+      sts: sts
+    });
+    this.loadOrderData(sts, 1);
   },
   changeBrandId(e){
     this.setData({
@@ -36,7 +78,6 @@ Page({
     this.setData({
       keywords: e.detail.value
     })
-    // this.data.prodName=e.detail.value
   },
 
   searchProduct() {
@@ -72,25 +113,21 @@ Page({
       currentCategoryId: 0
     });
     this.getNavPageData()
+    this.getProductList()
   },
 
   getNavPageData() {
     wx.showLoading();
     var params = {
-      url: '/promoter/goods-filter',
+      url: '/promoter/order-filter',
       method: "GET",
       callBack: (res) => {
         const {data, error} = res
         if (error === 0) {
-          const {banner, brandList, categoryList} = data
+          const { brandList} = data
           this.setData({
-            banner,
-            brandList,
-            categoryList
+            brandList
           })
-          if(brandList.length){
-            this.getProductList()
-          }
         }
         wx.hideLoading();
       }
@@ -101,27 +138,26 @@ Page({
   getProductList(){
     wx.showLoading();
     var params = {
-      url: '/promoter/goods',
+      url: '/promoter/order',
       method: "GET",
       data:{
         keywords:this.data.keywords,
         page: this.data.current,
-        brandId: this.data.currentBrandId,
-        categotyId: this.data.currentCategoryId
+        brandId: this.data.currentBrandId
       },
       callBack: (res) => {
-        let prodList = []
+        let orderList = []
         const {data, error} = res
         if (error === 0) {
           const {current, list, pageTotal} = data
           if (current == 1) {
-            prodList = list
+            orderList = list
           } else {
-            prodList = this.data.prodList
-            prodList = prodList.concat(list)
+            orderList = this.data.orderList
+            orderList = orderList.concat(list)
           }
           this.setData({
-            prodList,
+            orderList,
             current:parseInt(current),
             pages: current == 1 ? pageTotal : this.data.pages
           });

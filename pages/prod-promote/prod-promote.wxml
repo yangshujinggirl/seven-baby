@@ -4,10 +4,10 @@
   <!-- 搜索框 -->
   <view class='search-bar'>
     <view class='search-box'>
-      <input placeholder="输入关键字搜索" class='sear-input'confirm-type='search' bindconfirm='toSearchProdPage' bindinput='getSearchContent' value='{{prodName}}'></input>
+      <input placeholder="输入关键字搜索" class='sear-input'confirm-type='search' bindconfirm='searchProduct' bindinput='getSearchContent' value='{{prodName}}'></input>
       <image src='../../images/icon/search.png' class='search-img'></image>
     </view>
-    <text class='search-hint' bindtap='goBackIndex'>筛选</text>
+    <text class='search-hint' bindtap='showPopUp'>筛选</text>
   </view>
   <view class="banner-wrap">
     <image src="{{banner}}" />
@@ -48,8 +48,25 @@
       overlay="{{ false }}"
       bind:close="onClose"
     >
-    内容
-  </van-popup>
+      <view class="pop-wrap">
+        <view class="contain-wrap first">
+          <text class="title">品牌</text>
+          <view class="tags-wrap">
+            <text class="{{currentCategoryId === item.categoryId?'active':''}}" wx:for="{{categoryList}}" bindtap="changeCategoryId" data-id="{{item.categoryId}}" wx:key="category">{{item.categoryName}}</text>
+          </view>
+        </view>
+        <view class="contain-wrap">
+          <text class="title">分类</text>
+          <view class="tags-wrap">
+            <text class="{{currentBrandId === item.brandId?'active':''}}" wx:for="{{brandList}}" bindtap="changeBrandId" data-id="{{item.brandId}}" wx:key="brand">{{item.brandName}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="btn-wrap">
+        <text class="cancel" bindtap="onClose">取消</text>
+        <text class="sure" bindtap="searchPro">确定</text>
+      </view>
+    </van-popup>
 </view>
 
 <wxs module="wxs" src="../../wxs/number.wxs" />

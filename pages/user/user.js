@@ -47,7 +47,7 @@ Page({
         },{
           name:'推广订单',
           icon:'../../images/account/func_tgdd.png',
-          linkUrl:'',
+          linkUrl:'/pages/prod-orderList/prod-orderList',
           action:''
         },{
           name:'推荐会员',

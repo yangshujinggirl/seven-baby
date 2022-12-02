@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/prod-orderList/prod-orderList",
+    "pages/prod-promote/prod-promote",
     "pages/logs/logs",
     "pages/user/user",
     "pages/basket/basket",
@@ -22,7 +24,6 @@
     "pages/news-detail/news-detail",
     "pages/settings/settings",
     "pages/promote/promote",
-    "pages/prod-promote/prod-promote",
     "pages/customer/customer",
     "pages/promotionCode/promotionCode",
     "pages/promoteStatus/promoteStatus",

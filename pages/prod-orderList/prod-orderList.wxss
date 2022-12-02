@@ -3,6 +3,35 @@
 page {
   background: #f4f4f4;
 }
+
+/* 头部菜单 */
+
+.order-tit {
+  z-index: 999;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: #fff;
+  border-bottom: 2rpx solid #f4f4f4;
+  white-space: nowrap;
+  margin-top: 88rpx;
+}
+
+.order-tit text {
+  display: inline-block;
+  font-size: 28rpx;
+  color: 999;
+  width: 100rpx;
+  text-align: center;
+}
+
+.order-tit text.on {
+  border-bottom: 4rpx solid #eb2444;
+  color: #eb2444;
+}
+
+/*  end 头部菜单 */
+
 .btn-wrap{
   height:80rpx;
   position: fixed;
@@ -118,95 +147,76 @@ page {
   top: 14rpx;
   display: block;
 }
-
-.banner-wrap{
-  height: 330rpx;
-  line-height: 0;
-  margin-top: 100rpx;
-}
-.banner-wrap image{
-  width: 100%;
-  height: 100%;
-}
 .pro-item-wrap{
-  width: 710rpx;
-  height: 240rpx;
-  background: #FFFFFF;
-  border-radius: 12rpx;
-  margin: 16rpx auto 0 auto;
-  padding: 10rpx 20rpx 10rpx 10rpx;
-  box-sizing: border-box;
+  margin-top:20rpx;
+  background:#fff;
+  padding: 30rpx;
+}
+.line{
+  margin-top:20rpx;
+  color:#000;
+}
+.flex-bweeten{
   display: flex;
   justify-content: space-between;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
 }
-.pro-item-wrap .left{
-  width: 220rpx;
-  height:220rpx;
-  display: inline-block;
-  light-height: 0;
+.goods-wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
 }
-.pro-item-wrap .left image{
-  width: 100%;
+.line-line{
+  height:2rpx;
+  background: #dbdbdb;
+  margin-bottom: 20rpx;
+}
+.goods-wrap .image-wrap{
+  width:180rpx;
+  height:180rpx;
+  border-radius:10rpx;
+}
+.goods-wrap .image-wrap image{
+  width:100%;
   height:100%;
-  border-radius: 10rpx;
+  border-radius:10rpx;
+}
+.prod-info-wrap{
+  width:480rpx;
+}
+.yongjin, .goods-name{
+  margin-bottom: 12rpx;
+}
+.prod-info-wrap .flex-bweeten{
+  margin-bottom: 12rpx;
+}
+.line{
+  margin-bottom: 20rpx;
 }
 
-.pro-item-wrap .right{
-  width: 440rpx;
-  display:inline-block;
-  margin-left: 20rpx;
-  height: 220rpx;
-}
-.right .title{
-  width: 44orpx;
-  height: 40rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 600;
-  color: #000000;
-  line-height: 40rpx;
-  display: block;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
-.right .price-wrap{
-  margin-top: 40rpx;
+.flex-bweeten .right{
   display:flex;
-  justify-content: space-between;
+  align-items: center;
 }
-.singal-price{
-  font-size: 24rpx;
-  color: #4A4A4A;
-  line-height: 34rpx;
-  text-decoration: line-through;
+.flex-bweeten .right image{
+  width: 30rpx;
+  height: 18rpx;
+  display:inline-block;
 }
-.price{
+.store-name-wrap .left{
+  color:#000;
+}
+.store-name-wrap .right{
   color: #EB5412;
 }
-.price .symbol{
-  font-size: 24rpx;
+.store-name-wrap .left image{
+  display:inline-block;
+  width:24rpx;
+  height:24rpx;
 }
-.big-num{
-  font-size: 36rpx;
-}
-.small-num{
-  font-size: 24rpx;
-}
-.promote-wrap{
-  margin-top: 12rpx;
-  display:flex;
-  justify-content: space-between;
-}
-.maoli{
-  font-size:24rpx;
-  color: #4A4A4A;
-}
-.promote-btn{
-  background: #EB5412;
-  color: #fff;
-  margin:0;
-}
+
 .empty-list {
   font-size: 24rpx;
   color: #999;

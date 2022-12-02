@@ -1,0 +1,134 @@
+<!--pages/prod-classify/prod-classify.wxml-->
+
+<view class='container'>
+  <!-- 搜索框 -->
+  <view class='search-bar'>
+    <view class='search-box'>
+      <input placeholder="输入关键字搜索" class='sear-input'confirm-type='search' bindconfirm='searchProduct' bindinput='getSearchContent' value='{{prodName}}'></input>
+      <image src='../../images/icon/search.png' class='search-img'></image>
+    </view>
+    <text class='search-hint' bindtap='showPopUp'>筛选</text>
+  </view>
+  <!-- 头部菜单 -->
+  <scroll-view class='order-tit' scroll-x="true">
+    <text bindtap='onStsTap' data-sts="-1" class="{{sts=='-1'?'on':''}}">全部</text>
+    <text bindtap='onStsTap' data-sts="0" class="{{sts==0?'on':''}}">待付款</text>
+    <text bindtap='onStsTap' data-sts="20" class="{{sts==20?'on':''}}">待发货</text>
+    <text bindtap='onStsTap' data-sts="60" class="{{sts==60?'on':''}}">待收货</text>
+    <text bindtap='onStsTap' data-sts="70" class="{{sts==70?'on':''}}">已完成</text>
+    <text bindtap='onStsTap' data-sts="10" class="{{sts==10?'on':''}}">已取消</text>
+    <text bindtap='onStsTap' data-sts="30" class="{{sts==30?'on':''}}">退款中</text>
+    <text bindtap='onStsTap' data-sts="50" class="{{sts==50?'on':''}}">已退款</text>
+  </scroll-view>
+  <!-- end 头部菜单 -->
+
+  <view class="pro-item-wrap" wx:for="{{orderList}}" wx:key ="key" wx:for-index = "bindex">
+    <view class="store-name-wrap flex-bweeten">
+      <view class="left">
+        <van-icon name="shop-o" />
+        <text>{{item.supplierName}}</text>
+      </view>
+      <view class="right">
+        <text>{{item.orderStatusShow}}</text>
+      </view>
+    </view>
+    <view class="bianhao line">
+      <text>订单编号：{{item.orderNo}}</text>
+    </view>
+    <view class="line">
+      <text>下单时间：{{item.createTime}}</text>
+    </view>
+    <view class="line">
+      <text>收件人：{{item.consignee}}</text>
+    </view>
+    <view class="flex-bweeten">
+      <view class="left">
+        <text>商品详情</text>
+      </view>
+      <view class="right" bindtap="openGoodsDetail" data-ind="{{bindex}}">
+        <text>查看详情</text>
+        <van-icon wx:if="{{item.open}}" name="arrow-up" />
+        <van-icon wx:if="{{!item.open}}" name="arrow-down" />
+      </view>
+    </view>
+    <view wx:if="{{item.open}}"  class="goods-wrap" wx:for="{{item.goods}}" wx:key="kkjj" wx:for-item="prod">
+      <view class="image-wrap">
+        <image src="{{prod.mainImage}}" />
+      </view>
+      <view class="prod-info-wrap">
+        <view class="goods-name">
+          {{prod.goodsName}}
+        </view>
+        <view class="flex-bweeten">
+          <view>
+            规格：{{prod.attrValue}}
+          </view>
+          <view>
+            规格：{{prod.goodsNum}}
+          </view>
+        </view>
+        <view class="yongjin">
+          <text>佣金：{{prod.promoterProfit}}</text>
+          <text>(毛利：{{prod.brandProfit}})</text>
+        </view>
+        <view class="flex-bweeten">
+          <view>
+            商品总额
+          </view>
+          <view>
+            ¥{{prod.goodsNum}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{item.open}}"  class="flex-bweeten">
+      <view>
+        商品总额
+      </view>
+      <view>
+        ¥{{item.goodsAmount}}
+      </view>
+    </view>
+    <view class="line-line"></view>
+    <view class="flex-bweeten">
+      <view>
+        合计金额
+      </view>
+      <view>
+        ¥{{item.totalAmount}}
+      </view>
+    </view>
+    <view class="flex-bweeten">
+      <view>
+        合计佣金
+      </view>
+      <view>
+        ¥{{item.promoterAmount}}
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{!orderList.length}}" class="empty-list">
+    暂无订单
+  </view>
+    <van-popup
+      show="{{ showPop }}"
+      position="top"
+      overlay="{{ false }}"
+      bind:close="onClose"
+    >
+      <view class="pop-wrap">
+        <view class="contain-wrap first">
+          <text class="title">品牌</text>
+          <view class="tags-wrap">
+            <text class="{{currentCategoryId === item.categoryId?'active':''}}" wx:for="{{categoryList}}" bindtap="changeCategoryId" data-id="{{item.categoryId}}" wx:key="category">{{item.categoryName}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="btn-wrap">
+        <text class="cancel" bindtap="onClose">取消</text>
+        <text class="sure" bindtap="searchPro">确定</text>
+      </view>
+    </van-popup>
+</view>
+
+<wxs module="wxs" src="../../wxs/number.wxs" />
