@@ -475,10 +475,9 @@ Page({
    * 分享设置
    */
   onShareAppMessage: function(res) {
-    console.log(this.data)
     return {
       title: this.data.prodName,
-      path: '/pages/prod/prod?prodid=' + this.data.prodid,
+      path: '/pages/prod/prod?prodid=' + this.data.prodId,
       success: (res) => {
         console.log(res)
         // 分享成功
