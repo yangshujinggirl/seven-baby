@@ -475,7 +475,6 @@ Page({
    * 分享设置
    */
   onShareAppMessage: function(res) {
-    console.log(this.data)
     return {
       title: this.data.prodName,
       path: '/pages/prod/prod?prodid=' + this.data.prodId,
