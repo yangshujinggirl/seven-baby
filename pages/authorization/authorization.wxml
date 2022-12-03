@@ -1,0 +1,2 @@
+<image src="../../images/customer/pic.png" class="pic"></image>
+<button class="userInfo" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信授权用户信息</button>

@@ -33,7 +33,7 @@ function request(params, isGetTonken) {
         });
       } else if (res.statusCode == 401) {
         // wx.navigateTo({
-        //   url: '/pages/login/login',
+        //   url: '/pages/authorization/authorization',
         // })
         // 添加到请求队列
         globalData.requestQueue.push(params);
@@ -71,6 +71,8 @@ function request(params, isGetTonken) {
 
 //通过code获取token,并保存到缓存
 var getToken = function() {
+  const globalData = getApp().globalData;
+  globalData.userInfo = {};
   wx.login({
     success: res => {
       // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -85,11 +87,11 @@ var getToken = function() {
           // 没有获取到用户昵称，说明服务器没有保存用户的昵称，也就是用户授权的信息并没有传到服务器
           if (!result.data.user.nickName) {
             updateUserInfo();
-          }
+          } 
           wx.setStorageSync('token', 'Bearer ' + result.data.user.token); //把token存入缓存，请求接口数据时要用
-          var globalData = getApp().globalData;
           globalData.isLanding = false;
           globalData.roleId = result.data.user.roleId;
+          globalData.userInfo = result.data.user;
           while (globalData.requestQueue.length) {
             request(globalData.requestQueue.pop());
           }
@@ -101,19 +103,43 @@ var getToken = function() {
 }
 
 // 更新用户头像昵称
-function updateUserInfo() {
+function updateUserInfo(callback) {
   wx.getUserInfo({
     success: (res) => {
       var userInfo = JSON.parse(res.rawData)
       request({
-        url: "/user/information",
+        url: "/user",
         method: "PUT",
         data: {
           nickname: userInfo.nickName,
           avatar: userInfo.avatarUrl,
           mobile: ''
+        },
+        callBack:function(res){
+          //更新用户信息
+          getBaseUserInfo(callback);
         }
       });
+    }
+  })
+}
+
+// 获取用户基本信息
+function getBaseUserInfo(callback) {
+  request({
+    url: "/user",
+    method: "GET",
+    callBack: function(res) {
+      if(!res.error) {
+        const  globalData = getApp().globalData;
+        globalData.userInfo = res.data?.user;
+        callback && callback(res);
+      } else {
+        wx.showToast({
+          title: res.message,
+        })
+      }
+     
     }
   })
 }
@@ -152,3 +178,4 @@ exports.getToken = getToken;
 exports.request = request;
 exports.getCartCount = getCartCount;
 exports.updateUserInfo = updateUserInfo;
+exports.getBaseUserInfo = getBaseUserInfo;

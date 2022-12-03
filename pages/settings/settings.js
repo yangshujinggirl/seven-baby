@@ -1,11 +1,18 @@
 // pages/setting.js
+var http = require("../../utils/http.js");
+import { getBaseUserInfo } from '../../utils/http';
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    phone:'',
+    userInfo:{},
+    showPhone:false,
+    showPassword:false,
+    phoneVal:''
   },
 
   /**
@@ -16,7 +23,60 @@ Page({
   },
   getPhoneNumber:function(e){
     console.log('e',e)
-    this.setData({ phone:e.detail.code})
+    const { userInfo } =this.data;
+    var ths = this;
+    wx.showLoading();
+    var params = {
+      url: "/user/mobile",
+      method: "GET",
+      data: {code:e.detail.encryptedData},
+      callBack: function(res) {
+        wx.hideLoading();
+        this.setData({ userInfo:{...userInfo, mobile:res.message }})
+      }
+    };
+    http.request(params);
+  },
+  toAuthPage:function(){
+    wx.navigateTo({
+        url: '/pages/authorization/authorization',
+    })
+  },
+  toBindPhone:function(){
+    this.setData({showPhone:true})
+  },
+  onClose:function(){
+    this.setData({showPhone:false})
+  },
+  onConfirm:function(){
+    const  { phoneVal } = this.data;
+    const ths = this;
+    var regexp = /^[1]([3-9])[0-9]{9}$/;
+    if (!regexp.test(phoneVal)) {
+      wx.showToast({
+        title: '请输入正确的手机号码',
+        icon: "none"
+      })
+      return;
+    }
+    var params = {
+      url: "/user",
+      method: "PUT",
+      data: {
+        mobile:phoneVal
+      },
+      callBack: function(res) {
+        wx.hideLoading();
+        ths.fetchUserInfo();
+      }
+    };
+    http.request(params);
+  },  
+  fetchUserInfo:function(){
+    const ths = this;
+    getBaseUserInfo(function(res){
+      ths.setData({ userInfo: res.data?.user})
+    })
   },
 
   /**
@@ -30,7 +90,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.fetchUserInfo()
   },
 
   /**

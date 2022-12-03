@@ -2,7 +2,6 @@
 
 var http = require("../../utils/http.js");
 const app = getApp();
-console.log('app',app)
 
 Page({
 
@@ -10,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo:app.globalData.userInfo,
     orderAmount: '',
     sts: '',
     collectionCount: 0,
@@ -87,6 +86,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
   },
 
   /**
@@ -100,6 +100,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({userInfo:app.globalData.userInfo})
     this.fetchPromoteStatus();
     this.fetchRecommond()
   },
@@ -137,6 +138,11 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  toAuthPage:function(){
+      wx.navigateTo({
+          url: '/pages/authorization/authorization',
+      })
   },
   // 好物推荐
   fetchRecommond:function(){

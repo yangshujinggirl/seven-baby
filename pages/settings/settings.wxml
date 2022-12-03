@@ -4,7 +4,8 @@
       <text class="lf">头像</text>
     </view>
     <view class="rf avatar">
-      <open-data type="userAvatarUrl"></open-data>
+      <image src="{{userInfo.avatar}}" mode="scaleToFill" wx:if="{{userInfo.nickname}}"></image>
+      <image wx:else src="../../images/customer/pic.png" mode="scaleToFill" bindtap="toAuthPage"></image>
     </view>
   </view>
   <view class='memu-item' bindtap='toCouponCenter'>
@@ -12,7 +13,8 @@
       <text class="lf">昵称</text>
     </view>
     <view class="info-rf">
-      <view><open-data type="userNickName"></open-data></view>
+      <view wx:if="{{userInfo.nickname}}">{{userInfo.nickname}}</view>
+      <view wx:else bindtap="toAuthPage">去授权</view>
       <view class='arrowhead'></view>
     </view>
   </view>
@@ -21,8 +23,7 @@
       <text>手机号</text>
     </view>
     <view class="info-rf">
-      <view wx:if="{{phone}}">{{phone}}</view>
-      <button wx:else open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getphone">获取手机号</button>
+      <view bindtap="toBindPhone">{{userInfo.mobile||'去设置'}}</view>
       <view class='arrowhead'></view>
     </view>
   </view>
@@ -62,4 +63,17 @@
       <view class='arrowhead'></view>
     </view>
   </view>
+  <van-dialog
+    use-slot
+    title="设置手机号"
+    show="{{ showPhone }}"
+    show-cancel-button
+    bind:close="onClose"
+    bind:confirm="onConfirm"
+    async-close="true"
+  >
+  <view class="item-wrap">
+    <input type="number" model:value="{{phoneVal}}" placeholder="请输入手机号"/>
+  </view>
+  </van-dialog>
 </view>

@@ -21,6 +21,7 @@ App({
     // 购物车商品数量
     totalCartCount: 0,
     // 角色id, 1:普通用户，2:推广者
-    roleId: 1
+    roleId: 1,
+    userInfo:{}
   }
 })

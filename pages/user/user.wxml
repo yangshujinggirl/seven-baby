@@ -2,13 +2,21 @@
 <view class='container'>
   <!-- 用户信息 -->
   <view class='userinfo'>
-    <view class="lf">
+    <view class="lf" wx-if="{{!!userInfo.nickname}}">
       <view class='userinfo-avatar'>
-        <open-data type="userAvatarUrl"></open-data>
+        <image src="{{userInfo.avatar}}" mode="scaleToFill"></image>
       </view>
       <view class='userinfo-name'>
-        <open-data type="userNickName"></open-data>
+        <view>{{userInfo.nickname}}</view>
         <view wx:if="{{userRole == '1'}}" class="promote-status">推广者</view>
+      </view>
+    </view>
+    <view class="lf" wx:else>
+      <view class='userinfo-avatar'>
+        <image src="../../images/customer/pic.png" mode="scaleToFill"></image>
+      </view>
+      <view class='userinfo-name'>
+        <view class="" bindtap="toAuthPage">立即登陆</view>
       </view>
     </view>
     <view bindtap='toSettings'>

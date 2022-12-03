@@ -2,7 +2,7 @@
 //获取应用实例
 var http = require("../../utils/http.js");
 var config = require("../../utils/config.js");
-const app = getApp()
+const app = getApp();
 
 Page({
   data: {
@@ -31,6 +31,7 @@ Page({
     })
   },
   onLoad: function(options) {
+console.log('app-index',app)
     if(options?.inviteId) {
       this.bindInvite(options?.inviteId)
     }

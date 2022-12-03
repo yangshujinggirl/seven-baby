@@ -56,7 +56,7 @@
                     <input class='iptbox' value="{{Value.length>index?'*':''}}" disabled password='{{ispassword}}' catchtap='Tap' type="number"></input>
                 </block>
             </view>
-            <input name="password" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus"></input>
+            <input name="password" password="{{true}}" class='ipt' type="number" maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus"></input>
             <!-- <view>
                 <button class="btn-area" disabled='{{disabled}}' formType="submit">下一步</button>
             </view> -->
