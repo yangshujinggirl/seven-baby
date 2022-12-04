@@ -134,15 +134,19 @@ Page({
   onSelectedItem: function (e) {
     var index = e.currentTarget.dataset.index;// 获取data- 传进来的index
     var scindex = e.currentTarget.dataset.scindex;
-
-    var shopCartItemDiscounts = this.data.shopCartItemDiscounts;// 获取购物车列表
-    var checked = shopCartItemDiscounts[scindex].goods[index].checked; // 获取当前商品的选中状态
-    shopCartItemDiscounts[scindex].goods[index].checked = !checked; // 改变状态
-    this.setData({
-      shopCartItemDiscounts: shopCartItemDiscounts
-    });
-    this.checkAllSelected();//检查全选状态
-    this.calTotalPrice();//计算总价
+    var inSale = e.currentTarget.dataset.inSale;
+    if (inSale==0) {
+      wx.showToast('该商品已下架')
+    } else {
+      var shopCartItemDiscounts = this.data.shopCartItemDiscounts;// 获取购物车列表
+      var checked = shopCartItemDiscounts[scindex].goods[index].checked; // 获取当前商品的选中状态
+      shopCartItemDiscounts[scindex].goods[index].checked = !checked; // 改变状态
+      this.setData({
+        shopCartItemDiscounts: shopCartItemDiscounts
+      });
+      this.checkAllSelected();//检查全选状态
+      this.calTotalPrice();//计算总价
+    }
   },
 
   /**

@@ -28,45 +28,21 @@ swiper image {
 }
 
 .tit-wrap {
-  position: relative;
   line-height: 40rpx;
-  padding-right: 104rpx;
+  display:flex;
+  align-item: center;
+  justify-content:space-between;
 }
-
-.prod-tit {
+.tit-wrap .prod-tit{
+  width: 520rpx;
   font-size: 32rpx;
   color: #333;
-  padding-right: 20rpx;
 }
-
-.tit-wrap .col {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80rpx;
-  color: #666;
-  font-size: 20rpx;
-  padding-left: 20rpx;
-  text-align: center;
-}
-
-.tit-wrap .col image {
-  display: block;
-  margin: auto;
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.tit-wrap .col::after {
-  content: "";
-  display: block;
-  width: 1px;
-  height: auto;
-  background: #f1f1f1;
-  position: absolute;
-  top: 0;
-  bottom: 5px;
-  left: 0;
+.tit-wrap .promote-btn{
+  background:#EB5412;
+  width: 160rpx;
+  color: #fff;
+  line-height: 80rpx;
 }
 
 .sales-p {
@@ -227,6 +203,24 @@ swiper image {
   font-size: 22rpx;
   top: 20rpx;
   color: #999;
+}
+
+.maoli{
+  padding: 20rpx;
+  background: #fff;
+  margin-top: 20rpx;
+  line-height: 48rpx;
+}
+.sku-tit{
+  font-size: 22rpx;
+  color: #999;
+}
+.sku-con{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 28rpx;
+  font-weight: bold;
 }
 
 .sku-con {

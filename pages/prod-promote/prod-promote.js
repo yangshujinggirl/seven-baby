@@ -60,6 +60,15 @@ Page({
   showPopUp() {
     this.setData({ showPop: true });
   },
+  goProduct: function (e) {
+    var prodid = e.currentTarget.dataset.prodid;
+    wx.navigateTo({
+      url: '/pages/prod/prod?prodid=' + prodid,
+    })
+  },
+  share(){
+    console.log('阻止事件冒泡');
+  },
 
   /**
    * 生命周期函数--监听页面加载

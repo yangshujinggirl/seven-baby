@@ -12,7 +12,7 @@
   <view class="banner-wrap">
     <image src="{{banner}}" />
   </view>
-  <view class="pro-item-wrap" wx:for="{{prodList}}" wx:key ="key">
+  <view class="pro-item-wrap" bindtap="goProduct" data-prodid="{{item.goodsId}}" wx:for="{{prodList}}" wx:key ="key">
     <view class="left">
       <image src="{{item.mainImage}}" />
     </view>
@@ -35,7 +35,7 @@
           <text>佣金比例:{{item.grossProfit}}</text>
           <text>佣金:¥{{item.promoterProfit}}</text>
         </view>
-        <button class="mini-btn" size="mini" class="promote-btn" open-type="share" data-id="{{item.goodsId}}">去推广</button>
+        <button class="mini-btn" size="mini" class="promote-btn" open-type="share" catchtap="share" data-id="{{item.goodsId}}">去推广</button>
       </view>
     </view>
   </view>

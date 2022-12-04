@@ -21,13 +21,9 @@ Page({
     prodNum: 1,
     totalCartNum: 0,
     pic: "",
-    imgs: '',
-    prodName: '',
-    price: 0,
     content: '',
     prodId: 0,
     promoteId: undefined,
-    brief: '',
     skuId: 0,
     popupShow: false,
     // 是否获取过用户领取过的优惠券id
@@ -53,7 +49,8 @@ Page({
     evaluate: -1,
     isCollection: 0,
     userId:NaN,
-    roleId:1
+    roleId:1,
+    isCommission: 0
   },
 
   /**
@@ -102,12 +99,9 @@ Page({
           const { attributeList, goodsItem, isCollection, roleId, userId } = data
           var content = util.formatHtml(goodsItem.goodsDetails);
           this.setData({
-            imgs: goodsItem.carouselImage,
+            goodsItem,
             content: content,
-            price: goodsItem.salePrice,
-            prodName: goodsItem.goodsName,
             prodId: goodsItem.goodsId,
-            brief: goodsItem.introduction,
             isCollection:isCollection,
             roleId,
             userId,
@@ -165,7 +159,7 @@ Page({
       //找到和商品价格一样的那个SKU，作为默认选中的SKU
       var defaultSku = this.data.defaultSku;
       var isDefault = false;
-      if (!defaultSku && skuList[i].salePrice == this.data.price) { 
+      if (!defaultSku && skuList[i].salePrice == this.data.goodsItem.price) { 
         defaultSku = skuList[i];
         isDefault = true;
         this.setData({
@@ -323,58 +317,66 @@ Page({
    * 加入购物车
    */
   addToCart: function(event) {
-    if (!this.data.findSku) {
-      return;
-    }
-    var ths = this;
-    wx.showLoading({
-      mask: true
-    });
-    var params = {
-      url: "/cart",
-      method: "POST",
-      data: {
-        goodsId: this.data.defaultSku.attrId,
-        goodsNum: this.data.prodNum
-      },
-      callBack: function(res) {
-        //console.log(res);
-        const {error, data, message} = res
-        if (error === 0) {
-          // TODO
-          ths.setData({
-            totalCartNum: ths.data.totalCartNum + ths.data.prodNum
-          });
-          wx.showToast({
-            title: "加入购物车成功",
-            icon: "none"
-          })
-        } else {
-          wx.showToast({
-            title: message,
-            icon: "none"
-          })
-        }
-        wx.hideLoading();
+    if (this.data.goodsItem.inSale == 0) {
+      wx.showToast('该商品已下架')
+    } else {
+      if (!this.data.findSku) {
+        return;
       }
-    };
-    http.request(params);
+      var ths = this;
+      wx.showLoading({
+        mask: true
+      });
+      var params = {
+        url: "/cart",
+        method: "POST",
+        data: {
+          goodsId: this.data.defaultSku.attrId,
+          goodsNum: this.data.prodNum
+        },
+        callBack: function(res) {
+          //console.log(res);
+          const {error, data, message} = res
+          if (error === 0) {
+            // TODO
+            ths.setData({
+              totalCartNum: ths.data.totalCartNum + ths.data.prodNum
+            });
+            wx.showToast({
+              title: "加入购物车成功",
+              icon: "none"
+            })
+          } else {
+            wx.showToast({
+              title: message,
+              icon: "none"
+            })
+          }
+          wx.hideLoading();
+        }
+      };
+      http.request(params);
+    }
   },
 
   /**
    * 立即购买
    */
   buyNow: function() {
-    if (!this.data.findSku) {
-      return;
+    if (this.data.goodsItem.inSale == 0) {
+      wx.showToast('该商品已下架')
+    } else {
+      if (!this.data.findSku) {
+        return;
+      }
+      wx.setStorageSync("orderItem", JSON.stringify([{
+        goodsId:this.data.defaultSku.attrId,
+        goodsNum:this.data.prodNum
+      }]));
+      wx.navigateTo({
+        url: '/pages/submit-order/submit-order?orderEntry=1',
+      })
     }
-    wx.setStorageSync("orderItem", JSON.stringify([{
-      goodsId:this.data.defaultSku.attrId,
-      goodsNum:this.data.prodNum
-    }]));
-    wx.navigateTo({
-      url: '/pages/submit-order/submit-order?orderEntry=1',
-    })
   },
 
   /**
@@ -406,7 +408,7 @@ Page({
    */
   onShareAppMessage: function(res) {
     return {
-      title: this.data.prodName,
+      title: this.data.goodsItem.goodsName,
       path: `/pages/prod/prod?prodid=${this.data.prodId}&promoteId=${this.data.userId}`,
       success: (res) => {
         console.log(res)

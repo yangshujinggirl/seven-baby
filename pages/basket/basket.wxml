@@ -3,15 +3,11 @@
   <view class="prod-list">
     <block wx:for="{{shopCartItemDiscounts}}" wx:key='shopCart' wx:for-index="scIndex">
       <view class='prod-block'>
-        <!-- <view class='discount-tips' hidden='{{!item.chooseDiscountItemDto}}'>
-          <text class='text-block'>{{wxs.parseDiscount(item.chooseDiscountItemDto.discountRule)}}discountRule</text>
-          <text class='text-list'>{{wxs.parseDiscountMsg(item.chooseDiscountItemDto.discountRule,item.chooseDiscountItemDto.needAmount,item.chooseDiscountItemDto.discount)}}discount</text>
-        </view> -->
         <block wx:for="{{item.goods}}" wx:key='product' wx:for-item="prod">
           <view class='item'>
             <view class="btn">
               <label>
-                <checkbox bindtap='onSelectedItem' data-scindex="{{scIndex}}" data-index="{{index}}" value="{{prod.goodsId}}" checked="{{prod.checked}}" color="#105c3e" />
+                <checkbox bindtap='onSelectedItem' data-scindex="{{scIndex}}" data-inSale="prod.inSale" data-index="{{index}}" value="{{prod.goodsId}}" checked="{{prod.checked}}" color="#105c3e" />
               </label>
             </view>
             <view class='prodinfo'>
@@ -37,39 +33,8 @@
             </view>
           </view>
         </block>
-
       </view>
     </block>
-
-    <!-- <view class='lose-efficacy'>
-      <view class='discount-tips'>
-        
-        <text class='text-list'>失效商品</text>
-        <text class='empty-prod'>清空失效商品</text>
-      </view>
-      <view class='item'>
-        <view class="staus">
-          <text>失效</text>
-        </view>
-        <view class='prodinfo'>
-          <view class="pic">
-            <image src='../../images/prod/pic11.jpg' />
-          </view>
-          <view class="opt">
-            <view class='prod-name'>宠物用品洗澡香波沐浴除臭留</view>
-            <view class='prod-info-text'>60克</view>
-            <view class='price-count'>
-              <view class='price'>
-                <text class='symbol'>￥</text>
-                <text class='big-num'>{{wxs.parsePrice(10.00)[0]}}</text>
-                <text class='small-num'>.{{wxs.parsePrice(10.00)[1]}}</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view> -->
-
   </view>
 
   <view class="empty" wx:if="{{shopCartItemDiscounts.length==0}}">
