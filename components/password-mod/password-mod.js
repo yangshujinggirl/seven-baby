@@ -26,7 +26,7 @@ Component({
    */
   methods: {
     onCancel(){
-      that.triggerEvent('onClose')
+      this.triggerEvent('onClose')
     },
     Focus(e) {
       console.log(this.data)
