@@ -1,0 +1,11 @@
+
+page {
+  background-color: #f7f7f7 !important;
+}
+.about {
+  font-size: 24rpx;
+  padding: 24rpx 40rpx;
+}
+.about .item {
+  margin-bottom: 24rpx;
+}

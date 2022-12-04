@@ -90,7 +90,7 @@
         <text style='font-weight:bold'>服务中心</text>
       </view>
       <view class='procedure'>
-        <view class='items' bindtap='handleOperate'>
+        <view class='items' bindtap='handleOperate' data-linkUrl="/pages/feedbacks/feedbacks">
           <image src='../../images/account/customer_yj.png'></image>
           <text>意见反馈</text>
           <text class='num-badge' wx:if="{{orderAmount.unPay>0}}">{{orderAmount.unPay}}</text>

@@ -78,6 +78,16 @@ Page({
       ths.setData({ userInfo: res.data?.user})
     })
   },
+  toSetPassword:function(){
+    wx.navigateTo({
+      url: '/pages/set-password/set-password',
+    })
+  },
+  toAbout:function(){
+    wx.navigateTo({
+      url: '/pages/about-us/about-us',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

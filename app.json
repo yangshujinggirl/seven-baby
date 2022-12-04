@@ -31,7 +31,11 @@
     "pages/withdraw-manage/withdraw-manage",
     "pages/withdraw-list/withdraw-list",
     "pages/withdraw-detail/withdraw-detail",
-    "pages/authorization/authorization"
+    "pages/authorization/authorization",
+    "pages/set-password/set-password",
+    "pages/about-us/about-us",
+    "pages/my-collect/my-collect",
+    "pages/feedbacks/feedbacks"
   ],
   "window": {
     "backgroundTextStyle": "light",

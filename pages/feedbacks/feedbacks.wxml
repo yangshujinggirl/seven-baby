@@ -1,0 +1,13 @@
+<view class="feedback-wrap">
+    <view class="section">
+      <text class="label">问题或建议</text>
+      <textarea placeholder="请提出您宝贵的意见或建议，我们会尽快优化提升" name="advantage" model:value="{{suggest}}"/>
+    </view>
+    <image src="{{item}}" wx:for="{{images}}" wx:key="index" class="pic-item"></image>
+    <view class="upload" bindtap="uoloadFile" data-card="idCardFront">
+      <text class="plus-icon">+</text>
+    </view>
+    <view class='btn-box'>
+      <button class='keep' bindtap='onSubmit'>提交</button>
+    </view>
+</view>

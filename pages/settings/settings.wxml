@@ -27,39 +27,21 @@
       <view class='arrowhead'></view>
     </view>
   </view>
-  <view class='memu-item' bindtap='toMyCouponPage'>
-    <view class="i-name">
-      <text>添加收款账号</text>
-    </view>
-    <view class="info-rf">
-      <view>12333</view>
-      <view class='arrowhead'></view>
-    </view>
-  </view>
-  <view class='memu-item' bindtap='toMyCouponPage'>
+  <view class='memu-item' bindtap='toSetPassword'>
     <view class="i-name">
       <text>添加提现密码</text>
     </view>
     <view class="info-rf">
-      <view>1233</view>
+      <view>******</view>
       <view class='arrowhead'></view>
     </view>
   </view>
-  <view class='memu-item' bindtap='toAddressList'>
+  <view class='memu-item'>
     <view class="i-name">
       <text>关于七个宝宝</text>
     </view>
-    <view class="info-rf">
+    <view class="info-rf" bindtap="toAbout">
       <view></view>
-      <view class='arrowhead'></view>
-    </view>
-  </view>
-  <view class='memu-item' bindtap='toAddressList'>
-    <view class="i-name">
-      <text>清除缓存</text>
-    </view>
-    <view class="info-rf">
-      <view>23M</view>
       <view class='arrowhead'></view>
     </view>
   </view>

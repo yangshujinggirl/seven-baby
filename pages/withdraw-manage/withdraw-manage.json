@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "提现管理",
   "usingComponents": {
-    "van-popup": "vant-weapp/popup/index"
+    "van-popup": "vant-weapp/popup/index",
+    "password-mod": "/components/password-mod/password-mod"
   }
 }

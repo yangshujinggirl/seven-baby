@@ -45,7 +45,7 @@ Page({
       url: "/promoter-withdraw",
       method: "GET",
       data: {
-        page:10,
+        page:1,
         ...params
       },
       callBack: function(res) {
@@ -56,7 +56,6 @@ Page({
           })
         } else {
           let listArr = res.data.list;
-          listArr=[{withdrawStatus:'待支付',withdrawAmount:200,withdrawId:1}]
           ths.setData({ list:listArr })
         }
       }

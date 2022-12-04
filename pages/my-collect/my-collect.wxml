@@ -1,0 +1,19 @@
+<view>
+  <view class="tabs-wrap">
+    <view class="item activity">商品</view>
+    <view class="item">内容</view>
+  </view>
+  <view class="goods-wrap">
+    <view class="item" wx:for="{{list}}" wx:key="index" data-id="{{item.goodsId}}" catchtap="toProdPage">
+      <view class="lf"><image src="{{item.mainImage}}"></image></view>
+      <view class="rf">
+        <view class="title">{{item.goodsName}}</view>
+        <view class="old">日常价：{{item.retailPrice}}</view>
+        <view class="fot">
+          <view class="price"><text class="unit">¥</text>{{item.salePrice}}</view>
+          <view class="collect-btn" catchtap="cancelCollect" data-id="{{item.goodsId}}">取消收藏</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

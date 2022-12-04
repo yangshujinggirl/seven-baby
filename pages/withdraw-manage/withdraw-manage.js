@@ -10,7 +10,6 @@ Page({
     isChecked:false,
     user:{},
     order:{},
-    show:false,
     Length: 6, //输入框个数
     isFocus: false, //聚焦 唤起键盘
     Value: "", //输入的密码内容
@@ -78,7 +77,7 @@ Page({
       method: "POST",
       data: {
         withdrawAmount,
-        withdrawPassword:val
+        withdrawPassword:val.detail
       },
       callBack: function(res) {
         wx.hideLoading();
@@ -86,6 +85,9 @@ Page({
           wx.showToast({
             title: res.message,
           })
+          // wx.redirectTo({
+          //   url: '/pages/withdraw-list/withdraw-list'
+          // })
         } else {
           wx.redirectTo({
             url: '/pages/withdraw-list/withdraw-list'
@@ -121,7 +123,7 @@ Page({
       wx.showToast({
         title: '提现金额不能超出可提现金额',
       })
-      // return;
+      return;
     }
     this.setData({show:true})
   },
