@@ -91,6 +91,7 @@ var getToken = function() {
           wx.setStorageSync('token', 'Bearer ' + result.data.user.token); //把token存入缓存，请求接口数据时要用
           globalData.isLanding = false;
           globalData.roleId = result.data.user.roleId;
+          globalData.id = result.data.user.id;
           globalData.userInfo = result.data.user;
           while (globalData.requestQueue.length) {
             request(globalData.requestQueue.pop());

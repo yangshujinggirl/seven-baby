@@ -26,6 +26,7 @@ Page({
     price: 0,
     content: '',
     prodId: 0,
+    promoteId: undefined,
     brief: '',
     skuId: 0,
     popupShow: false,
@@ -50,7 +51,9 @@ Page({
     },
     littleCommPage: [],
     evaluate: -1,
-    isCollection: 0
+    isCollection: 0,
+    userId:NaN,
+    roleId:1
   },
 
   /**
@@ -60,13 +63,10 @@ Page({
     console.log('options',options)
     this.setData({
       prodId: options.prodid,
+      promoteId: options.prodid
     });
     // 加载商品信息
     this.getProdInfo();
-    // 加载评论数据
-    // this.getProdCommData();
-    // 加载评论项
-    // this.getLittleProdComm();
   },
 
   /**
@@ -99,7 +99,7 @@ Page({
       callBack: (res) => {
         const {error, data} = res
         if (error===0) {
-          const { address, attributeList, goodsItem, isCollection, roleId } = data
+          const { attributeList, goodsItem, isCollection, roleId, userId } = data
           var content = util.formatHtml(goodsItem.goodsDetails);
           this.setData({
             imgs: goodsItem.carouselImage,
@@ -109,109 +109,39 @@ Page({
             prodId: goodsItem.goodsId,
             brief: goodsItem.introduction,
             isCollection:isCollection,
-            // skuId: res.skuId
+            roleId,
+            userId,
             skuList: attributeList,
             pic: goodsItem.carouselImage[0]
           })
           this.groupSkuProp()
+          //绑定关系
+          if (this.data.promoteId) {
+            this.bindPromoteRelation(userId)
+          }
         }
-        console.log(res);
-        // // 获取优惠券
-        // //this.getCouponList();
         // // 组装sku
         wx.hideLoading();
       }
     };
     http.request(params);
   },
-  getProdCommData() {
-    http.request({
-      url: "/prodComm/prodCommData",
-      method: "GET",
-      data: {
-        prodId: this.data.prodId,
+  /**
+   * 绑定关系
+   */
+  bindPromoteRelation() {
+    var params = {
+      url: '/promoter/invitation',
+      method: "POST",
+      data:{
+        invitationId: this.data.promoteId
       },
       callBack: (res) => {
-        this.setData({
-          prodCommData: res
-        })
+        console.log(res);
       }
-    })
+    };
+    http.request(params);
   },
-  // 获取部分评论
-  getLittleProdComm() {
-    if (this.data.prodCommPage.records.length) {
-      return;
-    }
-    this.getProdCommPage();
-  },
-  getMoreCommPage(e) {
-    this.getProdCommPage();
-  },
-  // 获取分页获取评论
-  getProdCommPage(e) {
-    if (e) {
-      if (e.currentTarget.dataset.evaluate === this.data.evaluate) {
-        return;
-      }
-      this.setData({
-        prodCommPage: {
-          current: 0,
-          pages: 0,
-          records: []
-        },
-        evaluate: e.currentTarget.dataset.evaluate
-      })
-    }
-    http.request({
-      url: "/prodComm/prodCommPageByProd",
-      method: "GET",
-      data: {
-        prodId: this.data.prodId,
-        size: 10,
-        current: this.data.prodCommPage.current + 1,
-        evaluate: this.data.evaluate
-      },
-      callBack: (res) => {
-        res.records.forEach(item => {
-          if (item.pics) {
-            item.pics = item.pics.split(',')
-          }
-        })
-        let records = this.data.prodCommPage.records
-        records = records.concat(res.records)
-        this.setData({
-          prodCommPage: {
-            current: res.current,
-            pages: res.pages,
-            records: records
-          }
-        })
-        // 如果商品详情中没有评论的数据，截取两条到商品详情页商品详情
-        if (!this.data.littleCommPage.length) {
-          this.setData({
-            littleCommPage: records.slice(0, 2)
-          })
-        }
-      }
-    })
-  },
-  getCouponList() {
-    http.request({
-      url: "/coupon/listByProdId",
-      method: "GET",
-      data: {
-        prodId: this.data.prodId,
-        shopId: this.data.shopId,
-      },
-      callBack: (res) => {
-        this.setData({
-          couponList: res
-        })
-      }
-    })
-  },
-
   /**
    * 根据skuList进行数据组装
    */
@@ -477,7 +407,7 @@ Page({
   onShareAppMessage: function(res) {
     return {
       title: this.data.prodName,
-      path: '/pages/prod/prod?prodid=' + this.data.prodId,
+      path: `/pages/prod/prod?prodid=${this.data.prodId}&promoteId=${this.data.userId}`,
       success: (res) => {
         console.log(res)
         // 分享成功

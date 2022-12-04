@@ -86,7 +86,7 @@
               小计：
               <text class='symbol'>￥</text>
               <text class='big-num'>{{wxs.parsePrice(supplier.goodsAmount+supplier.expressAmount)[0]}}</text>
-              <text class='small-num'>.{{wxs.parsePrice(supplier.totalAmount+supplier.expressAmount)[1]}}</text>
+              <text class='small-num'>.{{wxs.parsePrice(supplier.goodsAmount+supplier.expressAmount)[1]}}</text>
             </view>
           </view>
         </view>

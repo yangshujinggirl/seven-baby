@@ -201,6 +201,7 @@ page {
 .maoli{
   font-size:24rpx;
   color: #4A4A4A;
+  line-height: 60rpx;
 }
 .promote-btn{
   background: #EB5412;

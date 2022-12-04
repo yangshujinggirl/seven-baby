@@ -31,47 +31,19 @@ Page({
     })
   },
   onLoad: function(options) {
-console.log('app-index',app)
     if(options?.inviteId) {
       this.bindInvite(options?.inviteId)
     }
-    this.getAuth();
     this.getAllData();
   },
-  getAuth:function(){
-    const ths = this;
-    // 查看是否授权
-    wx.getSetting({
-      success (res){
-        if (!res.authSetting['scope.userInfo']) {
-          // ths.setData({show:true})
-        } else {
-                 // wx.getUserProfile({
-          //   desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-          //   success: (res) => {
-          //     this.setData({
-          //       userInfo: res.userInfo,
-          //       hasUserInfo: true
-          //     })
-          //   }
-          // })
-        }
-      }
-    })
-  },
   bindInvite:function(inviteId){
-    //加载轮播图
     var params = {
       url: "/promoter/invitation",
       method: "POST",
       data: {invitationId:inviteId},
       callBack: (res) => {
         const {data,error,message} = res
-        if (!error) {
-          wx.showToast({
-            title: res.error,
-          })
-        }
+        console.log('res:', res);
       }
     };
     http.request(params);

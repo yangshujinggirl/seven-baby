@@ -59,14 +59,27 @@ Page({
   onReachBottom() {
 
   },
-
+  test(){
+    wx.previewMedia({
+      sources:[{
+        url: this.data.qrcodeUrl,
+      }],
+      success: (res) => {
+        console.log(res);
+      },
+      fail: (res) => {
+        console.log(res);
+      }
+    })
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
+    const globalData = getApp().globalData
     return {
-      title: '我的分享码',
-      path: '/pages/promotionCode/promotionCode',
+      title: '我的邀请码',
+      path: `/pages/index/index?inviteId=${globalData.id}`,
       imageUrl: '../../images/customer/pic.png',
       success: (res) => {
         // 分享成功

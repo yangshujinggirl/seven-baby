@@ -267,7 +267,7 @@ Page({
       }
     }
 
-    if (basketIds.length == 0) {
+    if (goodsId.length == 0) {
       wx.showToast({
         title: '请选择商品',
         icon: "none"
@@ -288,9 +288,9 @@ Page({
               data: {
                 goodsId
               },
-              callBack: function (res) {
+              callBack: (res) => {
                 wx.hideLoading();
-                ths.loadBasketData();
+                this.loadBasketData();
               }
             };
             http.request(params);
@@ -298,9 +298,5 @@ Page({
         }
       })
     }
-
-
   }
-
-
 })

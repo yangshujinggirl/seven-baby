@@ -1,7 +1,7 @@
 <view class="promotion-code">
   <view class="head">
     <text class="lf">我的推广码</text>
-    <button open-type="share" class="rf"><image src="../../images/account/settings.png" class="pic"></image ></button>
+    <button bindtap="test" class="rf"><image src="../../images/account/share.png" class="pic"></image ></button>
   </view>
   <image src="{{qrcodeUrl}}" class="qrcode"></image>
   <view class="footer">
