@@ -1,39 +1,6 @@
 <view class="withdraw-detail">
-  <view class="item">
-    <view class="label">用户ID：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="item">
-    <view class="label">类型：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="item">
-    <view class="label">提现金额：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="item">
-    <view class="label">申请账号：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="item">
-    <view class="label">申请时间：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="line"></view>
-  <view class="item">
-    <view class="label">审核人：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="item">
-    <view class="label">审核状态：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="item">
-    <view class="label">审核时间：</view>
-    <view class="label">564375</view>
-  </view>
-  <view class="item">
-    <view class="label">备注原因：</view>
-    <view class="label">564375</view>
+  <view class="item" wx:for="{{info}}" wx:key="index">
+    <view class="label">{{item.label}}：</view>
+    <view class="label">{{item.value}}</view>
   </view>
 </view>

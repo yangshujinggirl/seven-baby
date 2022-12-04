@@ -1,4 +1,4 @@
-// pages/withdraw-detail/withdraw-detail.js
+// pages/about-us/about-us.js
 var http = require("../../utils/http.js");
 Page({
 
@@ -6,14 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info:[]
+    content:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.fetchInfo(options?.id)
+      this.fetchContent();
   },
 
   /**
@@ -27,24 +27,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+
   },
-  fetchInfo:function(id){
-    var ths = this;
-    wx.showLoading();
-    var params = {
-      url: `/promoter-withdraw/${id}`,
+  fetchContent:function(){
+     const ths =this;
+     var params = {
+      url: "/service/about-platform",
       method: "GET",
-      data: {},
-      callBack: function(res) {
-        wx.hideLoading();
-        if(res.error) {
+      callBack: (res) => {
+        const {data,error,message} = res
+        if (error) {
           wx.showToast({
             title: res.message,
           })
         } else {
-          let listArr = res.data.list;
-          listArr=[{withdrawStatus:'待支付',withdrawAmount:200,withdrawId:1}]
-          ths.setData({ info:res.data?.show })
+          ths.setData({content:res.data.content})
         }
       }
     };

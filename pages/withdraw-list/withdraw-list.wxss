@@ -34,6 +34,15 @@ page {
 .tables .td {
   width: 20%;
 }
+.tr .td {
+  line-height: 36rpx;
+}
+.tables .td-big {
+  width: 30%;
+}
+.tables .td-short {
+  width: 10%;
+}
 .no-data {
   text-align: center;
 }

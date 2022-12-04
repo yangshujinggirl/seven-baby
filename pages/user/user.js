@@ -24,7 +24,7 @@ Page({
       },{
         name:'我的收藏',
         icon:'../../images/account/func_sc.png',
-        linkUrl:'',
+        linkUrl:'/pages/my-collect/my-collect',
         action:''
       },{
         name:'收货地址',
@@ -66,12 +66,12 @@ Page({
         },{
           name:'社区管理',
           icon:'../../images/account/func_sqgl.png',
-          linkUrl:'',
+          linkUrl:'/pages/withdraw-list/withdraw-list',
           action:''
         },{
           name:'我的收藏',
           icon:'../../images/account/func_sc.png',
-          linkUrl:'',
+          linkUrl:'/pages/my-collect/my-collect',
           action:''
         },{
           name:'收货地址',

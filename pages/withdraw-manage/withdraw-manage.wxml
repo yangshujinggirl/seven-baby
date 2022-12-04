@@ -45,8 +45,12 @@
   </view>
   </view>
   <van-popup show="{{ show }}" bind:close="onClose" custom-style="border-radius:18rpx">
-       <!-- 以下为输入密码关键代码 -->
-        <view class="form-wrap">
+    <view>
+        <password-mod bind:onSubmit="onSubmit"  bind:onClose="onCalcel"
+        withdrawAmount="{{withdrawAmount}}"></password-mod>
+      </view>
+      <!-- 以下为输入密码关键代码 -->
+        <!-- <view class="form-wrap">
             <image  class="close" src="../../images/icon/close.png" bindtap="onCalcel"/>
             <view class="tit">请输入6位提现密码</view>
             <view class="tex">提现</view>
@@ -57,9 +61,6 @@
                 </block>
             </view>
             <input name="password" password="{{true}}" class='ipt' type="number" maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus"></input>
-            <!-- <view>
-                <button class="btn-area" disabled='{{disabled}}' formType="submit">下一步</button>
-            </view> -->
-        </view>
+        </view>> -->
   </van-popup>
 </view>

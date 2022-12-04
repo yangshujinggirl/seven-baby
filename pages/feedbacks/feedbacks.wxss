@@ -1,0 +1,69 @@
+page {
+  background: #F4F4F4;
+}
+.feedback-wrap {
+  padding:30rpx 20rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+.section .label {
+  display: block;
+  padding-bottom: 20rpx;
+  font-size: 32rpx;
+  color: #000;
+  border-bottom: 2rpx solid #dadada;
+}
+.feedback-wrap  .section textarea {
+  width: 100%;
+  padding:20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #9a9a9a;
+}
+.pic-item {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  margin: 0 20rpx 20rpx 0;
+}
+.upload {
+  width: 180rpx;
+  height: 180rpx;
+  background: #F4F4F4;
+  border: 2rpx solid #eee;
+  border-radius: 16rpx;
+  text-align: center;
+  margin-bottom: 20rpx;
+  position: relative;
+  overflow: hidden;
+}
+.upload image {
+  width: 100%;
+  height: 100%;
+}
+.upload .plus-icon {
+  font-size: 90rpx;
+  color: #666;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+.btn-box {
+  padding-bottom: 40rpx;
+  width: 90%;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.btn-box .keep{
+  height: 82rpx;
+  line-height: 82rpx;
+  color: #fff;
+  background-color: #EB5412;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+
+}

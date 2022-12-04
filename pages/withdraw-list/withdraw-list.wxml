@@ -5,15 +5,15 @@
   </view>
   <view class="tables" wx:if="{{list.length>0}}">
       <view class="tabs th">
-        <view class="td">时间</view>
-        <view class="td td-big">类型</view>
-        <view class="td td-short">提现金额</view>
+        <view class="td  td-big">时间</view>
+        <view class="td  td-short">类型</view>
+        <view class="td">提现金额</view>
         <view class="td">备注</view>
       </view>
       <view class="tabs tr" wx:for="{{list}}" wx:key="index" bindtap="toDetail" data-id="{{item.withdrawId}}">
-        <view class="td">{{item.withdrawId}}</view>
-        <view class="td td-big">{{item.withdrawStatus}}</view>
-        <view class="td td-short">{{item.withdrawAmount}}</view>
+        <view class="td  td-big">{{item.withdrawTime}}</view>
+        <view class="td  td-short">{{item.withdrawStatus}}</view>
+        <view class="td">{{item.withdrawAmount}}</view>
         <view class="td">{{item.remark}}</view>
       </view>
   </view>

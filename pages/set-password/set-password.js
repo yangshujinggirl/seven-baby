@@ -1,19 +1,44 @@
-// pages/withdraw-detail/withdraw-detail.js
+// pages/set-password/set-password.js
 var http = require("../../utils/http.js");
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    info:[]
+
+  },
+  onSubmit:function(val){
+    var ths = this;
+    wx.showLoading();
+    var params = {
+      url: "/promoter/withdraw-password",
+      method: "POST",
+      data: {
+        password:val.detail
+      },
+      callBack: function(res) {
+        wx.hideLoading();
+        if(res.error) {
+          wx.showToast({
+            title: res.message,
+          })
+        } else {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      }
+    };
+    http.request(params);
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.fetchInfo(options?.id)
+
   },
 
   /**
@@ -27,28 +52,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-  },
-  fetchInfo:function(id){
-    var ths = this;
-    wx.showLoading();
-    var params = {
-      url: `/promoter-withdraw/${id}`,
-      method: "GET",
-      data: {},
-      callBack: function(res) {
-        wx.hideLoading();
-        if(res.error) {
-          wx.showToast({
-            title: res.message,
-          })
-        } else {
-          let listArr = res.data.list;
-          listArr=[{withdrawStatus:'待支付',withdrawAmount:200,withdrawId:1}]
-          ths.setData({ info:res.data?.show })
-        }
-      }
-    };
-    http.request(params);
+
   },
 
   /**
