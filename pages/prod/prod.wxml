@@ -2,7 +2,7 @@
 <view class="container">
   <!-- 轮播图 -->
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" indicator-color="{{indicatorColor}}" interval="{{interval}}" duration="{{duration}}" indicator-active-color="{{indicatorActiveColor}}">
-    <block wx:for="{{goodsItem.imgs}}" wx:key='*this'>
+    <block wx:for="{{goodsItem.carouselImage}}" wx:key='*this'>
       <swiper-item>
         <image src='{{item}}'></image>
       </swiper-item>
@@ -16,8 +16,12 @@
       <button wx:if="{{goodsItem.isCommission == 1 && roleId==2}}" class="promote-btn" size="mini" open-type="share" data-id="{{goodsItem.goodsId}}">去推广</button>
     </view>
     <view class="sales-p">{{goodsItem.introduction}}</view>
-    <view class="prod-price">
+    <view class="prod-price" wx:if="{{defaultSku.salePrice}}">
       <text class="price">￥<text class="price-num">{{wxs.parsePrice(defaultSku.salePrice)[0]}}</text>.{{wxs.parsePrice(defaultSku.salePrice)[1]}}</text>
+      <text class="sales"></text>
+    </view>
+    <view wx:else class="prod-price">
+      <text class="price">￥<text class="price-num">{{wxs.parsePrice(goodsItem.salePrice)[0]}}</text>.{{wxs.parsePrice(goodsItem.salePrice)[1]}}</text>
       <text class="sales"></text>
     </view>
   </view>
