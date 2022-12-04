@@ -26,8 +26,8 @@
     </view>
   </view>
   <!-- end 商品信息 -->
-  <!-- 已选规格 -->
-  <view class="maoli" wx:if="{{goodsItem.isCommission == 1}}">
+  <!-- 佣金比例： -->
+  <view class="maoli" wx:if="{{goodsItem.isCommission == 1 && roleId == 2}}">
     <text class="maoli-con">佣金：¥{{goodsItem.promoterProfit}} </text>
     <text class="maoli-tit">(佣金比例：{{goodsItem.grossProfit}})</text>
   </view>

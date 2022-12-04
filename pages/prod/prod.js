@@ -57,10 +57,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log('options',options)
     this.setData({
       prodId: options.prodid,
-      promoteId: options.prodid
+      promoteId: options.inviteId
     });
     // 加载商品信息
     this.getProdInfo();
@@ -409,7 +408,8 @@ Page({
   onShareAppMessage: function(res) {
     return {
       title: this.data.goodsItem.goodsName,
-      path: `/pages/prod/prod?prodid=${this.data.prodId}&promoteId=${this.data.userId}`,
+      imageUrl: this.data.pic,
+      path: `/pages/prod/prod?prodid=${this.data.prodId}&inviteId=${this.data.userId}`,
       success: (res) => {
         console.log(res)
         // 分享成功
