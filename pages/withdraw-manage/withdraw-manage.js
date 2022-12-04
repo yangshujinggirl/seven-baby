@@ -119,7 +119,12 @@ Page({
   },
   onSave:function(){
     const { order, withdrawAmount } =this.data;
-    if(withdrawAmount > order.canWithdrawAmount) {
+    if( order.canWithdrawAmount <= 10) {
+      wx.showToast({
+        title: '提现金额不足',
+      })
+      return;
+    } else if(withdrawAmount > order.canWithdrawAmount ) {
       wx.showToast({
         title: '提现金额不能超出可提现金额',
       })
