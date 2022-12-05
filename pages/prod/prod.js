@@ -58,9 +58,13 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      prodId: options.prodid,
-      promoteId: options.inviteId
+      prodId: options.prodid
     });
+    if (options.inviteId) {
+      this.setData({
+        promoteId: options.inviteId
+      });
+    }
     // 加载商品信息
     this.getProdInfo();
   },
@@ -109,9 +113,11 @@ Page({
           })
           this.groupSkuProp()
           //绑定关系
-          if (this.data.promoteId) {
-            this.bindPromoteRelation(userId)
-          }
+          setTimeout(()=>{
+            if (this.data.promoteId) {
+              this.bindPromoteRelation(userId)
+            }
+          },1000)
         }
         // // 组装sku
         wx.hideLoading();
@@ -131,6 +137,13 @@ Page({
       },
       callBack: (res) => {
         console.log(res);
+        setTimeout(()=>{
+          wx.showToast({
+            title: `inviteId:${this.data.promoteId};${res.message}`,
+            icon: '',
+            duration: 2000
+          })
+        },3000)
       }
     };
     http.request(params);
@@ -317,7 +330,11 @@ Page({
    */
   addToCart: function(event) {
     if (this.data.goodsItem.inSale == 0) {
-      wx.showToast('该商品已下架')
+      wx.showToast({
+        title: '该商品已下架',
+        icon: '',
+        duration: 2000
+      })
     } else {
       if (!this.data.findSku) {
         return;
@@ -363,7 +380,11 @@ Page({
    */
   buyNow: function() {
     if (this.data.goodsItem.inSale == 0) {
-      wx.showToast('该商品已下架')
+      wx.showToast({
+        title: '该商品已下架',
+        icon: '',
+        duration: 2000
+      })
     } else {
       if (!this.data.findSku) {
         return;

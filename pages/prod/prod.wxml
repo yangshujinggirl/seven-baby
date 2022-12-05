@@ -46,7 +46,7 @@
   </view>
   <!-- end 商品详情 -->
   <!-- 底部按钮 -->
-  <view class="cart-footer {{findSku?'':'gray'}}">
+  <view class="cart-footer">
     <view class="btn icon" bindtap='addOrCannelCollection'>
       <image wx-if="{{!isCollection}}" src="../../images/icon/prod-col.png"></image>
       <image wx-if="{{isCollection}}" src="../../images/icon/prod-col-red.png"></image>
@@ -75,8 +75,8 @@
           ￥
           <text class="pup-sku-price-int">{{wxs.parsePrice(defaultSku.salePrice)[0]}}</text> .{{wxs.parsePrice(defaultSku.salePrice)[1]}}
         </view>
-        <view class="pup-sku-price" wx-if="{{!findSku}}">无货</view>
-        <view class='pup-sku-prop'>
+        <view class="pup-sku-price" wx-if="{{!findSku}}">请选规格</view>
+        <view class='pup-sku-prop' wx-if="{{findSku}}">
           <text>已选</text> {{selectedProp.length>0?selectedProp+'，':selectedProp}}{{prodNum}}件
         </view>
         <view class='close' bindtap='closePopup'></view>
@@ -109,7 +109,7 @@
           <view class="count-name">数量</view>
         </view>
       </view>
-      <view class='pup-sku-footer {{findSku?"":"gray"}}'>
+      <view class='pup-sku-footer'>
         <view class="btn cart" bindtap='addToCart'>加入购物车</view>
         <view class="btn buy" bindtap='buyNow'>立即购买</view>
       </view>

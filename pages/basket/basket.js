@@ -136,7 +136,11 @@ Page({
     var scindex = e.currentTarget.dataset.scindex;
     var inSale = e.currentTarget.dataset.inSale;
     if (inSale==0) {
-      wx.showToast('该商品已下架')
+      wx.showToast({
+        title: '该商品已下架',
+        icon: '',
+        duration: 2000
+      })
     } else {
       var shopCartItemDiscounts = this.data.shopCartItemDiscounts;// 获取购物车列表
       var checked = shopCartItemDiscounts[scindex].goods[index].checked; // 获取当前商品的选中状态
