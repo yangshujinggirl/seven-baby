@@ -15,19 +15,19 @@
     <view class="part-one">
         <view class="item">
           <view>会员数</view>
-          <view class="val">{{count.memberNum}}</view>
+          <view class="val">{{totalInfo.memberNum}}</view>
         </view>
         <view class="item">
           <view>订单数</view>
-          <view class="val">{{count.orderNum}}</view>
+          <view class="val">{{totalInfo.orderNum}}</view>
         </view>
         <view class="item">
           <view>订单金额</view>
-          <view class="val">¥{{count.orderAmount}}</view>
+          <view class="val">¥{{totalInfo.orderAmount}}</view>
         </view>
         <view class="item">
           <view>佣金</view>
-          <view class="val">¥{{count.promoterAmount}}</view>
+          <view class="val">¥{{totalInfo.promoterAmount}}</view>
         </view>
     </view>
     <view class="tables" wx:if="{{list.length>0}}">

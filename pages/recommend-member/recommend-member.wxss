@@ -91,6 +91,9 @@ page {
 }
 .tables .td {
   width: 18%;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .tables .td-short {
   width: 15%;
