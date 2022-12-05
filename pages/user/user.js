@@ -2,13 +2,14 @@
 
 var http = require("../../utils/http.js");
 const app = getApp();
-
+import { getBaseUserInfo} from '../../utils/http'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    totalInfo:{},
     userInfo:app.globalData.userInfo,
     orderAmount: '',
     sts: '',
@@ -100,9 +101,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.setData({userInfo:app.globalData.userInfo})
+    const ths = this;
+    getBaseUserInfo((res)=>{
+      ths.setData({userInfo:res.data.user})
+    });
     this.fetchPromoteStatus();
-    this.fetchRecommond()
+    this.fetchRecommond();
+    this.onfetchTotalInfo()
   },
 
   /**
@@ -202,6 +207,19 @@ Page({
     const { userRole } =this.data;
     let linkUrl = userRole == '-1'?'/pages/promote/promote':'/pages/promoteStatus/promoteStatus'
     wx.navigateTo({ url: linkUrl })
+  },
+  onfetchTotalInfo:function (){
+    const _this = this;
+    var params = {
+      url: "/promoter/profit",
+      method: "GET",
+      data: {},
+      callBack: function(res) {
+        wx.hideLoading();
+        _this.setData({totalInfo:res?.data?.profit})
+      }
+    };
+    http.request(params);
   },
   toSettings:function() {
     wx.navigateTo({

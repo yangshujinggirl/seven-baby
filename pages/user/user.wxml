@@ -30,6 +30,20 @@
   <!-- end 用户信息 -->
 
   <view class='list-cont'>
+    <view class="total-count-info">
+      <view class="item">
+        <view class="label">佣金订单数</view>
+        <view>{{totalInfo.orderNum}}</view>
+      </view>
+      <view class="item">
+        <view class="label">可提现</view>
+        <view>{{totalInfo.canWithdrawAmount}}</view>
+      </view>
+      <view class="item">
+        <view class="label">已提现</view>
+        <view>{{totalInfo.withdrawSuccessAmount}}</view>
+      </view>
+    </view>
 
     <!-- 订单状态 -->
     <view class='total-order'>
