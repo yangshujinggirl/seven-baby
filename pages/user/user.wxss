@@ -107,6 +107,10 @@ page {
   margin-bottom: 24rpx;
 }
 
+.total-count-info  .item .num{
+  text-align: center;
+}
+
 .list-cont .total-order {
   /* width: 100%; */
   /* margin-bottom: 30rpx; */
