@@ -8,7 +8,8 @@ Page({
    */
   data: {
     list:[],
-    count:{}
+    count:{},
+    userInfo:app.globalData.userInfo,
   },
 
   /**
@@ -30,7 +31,8 @@ Page({
    */
   onShow() {
     this.fetchList()
-    this.fetchTotal()
+    this.fetchTotal();
+    this.setData({userInfo:app.globalData.userInfo})
   },
   fetchList:function(){
     const _this = this;

@@ -40,6 +40,10 @@ button::after {
   border-radius: 50%;
   overflow: hidden;
 }
+.avatar image {
+  width: 100%;
+  height: 100%;
+}
 
 .my-menu .memu-item:nth-child(1) {
   border-top: 2rpx solid #f7f7f7;
@@ -51,12 +55,6 @@ button::after {
 
 .my-menu .memu-item text {
   font-size: 28rpx;
-}
-.my-menu .memu-item image{
-  width:50rpx;
-  height:50rpx;
-  margin-right:20rpx;
-
 }
 .my-menu .memu-item .i-name{
   display: flex;

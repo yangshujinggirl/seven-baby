@@ -1,11 +1,13 @@
 // pages/withdraw-manage/withdraw-manage.js
 var http = require("../../utils/http.js");
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    userInfo:app.globalData.userInfo,
     withdrawAmount:'',
     isChecked:false,
     user:{},
@@ -64,6 +66,7 @@ Page({
    */
   onShow() {
     this.fetchInfo();
+    this.setData({userInfo:app.globalData.userInfo})
   },
   takeAll:function(){
     this.setData({withdrawAmount:this.data.order.canWithdrawAmount})
