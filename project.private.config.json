@@ -4,5 +4,6 @@
   "setting": {
     "compileHotReLoad": true,
     "bigPackageSizeSupport": false
-  }
+  },
+  "libVersion": "2.27.3"
 }

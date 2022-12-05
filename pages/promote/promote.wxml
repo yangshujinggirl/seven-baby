@@ -51,7 +51,7 @@
     </view>
     <view class="section advantage">
       <text>个人优势</text>
-      <textarea placeholder="填写个人成为推广者的优势：例如是母婴门店" name="advantage" model:value="{{advantage}}"/>
+      <textarea placeholder="填写个人成为推广者的优势：例如是母婴门店" name="advantage" model:value="{{advantage}}" placeholder-style="font-size:24rpx"/>
     </view>
   </view>
   <!-- 身份证件 -->

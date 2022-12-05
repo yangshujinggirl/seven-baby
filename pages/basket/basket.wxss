@@ -258,6 +258,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .empty {
   font-size: 28rpx;
   color: #666;
+  padding-top: 100rpx;
 }
 
 .empty .txt {

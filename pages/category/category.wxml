@@ -1,6 +1,6 @@
 <!--pages/category/category.wxml-->
 
-<view class="container">
+<view class="container" wx:if="{{open}}">
 
 
 <!-- 头部搜索区 -->
@@ -55,4 +55,5 @@
   </view>
 
 </view>
+<view wx:else class="no-open">此功能尚未开启，静请期待.....</view>
 <wxs module="wxs" src="../../wxs/number.wxs" />

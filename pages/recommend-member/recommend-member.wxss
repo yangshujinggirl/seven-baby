@@ -96,4 +96,7 @@ page {
 }
 .no-data {
   text-align: center;
+  color: #666;
+  padding: 40rpx 0;
+  font-size: 28rpx;
 }

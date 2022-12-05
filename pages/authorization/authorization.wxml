@@ -1,2 +1,16 @@
-<image src="../../images/customer/pic.png" class="pic"></image>
-<button class="userInfo" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信授权用户信息</button>
+<!-- <button class="userInfo" bindtap="getUserProfile">微信授权用户信息</button> -->
+<view wx:if="{{!canIUseWrite}}">
+  <image src="../../images/customer/pic.png" class="pic"></image> 
+  <button class="userInfo"  wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+  <button class="userInfo" wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信授权用户信息 </button>
+</view>
+<view wx:else>
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatar}}" mode="scaleToFill"></image>
+  </button> 
+  <view class="input-wrap">
+    <text>昵称：</text>
+    <input type="nickname" model:value="{{nickname}}" class="weui-input" placeholder="请输入昵称"/>
+  </view>
+  <button class="btn-ok" bindtap="onSave">提交授权</button>
+</view>

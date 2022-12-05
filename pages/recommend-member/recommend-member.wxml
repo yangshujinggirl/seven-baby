@@ -46,6 +46,6 @@
         <view class="td">￥{{item.promoterAmount}}</view>
       </view>
     </view>
-    <view class="no-data" wx:else>暂无数据</view>
+    <view class="no-data" wx:else>暂无推荐会员</view>
   </view>
 </view>

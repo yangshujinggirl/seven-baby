@@ -4,7 +4,7 @@ page {
 .filter-wrap {
   display: flex;
   justify-content: flex-end;
-  padding: 16rpx 30rpx;
+  padding: 24rpx 30rpx;
   color: #3f3f3f;
 }
 .filter-wrap view {
@@ -45,4 +45,7 @@ page {
 }
 .no-data {
   text-align: center;
+  color: #666;
+  padding: 80rpx 0;
+  font-size: 28rpx;
 }

@@ -5,6 +5,7 @@ page {
 .about {
   font-size: 24rpx;
   padding: 24rpx 40rpx;
+  color: #666;
 }
 .about .item {
   margin-bottom: 24rpx;

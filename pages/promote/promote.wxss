@@ -31,6 +31,7 @@ page {
   background: #F4F4F4;
   height: 72rpx;
   line-height: 72rpx;
+  font-size: 24rpx;
 }
 .input-box .default-address {
   border: none;
@@ -214,17 +215,17 @@ picker-view text {
   background: #fff;
 }
 .card-title {
-  margin-bottom: 10rpx;
+  margin-bottom: 24rpx;
 }
 .card-title .desc {
   font-size: 26rpx;
 }
 .card-action  .upload {
-  width: 260rpx;
+  width: 180rpx;
   height: 180rpx;
   background: #F4F4F4;
   border: 2rpx solid #eee;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
   text-align: center;
   margin-bottom: 20rpx;
   position: relative;
@@ -236,6 +237,7 @@ picker-view text {
 }
 .upload .plus-icon {
   font-size: 90rpx;
+  line-height: 90rpx;
   color: #666;
   position: absolute;
   left: 50%;

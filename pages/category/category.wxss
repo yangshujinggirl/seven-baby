@@ -225,3 +225,10 @@ page {
   color: #eb2444;
   font-family: arial;
 }
+
+
+
+.no-open {
+  padding: 200rpx 0 80rpx;
+  text-align: center;
+}
