@@ -45,20 +45,20 @@
     <van-popup
       show="{{ showPop }}"
       position="top"
-      overlay="{{ false }}"
+      overlay="{{ true }}"
       bind:close="onClose"
     >
       <view class="pop-wrap">
         <view class="contain-wrap first">
           <text class="title">品牌</text>
           <view class="tags-wrap">
-            <text class="{{currentCategoryId === item.categoryId?'active':''}}" wx:for="{{categoryList}}" bindtap="changeCategoryId" data-id="{{item.categoryId}}" wx:key="category">{{item.categoryName}}</text>
+            <text class="{{currentBrandId === item.brandId?'active':''}}" wx:for="{{brandList}}" bindtap="changeBrandId" data-id="{{item.brandId}}" wx:key="brand">{{item.brandName}}</text>
           </view>
         </view>
         <view class="contain-wrap">
           <text class="title">分类</text>
           <view class="tags-wrap">
-            <text class="{{currentBrandId === item.brandId?'active':''}}" wx:for="{{brandList}}" bindtap="changeBrandId" data-id="{{item.brandId}}" wx:key="brand">{{item.brandName}}</text>
+            <text class="{{currentCategoryId === item.categoryId?'active':''}}" wx:for="{{categoryList}}" bindtap="changeCategoryId" data-id="{{item.categoryId}}" wx:key="category">{{item.categoryName}}</text>
           </view>
         </view>
       </view>

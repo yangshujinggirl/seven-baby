@@ -7,36 +7,7 @@ Page({
    */
   data: {
     navId: 0,
-    orderList: [
-      {
-        orderId:21,
-        orderNo:98098980,
-        createTime:'2022-12-09',
-        consignee:'zhansgan',
-        supplierName:'七个宝宝',
-        goodsAmount:401,
-        totalAmount:402,
-        totalAmount:67,
-        orderStatusShow:'已完成',
-        promoterAmount:56,
-        open:false,
-        goods:[{
-          goodsName:'儿童奶',
-          mainImage:"http://img.qigebaobao.com/oss/admin/2022-11-30/166980782905809453.jpg",
-          attrValue:'2罐',
-          goodsNum: 2,
-          promoterProfit: 29,
-          brandProfit: '10%'
-        },{
-          goodsName:'儿童奶2',
-          mainImage:"http://img.qigebaobao.com/oss/admin/2022-11-30/166980782905809453.jpg",
-          attrValue:'3罐',
-          goodsNum: 3,
-          promoterProfit: 40,
-          brandProfit: '11%'
-        }]
-      }
-    ],
+    orderList: [],
     current: 1,
     size: 10,
     pages: 0,
@@ -109,11 +80,16 @@ Page({
     this.setData({
       current: 1,
       pages: 0,
-      currentBrandId: 0,
-      currentCategoryId: 0
+      currentBrandId: 0
     });
     this.getNavPageData()
     this.getProductList()
+  },
+
+  changeBrandId(e){
+    this.setData({
+      currentBrandId: e.target.dataset.id === this.data.currentBrandId?0:e.target.dataset.id
+    })
   },
 
   getNavPageData() {

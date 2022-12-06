@@ -58,7 +58,7 @@ page {
   color:#fff;
 }
 .pop-wrap{
-  height: 760rpx;
+  height: 560rpx;
   overflow-y: scroll;
   margin-bottom: 100rpx;
 }

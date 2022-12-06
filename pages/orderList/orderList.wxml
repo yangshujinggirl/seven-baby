@@ -62,10 +62,10 @@
 
         <view class='total-num'>
           <text class="prodcount">共{{item.goodsNum}}件商品</text>
-          <!-- <view class='prodprice'>合计：
+          <view class='prodprice'>合计：
             <text class='symbol'>￥</text>
-            <text class='big-num'>{{wxs.parsePrice(Number(item.totalAmount))}}</text>
-          </view> -->
+            <text class='big-num'>{{item.totalAmount}}元</text>
+          </view>
         </view>
         <!-- end 商品列表 -->
         <view class='prod-foot' wx:if="{{item.button.length>0}}">
