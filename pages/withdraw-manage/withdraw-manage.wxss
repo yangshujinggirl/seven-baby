@@ -19,6 +19,10 @@ page {
   display: flex;
   align-items: center;
 }
+.userinfo .rf {
+  font-size: 24rpx;
+  color: #EB5412;
+}
 
 .userinfo .userinfo-avatar {
   overflow: hidden;

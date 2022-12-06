@@ -9,6 +9,7 @@
         <view class="promote-status">推广者</view>
       </view>
     </view>
+    <view class="rf" bindtap="toListPage">提现记录</view>
   </view>
   <view class="content">
     <view class="part-one">

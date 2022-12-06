@@ -19,6 +19,11 @@ Page({
     disabled: true,//下一步按钮可否可点击
     show: false,  //弹出框
   },
+  toListPage:function(){
+    wx.redirectTo({
+      url: '/pages/withdraw-list/withdraw-list',
+    })
+  },
   onCalcel:function(){
     this.setData({show:false,Value:'',isFocus:false})
   },

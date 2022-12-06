@@ -67,7 +67,7 @@ Page({
         },{
           name:'社区管理',
           icon:'../../images/account/func_sqgl.png',
-          linkUrl:'/pages/withdraw-list/withdraw-list',
+          linkUrl:'',
           action:''
         },{
           name:'我的收藏',
