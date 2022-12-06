@@ -197,16 +197,18 @@ page {
   margin-top: 12rpx;
   display:flex;
   justify-content: space-between;
+  align-items: flex-start;
 }
 .maoli{
   font-size:24rpx;
+  line-height: 36rpx;
   color: #4A4A4A;
-  line-height: 60rpx;
 }
 .promote-btn{
   background: #EB5412;
   color: #fff;
   margin:0;
+  flex-shrink: 0;
 }
 .empty-list {
   font-size: 24rpx;
