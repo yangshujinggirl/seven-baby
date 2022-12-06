@@ -8,7 +8,7 @@ Page({
    */
   data: {
     list:[],
-    count:{},
+    totalInfo:{},
     userInfo:app.globalData.userInfo,
   },
 
