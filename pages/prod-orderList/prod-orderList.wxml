@@ -120,7 +120,7 @@
         <view class="contain-wrap first">
           <text class="title">品牌</text>
           <view class="tags-wrap">
-            <text class="{{currentCategoryId === item.categoryId?'active':''}}" wx:for="{{categoryList}}" bindtap="changeCategoryId" data-id="{{item.categoryId}}" wx:key="category">{{item.categoryName}}</text>
+            <text class="{{currentCategoryId === item.categoryId?'active':''}}" wx:for="{{brandList}}" bindtap="changeCategoryId" data-id="{{item.brandId}}" wx:key="{{item.brandId}}">{{item.brandName}}</text>
           </view>
         </view>
       </view>

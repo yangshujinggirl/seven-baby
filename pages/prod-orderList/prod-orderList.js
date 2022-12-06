@@ -66,7 +66,7 @@ Page({
     this.setData({
       sts: sts
     });
-    this.loadOrderData(sts, 1);
+    this.getProductList();
   },
   changeBrandId(e){
     this.setData({
@@ -135,7 +135,7 @@ Page({
     http.request(params);
   },
   // 获取商品列表
-  getProductList(){
+  getProductList(params){
     wx.showLoading();
     var params = {
       url: '/promoter/order',
@@ -143,7 +143,8 @@ Page({
       data:{
         keywords:this.data.keywords,
         page: this.data.current,
-        brandId: this.data.currentBrandId
+        brandId: this.data.currentBrandId,
+        orderStatus:this.data.sts,
       },
       callBack: (res) => {
         let orderList = []
