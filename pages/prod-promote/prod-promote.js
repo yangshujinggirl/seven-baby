@@ -116,7 +116,7 @@ Page({
         keywords:this.data.keywords,
         page: this.data.current,
         brandId: this.data.currentBrandId,
-        categotyId: this.data.currentCategoryId
+        categoryId: this.data.currentCategoryId
       },
       callBack: (res) => {
         let prodList = []
