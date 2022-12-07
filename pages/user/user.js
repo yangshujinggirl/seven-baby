@@ -17,12 +17,13 @@ Page({
     recommendList:[],
     userRole:'0',
     funcList:[
+      // {
+      //   name:'评论互动',
+      //   icon:'../../images/account/func_pl.png',
+      //   linkUrl:'',
+      //   action:''
+      // },
       {
-        name:'评论互动',
-        icon:'../../images/account/func_pl.png',
-        linkUrl:'',
-        action:''
-      },{
         name:'我的收藏',
         icon:'../../images/account/func_sc.png',
         linkUrl:'/pages/my-collect/my-collect',
