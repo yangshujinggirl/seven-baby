@@ -36,7 +36,8 @@
             <view class='price-nums'>
               <text class='prodprice'>
                 <text class='symbol'>￥</text>
-                <text class='big-num'>{{wxs.parsePrice(item.salePrice)[0]}}</text>
+                <text class='big-num'>{{wxs.parsePrice(item.salePrice)[0]}}.</text>
+                <text class='small-num'>{{wxs.parsePrice(item.salePrice)[1]}}</text>
               </text>
               <text class='number'>X{{item.goodsNum}}</text>
             </view>
