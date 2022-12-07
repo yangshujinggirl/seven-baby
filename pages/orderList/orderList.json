@@ -2,5 +2,8 @@
   "backgroundTextStyle": "light",
   "navigationBarTitleText": "订单列表",
   "navigationBarTextStyle": "black",
-  "navigationBarBackgroundColor": "#fafafa"
+  "navigationBarBackgroundColor": "#fafafa",
+  "usingComponents": {
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index"
+  }
 }

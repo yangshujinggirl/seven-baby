@@ -64,20 +64,12 @@
             规格：{{prod.attrValue}}
           </view>
           <view>
-            规格：{{prod.goodsNum}}
+            x {{prod.goodsNum}}
           </view>
         </view>
         <view class="yongjin">
           <text>佣金：{{prod.promoterProfit}}</text>
           <text>(佣金比例：{{prod.grossProfit}})</text>
-        </view>
-        <view class="flex-bweeten">
-          <view>
-            商品总额
-          </view>
-          <view>
-            ¥{{prod.goodsNum}}
-          </view>
         </view>
       </view>
     </view>
@@ -87,6 +79,14 @@
       </view>
       <view>
         ¥{{item.goodsAmount}}
+      </view>
+    </view>
+    <view wx:if="{{item.open}}"  class="flex-bweeten">
+      <view>
+        运费
+      </view>
+      <view>
+        ¥{{item.expressAmount}}
       </view>
     </view>
     <view class="line-line"></view>

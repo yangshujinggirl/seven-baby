@@ -21,7 +21,10 @@
     <block wx:for="{{list}}" wx:key='orderId'>
       <view class='prod-item'>
         <view class="order-num">
+        <view>
+          <van-icon name="shop-o" />
           <text>{{item.supplierName}}</text>
+        </view>
           <view class='order-state'>
             <text class="order-sts">{{item.orderStatusShow}}</text>
           </view>

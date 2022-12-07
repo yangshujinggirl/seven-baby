@@ -2,7 +2,7 @@
   "backgroundTextStyle": "dark",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true,
-  "navigationBarTitleText": "首页",
+  "navigationBarTitleText": "七个宝宝",
   "usingComponents": {
     "van-dialog": "vant-weapp/dialog/index"
   }

@@ -84,6 +84,14 @@
           </view>
         </view>
         <view class='item'>
+          <view class='item-tit'>运费：</view>
+          <view class='item-txt price'>
+            <text class='symbol'>￥</text>
+            <text class='big-num'>{{wxs.parsePrice(order.expressAmount)[0]}}</text>
+            <text class='small-num'>.{{wxs.parsePrice(order.expressAmount)[1]}}</text>
+          </view>
+        </view>
+        <view class='item'>
           <view class='item-tit'>实付金额：</view>
           <view class='item-txt price'>
             <text class='symbol'>￥</text>

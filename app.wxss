@@ -10,8 +10,7 @@
   display: inline-block;
   color: #eb2444;
   padding-bottom:10rpx;
-padding-left:10rpx;
-
+  padding-left:10rpx;
 }
 
 
