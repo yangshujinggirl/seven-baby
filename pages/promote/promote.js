@@ -300,7 +300,14 @@ Page({
     const  card = e.currentTarget.dataset.card;
     wx.chooseMedia({
       success (res) {
-        const tempFilePaths = res.tempFiles
+        const tempFilePaths = res.tempFiles;
+        const file = tempFilePaths[0];
+        if(file.size > ( 1024 * 1024 )* 5 ) {
+          wx.showToast({
+            title: '请上传5M以内文件',
+          })
+          return;
+        }
         wx.uploadFile({
           url: 'https://api.qigebaobao.com/api/common/upload-image', //仅为示例，非真实的接口地址
           filePath: tempFilePaths[0].tempFilePath,
