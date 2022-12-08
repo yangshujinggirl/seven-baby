@@ -9,38 +9,82 @@ Page({
    * 页面的初始数据
    */
   data: {
-    open:false,
-    selIndex: 0,
-    categoryList:[],
-    productList: [],
-    categoryImg: '',
-    prodid:''
+    activityId:'-1',
+    tabKey:'1',
+    followList:[],
+    discoveryList:[],
+    categoryList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const { tabKey } =this.data;
+    this.initPage(tabKey)
+  },  
+  initPage:function(tabKey){
+    if(tabKey == '1') {
+      this.fetchFollowList()
+    } else {
+      this.fetchDiscoveryList()
+    }
+  },
+  fetchFollowList:function(){
     var ths = this;
     //加载分类列表
     var params = {
-      url: "/category/categoryInfo",
+      url: "/community/follow",
       method: "GET",
-      data: {
-        parentId: ''
-      },
+      data: {},
       callBack: function (res) {
         // console.log(res);
         ths.setData({
-          categoryImg: res[0].pic,
-          categoryList: res,
+          followList: res.data.list||[],
         });
-        ths.getProdList(res[0].categoryId)
       }
     };
     http.request(params);
   },
-
+  fetchDiscoveryList:function(){
+    this.fetchCategory();
+    var ths = this;
+    //加载分类列表
+    var params = {
+      url: "/community",
+      method: "GET",
+      data: {},
+      callBack: function (res) {
+        // console.log(res);
+        ths.setData({
+          discoveryList: res.data.list||[],
+        });
+      }
+    };
+    http.request(params);
+  },
+  fetchCategory:function(){
+    var ths = this;
+    //加载分类列表
+    var params = {
+      url: "/community/category",
+      method: "GET",
+      data: {},
+      callBack: function (res) {
+        // console.log(res);
+        ths.setData({
+          activityId:res.data.list[0].categoryId,
+          categoryList: res.data.list||[],
+        });
+      }
+    };
+    http.request(params);
+  },
+  toCreatPublish:function(){
+    wx.navigateTo({
+      url: '/pages/creat-publish/creat-publish',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -53,8 +97,12 @@ Page({
    */
   onShow: function () {
    
-
-
+  },
+  onChangeTab:function(e) {
+    console.log('onChangeTab',e)
+    const keys = e.currentTarget.dataset.key;
+    this.setData({ tabKey:keys })
+    this.initPage(keys)
   },
 
   /**
@@ -90,52 +138,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  /**
-   * 分类点击事件
-   */
-  onMenuTab: function (e) {
-    console.log(e);
-        var id = e.currentTarget.dataset.id;
-    var index = e.currentTarget.dataset.index;
-    // this.getProdList(id);
-    this.getProdList(this.data.categoryList[index].categoryId);
-    this.setData({
-      categoryImg: this.data.categoryList[index].pic,
-      selIndex: index
-    });
-  },
-
-  // 跳转搜索页
-  toSearchPage: function () {
-    wx.navigateTo({
-      url: '/pages/search-page/search-page',
-    })
-  },
-  getProdList(categoryId) {
-    //加载分类列表
-    var params = {
-      url: "/prod/pageProd",
-      method: "GET",
-      data: {
-        categoryId: categoryId
-      },
-      callBack: (res) => {
-        // console.log(res);
-        this.setData({
-          productList: res.records,
-        });
-      }
-    };
-    http.request(params);
-  },
-
-//跳转商品详情页
-  toProdPage: function (e) {
-    var prodid = e.currentTarget.dataset.prodid;
-    wx.navigateTo({
-      url: '/pages/prod/prod?prodid=' + prodid,
-    })
   },
 })

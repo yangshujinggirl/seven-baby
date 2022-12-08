@@ -1,0 +1,35 @@
+<view class="feedback-wrap">
+    <view class="top-action">
+      <view class="section">
+        <textarea placeholder="输入你想说的话吧..." name="advantage" model:value="{{suggest}}"/>
+      </view>
+      <view class="file-action">
+        <image src="{{item}}" wx:for="{{images}}" wx:key="index" class="pic-item"></image>
+        <view class="upload" bindtap="uoloadFile" data-card="idCardFront">
+          <text class="plus-icon">+</text>
+        </view>
+      </view>
+    </view>
+    <view class="menu-item">
+      <view class="lf">
+        <image src="../../images/customer/pic.png"></image>
+        <text>宝贝</text>
+      </view>
+      <view class="rf">
+        从商品库关联你所要的商品 >
+      </view>
+    </view>
+    <view class="menu-item">
+      <view class="lf">
+        <image src="../../images/customer/pic.png"></image>
+        <text>类别</text>
+      </view>
+      <view class="rf">
+        选择内容或关联商品类别 >
+      </view>
+    </view>
+    <view class='btn-box'>
+      <view class="tips">注：添加关联商品链接为选填选项，可以添加或不添加都可以放发布内容。</view>
+      <button class='keep' bindtap='onSubmit'>发布</button>
+    </view>
+</view>

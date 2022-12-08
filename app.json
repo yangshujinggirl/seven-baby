@@ -35,7 +35,8 @@
     "pages/set-password/set-password",
     "pages/about-us/about-us",
     "pages/my-collect/my-collect",
-    "pages/feedbacks/feedbacks"
+    "pages/feedbacks/feedbacks",
+    "pages/creat-publish/creat-publish"
   ],
   "window": {
     "backgroundTextStyle": "light",

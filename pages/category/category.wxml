@@ -1,59 +1,67 @@
-<!--pages/category/category.wxml-->
-
-<view class="container" wx:if="{{open}}">
-
-
-<!-- 头部搜索区 -->
-
-  <view class='search-bar'>
-    <view class='search-box' bindtap='toSearchPage'>
-      <image src='../../images/icon/search.png' class='search-img'></image>
-      <text class='sear-input'>搜索您想要的商品</text>
+<view class="community-wrap">
+  <view class="tabs-wrap">
+    <view class="item {{tabKey == 1?'activity':''}}" data-key="1" bindtap="onChangeTab">关注</view>
+    <view class="item  {{tabKey == 2?'activity':''}}" data-key="2" bindtap="onChangeTab">发现</view>
+    <view class="add-icon" bindtap="toCreatPublish" wx:if="{{tabKey == 2?'activity':''}}"><image src="../../images/customer/pic.png"></image></view>
+  </view>
+  <view class="community-content" wx:if="{{tabKey == 1}}">
+    <view class="cont-list">
+      <view class="item-cont" wx:for="{{followList}}" wx:key="index">
+        <view class="top flex-wrap">
+          <view class="lf">
+            <image src="../../images/customer/pic.png"></image>
+            <text class="high-color">宝贝妈妈</text>
+          </view>
+          <view class="rf">3小时前发布</view>
+        </view>
+        <view class="tit">贝因美奶粉，宝妈的最佳选择;贝因美奶粉，宝妈的最佳选择;贝因美奶粉，宝妈的最佳选择</view>
+        <image src="../../images/customer/pic.png" class="main-pic"></image>
+        <view class="bottom flex-wrap">
+          <view>查看TA提到的宝贝</view>
+          <view class="rf">
+            <image src="../../images/customer/pic.png"></image>
+            >
+          </view>
+        </view>
+        <view class="footer flex-wrap">
+          <view class="action-item">
+            <image src="../../images/customer/pic.png"></image>
+            <text>180</text>
+          </view>
+          <view class="action-item">
+            <image src="../../images/customer/pic.png"></image>
+            <text>180</text>
+          </view>
+          <view class="action-item">
+            <image src="../../images/customer/pic.png"></image>
+            <text>180</text>
+          </view>
+          <view class="action-item">
+            <image src="../../images/customer/pic.png"></image>
+            <text>180</text>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
-<!-- 滚动内容区 -->
-  <view class="main">
-    <!-- 左侧菜单start -->
-    <scroll-view scroll-y="true" class='leftmenu'>
-      <block wx:for='{{ categoryList}}' wx:key=''>
-        <view class='menu-item {{selIndex==index?"active":""}} ' data-index="{{index}}" data-id="{{item.categoryId}}" bindtap='onMenuTab'>
-          {{item.categoryName}}
-        </view>
-      </block>
-    </scroll-view>
-    <!-- 左侧菜单end -->
-
-    <!-- 右侧内容start -->
-    <scroll-view scroll-y="true" class='rightcontent' scroll-into-view="{{toViewId}}">
-    <!-- <block wx:for='{{ productList}}' wx:key=''> -->
-      <view class='adver-map'>
-        <view class='item-a'>
-            <image src='{{categoryImg}}' mode='widthFix'></image>
-        </view>
-      </view>
-      <view class='cont-item'>
-        <block wx:for='{{productList}}' wx:key=''>
-          <view class='show-item'  bindtap='toProdPage' data-prodid="{{item.prodId}}">
-            <view class='more-prod-pic'>
-              <image src='{{item.pic}}' class='more-pic'mode='widthFix'></image>
-            </view>
-            <view class='prod-text-right'>
-              <view class='prod-text more'>{{item.prodName}}</view>
-              <view class='cate-prod-info'>{{item.brief}}</view>
-              <view class='prod-price more'>
-                <text class='symbol'>￥</text> <text class='big-num'>{{wxs.parsePrice(item.price)[0]}}</text><text class='small-num'>.{{wxs.parsePrice(item.price)[1]}}</text> 
-              </view>
-            </view>
+  <view class="discovery-content" wx:elif="{{tabKey == 2}}">
+      <!-- 头部菜单 -->
+      <scroll-view class='order-tit' scroll-x="true">
+        <text bindtap='onStsTap' data-sts="{{item.categoryId}}" class="{{activityId==item.categoryId?'on':''}}" wx:for="{{categoryList}}" wx:key="index">{{item.categoryName}}</text>
+      </scroll-view>
+    <view class="goods-list" >
+      <view class="goods-item" wx:for="{{discoveryList}}" wx:key="goodsId" bindtap="toProdPage" data-prodId="{{item.goodsId}}">
+        <image src='../../images/customer/pic.png' class="gs-img"></image>
+        <view class="gs-title">{{item.content}}</view>
+        <view class="top flex-wrap">
+          <view class="lf">
+            <image src="../../images/customer/pic.png"></image>
+            <text class="high-color">宝贝妈妈</text>
           </view>
-         
-        </block>
+          <view class="rf">3小时前发布</view>
+        </view>
       </view>
-     <!-- </block> -->
-    </scroll-view>
-    <!-- 右侧内容end -->
-    <!-- </block> -->
-  </view>
 
+    </view>
+  </view>
 </view>
-<view wx:else class="no-open">此功能尚未开启，静请期待.....</view>
-<wxs module="wxs" src="../../wxs/number.wxs" />
