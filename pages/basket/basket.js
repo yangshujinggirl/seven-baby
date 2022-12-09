@@ -2,6 +2,7 @@
 var http = require("../../utils/http.js");
 // var config = require("../../utils/config.js");
 const Big = require("../../utils/big.min.js");
+import { checkAuthor } from '../../utils/util';
 
 Page({
 
@@ -81,6 +82,8 @@ Page({
    * 去结算
    */
   toFirmOrder: function () {
+    checkAuthor();
+    if(!checkAuthor())return;
     var shopCartItemDiscounts = this.data.shopCartItemDiscounts;
     var basketIds = []
     shopCartItemDiscounts.forEach(shopCartItemDiscount => {

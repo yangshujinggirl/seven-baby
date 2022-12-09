@@ -3,7 +3,7 @@ const app = getApp()
 var http = require('../../utils/http.js');
 var config = require('../../utils/config.js');
 var util = require('../../utils/util.js');
-
+import { checkAuthor } from '../../utils/util';
 Page({
 
   /**
@@ -484,13 +484,7 @@ Page({
     })
   },
   showSku: function() {
-    const { userInfo } =app.globalData;
-    if(!userInfo.nickname) {
-      wx.navigateTo({
-          url: '/pages/authorization/authorization',
-      })
-      return;
-    }
+    if(!checkAuthor())return;
     this.setData({
       skuShow: true
     });

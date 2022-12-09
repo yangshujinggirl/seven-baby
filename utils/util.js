@@ -22,8 +22,20 @@ const formatHtml = content => {
   content = content.replace(/ \/\>/gi, ' style="max-width:100% !important;height:auto !important;margin:0;display:block;" \/\>');
   return content;
 }
+const checkAuthor=()=>{
+  var globalData = getApp().globalData;
+  const { userInfo } =globalData;
+    if(!userInfo.nickname) {
+      wx.navigateTo({
+          url: '/pages/authorization/authorization',
+      })
+      return false;
+    }
+    return true
+}
 
 module.exports = {
   formatTime: formatTime,
-  formatHtml: formatHtml
+  formatHtml: formatHtml,
+  checkAuthor:checkAuthor
 }
