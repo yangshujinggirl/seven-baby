@@ -3,7 +3,7 @@
 var http = require("../../utils/http.js");
 var config = require("../../utils/config.js");
 const app = getApp();
-import { getToken } from '../../utils/http';
+import { getToken, checkLogin } from '../../utils/http';
 
 Page({
   data: {
@@ -33,7 +33,7 @@ Page({
   },
   onLoad: function(options) {
     const that =this;
-    getToken(function(res){
+    checkLogin(function(res){
       if(options?.inviteId && res.isNew) {
         that.bindInvite(options?.inviteId)
       }

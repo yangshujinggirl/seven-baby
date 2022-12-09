@@ -104,7 +104,7 @@ Page({
   onShow: function() {
     const ths = this;
     getBaseUserInfo((res)=>{
-      ths.setData({userInfo:res.data.user})
+      ths.setData({userInfo:res})
     });
     this.fetchPromoteStatus();
     this.fetchRecommond();

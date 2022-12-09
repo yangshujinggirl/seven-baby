@@ -4,7 +4,7 @@ var http = require('../../utils/http.js');
 var config = require('../../utils/config.js');
 var util = require('../../utils/util.js');
 import { checkAuthor } from '../../utils/util';
-import { getToken } from '../../utils/http';
+import { getToken, checkLogin } from '../../utils/http';
 
 Page({
 
@@ -69,8 +69,8 @@ Page({
       });
     }
     // 加载商品信息
-    getToken(function(res){
-        that.getProdInfo(res.isNew);
+    checkLogin(function(res){
+      that.getProdInfo(res.isNew);
     })
   },
 

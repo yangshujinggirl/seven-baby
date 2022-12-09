@@ -93,8 +93,8 @@ var getToken = function(callback) {
           globalData.roleId = result.data.user.roleId;
           globalData.id = result.data.user.id;
           globalData.isNew = result.data.isNew;
-          globalData.userInfo = result.data.user;
-          callback && callback(result.data);
+          globalData.userInfo = {...result.data.user,isNew:result.data.isNew};
+          callback && callback(globalData.userInfo);
           while (globalData.requestQueue.length) {
             request(globalData.requestQueue.pop());
           }
@@ -103,6 +103,14 @@ var getToken = function(callback) {
 
     }
   })
+}
+const checkLogin=function(callback){
+  const globalData = getApp().globalData;
+  if(globalData.userInfo.token && globalData.userInfo.id) {
+    callback && callback(globalData.userInfo);
+  } else {
+    getToken(callback);
+  }
 }
 
 // 更新用户头像昵称
@@ -150,8 +158,8 @@ function getBaseUserInfo(callback) {
     callBack: function(res) {
       if(!res.error) {
         const  globalData = getApp().globalData;
-        globalData.userInfo = res.data?.user;
-        callback && callback(res);
+        globalData.userInfo = {...globalData.userInfo,...res?.data?.user};
+        callback && callback(globalData.userInfo);
       } else {
         wx.showToast({
           title: res.message,
@@ -198,3 +206,4 @@ exports.getCartCount = getCartCount;
 exports.updateUserInfo = updateUserInfo;
 exports.getBaseUserInfo = getBaseUserInfo;
 exports.updateUserInfoNewVersion = updateUserInfoNewVersion;
+exports.checkLogin = checkLogin;
