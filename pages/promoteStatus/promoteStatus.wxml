@@ -1,4 +1,5 @@
 <view class="promote-status">
   <view class="title">{{statusText[status]}}</view>
   <view class="desc">{{message}}</view>
+  <button class="apply-btn" bindtap="toApplyPage" wx:if="{{status == 2}}">重新申请</button>
 </view>

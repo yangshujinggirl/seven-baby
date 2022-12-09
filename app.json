@@ -56,12 +56,6 @@
         "selectedIconPath": "images/tabbar/home-sel.png"
       },
       {
-        "pagePath": "pages/category/category",
-        "text": "社区",
-        "iconPath": "images/tabbar/shequ.png",
-        "selectedIconPath": "images/tabbar/shequ-sel.png"
-      },
-      {
         "pagePath": "pages/basket/basket",
         "text": "购物车",
         "iconPath": "images/tabbar/car.png",

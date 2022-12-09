@@ -17,3 +17,12 @@ page {
   font-size: 52rpx;
   margin-bottom: 40rpx;
 }
+.apply-btn {
+  width: 50%;
+  height: 82rpx;
+  line-height: 82rpx;
+  border-radius: 41rpx;
+  color: #fff;
+  background-color: #EB5412;
+  margin-top: 70rpx;
+}

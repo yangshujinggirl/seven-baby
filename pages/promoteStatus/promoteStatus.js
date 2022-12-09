@@ -36,6 +36,11 @@ Page({
   onShow() {
     this.fetchPromoteStatus()
   },
+  toApplyPage:function(){
+    wx.redirectTo({
+      url: '/pages/promote/promote',
+    })
+  },
   fetchPromoteStatus:function (){
     const _this = this;
     var params = {
