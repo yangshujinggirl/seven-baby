@@ -18,6 +18,8 @@ Page({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
         const { userInfo } =res;
+        console.log('userInfo',res)
+        return;
         updateUserInfoNewVersion({
           nickname:userInfo.nickName,
           avatar:userInfo.avatarUrl
@@ -45,10 +47,30 @@ Page({
     })
   },
   onChooseAvatar(e) {
-    const { avatarUrl } = e.detail 
-    this.setData({
-      avatar:avatarUrl,
+    const that = this;
+    const { avatarUrl } = e.detail;
+    wx.uploadFile({
+      url: 'https://api.qigebaobao.com/api/common/upload-image', //仅为示例，非真实的接口地址
+      filePath: avatarUrl,
+      name: 'file',
+      header:{
+        'Authorization': wx.getStorageSync('token')
+      },
+      formData: {
+        'sourceType': 'member-idcard'
+      },
+      success (res){
+        let data = res.data;
+        data = JSON.parse(data);
+           that.setData({
+              avatar:data.data.imageUrl,
+          })
+      },
+      fail(error){
+
+      }
     })
+ 
   },
   /**
    * 生命周期函数--监听页面加载
