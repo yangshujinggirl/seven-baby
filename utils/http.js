@@ -92,8 +92,9 @@ var getToken = function(callback) {
           globalData.isLanding = false;
           globalData.roleId = result.data.user.roleId;
           globalData.id = result.data.user.id;
+          globalData.isNew = result.data.isNew;
           globalData.userInfo = result.data.user;
-          callback && callback();
+          callback && callback(result.data);
           while (globalData.requestQueue.length) {
             request(globalData.requestQueue.pop());
           }

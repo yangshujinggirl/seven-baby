@@ -33,8 +33,8 @@ Page({
   },
   onLoad: function(options) {
     const that =this;
-    getToken(function(){
-      if(options?.inviteId) {
+    getToken(function(res){
+      if(options?.inviteId && res.isNew) {
         that.bindInvite(options?.inviteId)
       }
     })
@@ -109,7 +109,6 @@ Page({
       method: "GET",
       data: {},
       callBack: (res) => {
-        console.log(res)
         const {data,error,message} = res
         if (error === 0) {
           this.setData({

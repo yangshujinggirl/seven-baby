@@ -4,6 +4,8 @@ var http = require('../../utils/http.js');
 var config = require('../../utils/config.js');
 var util = require('../../utils/util.js');
 import { checkAuthor } from '../../utils/util';
+import { getToken } from '../../utils/http';
+
 Page({
 
   /**
@@ -57,6 +59,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const that =this;
     this.setData({
       prodId: options.prodid
     });
@@ -66,7 +69,9 @@ Page({
       });
     }
     // 加载商品信息
-    this.getProdInfo();
+    getToken(function(res){
+        that.getProdInfo(res.isNew);
+    })
   },
 
   /**
@@ -91,7 +96,7 @@ Page({
   },
 
   // 获取商品信息
-  getProdInfo() {
+  getProdInfo(isNew) {
     wx.showLoading();
     var params = {
       url: `/goods/${this.data.prodId}`,
@@ -111,13 +116,12 @@ Page({
             skuList: attributeList,
             pic: goodsItem.carouselImage[0]
           })
-          this.groupSkuProp()
+          this.groupSkuProp();
+          console.log('promoteId',this.data.promoteId,isNew)
           //绑定关系
-          setTimeout(()=>{
-            if (this.data.promoteId) {
-              this.bindPromoteRelation(userId)
-            }
-          },1000)
+          if (this.data.promoteId && !!isNew) {
+            this.bindPromoteRelation(userId)
+          }
         }
         // // 组装sku
         wx.hideLoading();

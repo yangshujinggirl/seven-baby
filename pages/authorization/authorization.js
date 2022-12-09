@@ -108,6 +108,18 @@ Page({
   },
   onSave:function(){
     const { nickname, avatar } =this.data;
+    if(!avatar) {
+      wx.showToast({
+        title: '请获取用户头像',
+      })
+      return;
+    }
+    if(!nickname) {
+      wx.showToast({
+        title: '请获取用户昵称',
+      })
+      return;
+    }
     updateUserInfoNewVersion({
       nickname,
       avatar
