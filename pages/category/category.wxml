@@ -1,4 +1,4 @@
-<view class="community-wrap">
+<view class="community-wrap" wx:if="{{open}}">
   <view class="tabs-wrap">
     <view class="item {{tabKey == 1?'activity':''}}" data-key="1" bindtap="onChangeTab">关注</view>
     <view class="item  {{tabKey == 2?'activity':''}}" data-key="2" bindtap="onChangeTab">发现</view>
@@ -65,3 +65,4 @@
     </view>
   </view>
 </view>
+<view wx:else="" style="padding: 60rpx; text-align: center; color: #666;">功能尚未开启，敬请期待...</view>

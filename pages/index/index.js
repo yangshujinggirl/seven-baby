@@ -3,6 +3,7 @@
 var http = require("../../utils/http.js");
 var config = require("../../utils/config.js");
 const app = getApp();
+import { getToken } from '../../utils/http';
 
 Page({
   data: {
@@ -31,9 +32,12 @@ Page({
     })
   },
   onLoad: function(options) {
-    if(options?.inviteId) {
-      this.bindInvite(options?.inviteId)
-    }
+    const that =this;
+    getToken(function(){
+      if(options?.inviteId) {
+        that.bindInvite(options?.inviteId)
+      }
+    })
     this.getAllData();
   },
   bindInvite:function(inviteId){

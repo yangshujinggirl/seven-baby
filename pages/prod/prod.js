@@ -378,6 +378,7 @@ Page({
    * 立即购买
    */
   buyNow: function() {
+    if(!checkAuthor())return;
     if (this.data.goodsItem.inSale == 0) {
       wx.showToast({
         title: '该商品已下架',
@@ -484,7 +485,6 @@ Page({
     })
   },
   showSku: function() {
-    if(!checkAuthor())return;
     this.setData({
       skuShow: true
     });

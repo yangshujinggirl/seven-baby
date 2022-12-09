@@ -70,7 +70,7 @@ function request(params, isGetTonken) {
 }
 
 //通过code获取token,并保存到缓存
-var getToken = function() {
+var getToken = function(callback) {
   const globalData = getApp().globalData;
   globalData.userInfo = {};
   wx.login({
@@ -93,6 +93,7 @@ var getToken = function() {
           globalData.roleId = result.data.user.roleId;
           globalData.id = result.data.user.id;
           globalData.userInfo = result.data.user;
+          callback && callback();
           while (globalData.requestQueue.length) {
             request(globalData.requestQueue.pop());
           }

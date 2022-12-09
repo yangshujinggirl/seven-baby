@@ -24,6 +24,7 @@ const formatHtml = content => {
 }
 const checkAuthor=()=>{
   var globalData = getApp().globalData;
+  console.log('globalData',globalData)
   const { userInfo } =globalData;
     if(!userInfo.nickname) {
       wx.navigateTo({

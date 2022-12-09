@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isOpen:false,
     activityId:'-1',
     tabKey:'1',
     followList:[],
