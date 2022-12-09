@@ -18,8 +18,6 @@ Page({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
         const { userInfo } =res;
-        console.log('userInfo',res)
-        return;
         updateUserInfoNewVersion({
           nickname:userInfo.nickName,
           avatar:userInfo.avatarUrl
@@ -30,12 +28,6 @@ Page({
           })
       }
     })
-    // updateUserInfo(function(res){
-    //   wx.navigateBack({
-    //     delta: 1
-    //   })
-    // })
-   
   },
   getUserInfo(e) {
     console.log('e-getUserInfo',e)
