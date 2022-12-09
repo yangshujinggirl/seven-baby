@@ -136,7 +136,6 @@ Page({
         invitationId: this.data.promoteId
       },
       callBack: (res) => {
-        console.log(res);
         setTimeout(()=>{
           wx.showToast({
             title: `inviteId:${this.data.promoteId};${res.message}`,
@@ -485,6 +484,13 @@ Page({
     })
   },
   showSku: function() {
+    const { userInfo } =app.globalData;
+    if(!userInfo.nickname) {
+      wx.navigateTo({
+          url: '/pages/authorization/authorization',
+      })
+      return;
+    }
     this.setData({
       skuShow: true
     });
