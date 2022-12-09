@@ -108,7 +108,7 @@ Page({
     });
     this.fetchPromoteStatus();
     this.fetchRecommond();
-    this.onfetchTotalInfo()
+    this.onfetchTotalInfo();
   },
 
   /**
@@ -145,6 +145,14 @@ Page({
   onShareAppMessage: function() {
 
   },
+  checkAuthor:function(isIgnoreCheck){
+    const { userInfo } =this.data;
+    if(!userInfo.nickname && !isIgnoreCheck) {
+      wx.navigateTo({
+          url: '/pages/authorization/authorization',
+      })
+    }
+  },
   toAuthPage:function(){
       wx.navigateTo({
           url: '/pages/authorization/authorization',
@@ -171,6 +179,7 @@ Page({
   handleOperate:function(e){
     const linkurl = e.currentTarget.dataset.linkurl;
     const action = e.currentTarget.dataset.action;
+    this.checkAuthor();
     if(!linkurl && !action) {
       wx.showToast({
         icon: "none",
@@ -223,6 +232,7 @@ Page({
     http.request(params);
   },
   toSettings:function() {
+    this.checkAuthor();
     wx.navigateTo({
       url: '/pages/settings/settings'
     })
@@ -236,6 +246,7 @@ Page({
   },
 
   toOrderListPage: function(e) {
+    this.checkAuthor();
     var sts = e.currentTarget.dataset.sts;
     wx.navigateTo({
       url: '/pages/orderList/orderList?sts=' + sts,
@@ -259,20 +270,6 @@ Page({
       }
     };
     http.request(params);
-  },
-  /**
-   * 我的收藏跳转
-   */
-  myCollectionHandle: function() {
-    var url = '/pages/prod-classify/prod-classify?sts=5';
-    var id = 0;
-    var title = "我的收藏商品";
-    if (id) {
-      url += "&tagid=" + id + "&title=" + title;
-    }
-    wx.navigateTo({
-      url: url
-    })
   },
    /**
    * 跳转至商品详情

@@ -6,7 +6,8 @@
 </view>
 <view wx:else>
   <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-    <image class="avatar" src="{{avatar}}" mode="scaleToFill"></image>
+    <image class="avatar" src="{{avatar}}" mode="scaleToFill" wx:if="{{avatar}}"></image>
+    <text class="plus-icon" wx:else>+</text>
   </button> 
   <view class="input-wrap">
     <text>昵称：</text>

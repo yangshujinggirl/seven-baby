@@ -23,6 +23,17 @@ page {
   overflow: hidden;
   margin-bottom: 40rpx;
   padding: 0;
+  border: 2rpx solid #eee;
+  position: relative;
+}
+.avatar-wrapper .plus-icon {
+  color: #ddd;
+  line-height: 70rpx;
+  font-size: 70rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
 .avatar-wrapper::after {
   border: none;
