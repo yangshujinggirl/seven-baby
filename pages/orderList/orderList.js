@@ -123,7 +123,7 @@ Page({
    */
   toDeliveryPage: function(e) {
     wx.navigateTo({
-      url: '/pages/express-delivery/express-delivery?orderNum=' + e.currentTarget.dataset.ordernum
+      url: '/pages/express-delivery/express-delivery?orderNum=' + e.currentTarget.dataset.orderid
     })
   },
 
@@ -152,6 +152,9 @@ Page({
       case 'contact':
           this.toCustomerPage();
           break;
+      case 'logistic':
+        this.toDeliveryPage(e);
+        break;
     }
   },
   toCustomerPage:function() {
